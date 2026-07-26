@@ -1,0 +1,13 @@
+{
+  "experiment": "v0.5b_context_window",
+  "hypothesis": "Ventana de contexto + penalizacion de repeticion rompe el loop.",
+  "params": {
+    "alpha": 5.0,
+    "d": 8,
+    "window": 3,
+    "corpus_size": 10
+  },
+  "seed": "el",
+  "frase": "el roja la corre el perro roja gato corre el perro",
+  "repeticiones_adyacentes": 0
+}

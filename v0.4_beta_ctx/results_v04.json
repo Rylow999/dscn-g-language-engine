@@ -1,0 +1,24 @@
+{
+  "experiment": "v0.4_beta_ctx",
+  "note": "re-run con N=300,seeds=4,steps=1000 (el sweep N=1000 previo se corto).",
+  "hypothesis": "beta_eff=beta*(1+rho) mejora retencion (N*) y convergencia (align).",
+  "params": {
+    "alpha": 5.0,
+    "beta": 0.2,
+    "gamma": 0.01,
+    "theta_death": 0.1,
+    "d": 8,
+    "chains": 10,
+    "N_init": 300
+  },
+  "results": {
+    "beta_fixed": {
+      "N_star": 5.0,
+      "align": 1.0
+    },
+    "beta_ctx": {
+      "N_star": 5.25,
+      "align": 1.0
+    }
+  }
+}

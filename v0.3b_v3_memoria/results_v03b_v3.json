@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.3b_v3_v0.16_v3_memoria_composicion_desagregado",
+  "hypothesis": "Sobre targets borrados: hibernar (omega vive) mantiene accuracy; borrar (omega=0) la destruye (~0). Pierde acceso de verdad.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "beta": 0.1,
+    "epochs": 3,
+    "window": 3,
+    "n_borrados": 30
+  },
+  "acc_targets_hibernados": 0.0834,
+  "acc_targets_borrados": 0.0879,
+  "memoria_composicion_real": false
+}

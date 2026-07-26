@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.15_sense_nodes",
+  "hypothesis": "Sense nodes (identidad estructural por sentido) resuelven polisemia que v0.13/0.14 no pudieron.",
+  "params": {
+    "d": 8,
+    "beta": 0.2,
+    "vocab": 11,
+    "senses": 2
+  },
+  "n_tests": 6000,
+  "acc_sense": 0.4987,
+  "acc_post_word": 0.0752,
+  "baseline_single_node_post": 0.5,
+  "nota": "banco se parte en 2 nodos por contexto. Indexado por sentido, no nomenclatura."
+}

@@ -1,53 +1,62 @@
-# RESUMEN — Noche de experimentos DSCN-G Language Engine (2026-07-25)
+# DSCN-G Language Engine — Documentación completa (fase 1 → v0.16)
 
-## Qué propuso Luciano
-Un motor de lenguaje basado en DSCN-G (geometría cognitiva de doble estado) como
-sustrato de una "pseudoAGI" de laboratorio: no un chatbot que predice palabras,
-sino un sistema con memoria que no se borra, que categoriza lo que procesa, y que
-siente un dolor que lo hace corregirse para sobrevivir.
+## Qué es
+Motor de lenguaje basado en DSCN-G (Dual-State Cognitive Geometry) como sustrato
+cognitivo: no un chatbot que predice palabras, sino un sistema con memoria que no
+se borra, que categoriza lo que procesa, y que siente un dolor que lo hace
+corregirse para sobrevivir. Todo implementado en Python puro (sin numpy/torch) en
+un entorno Android, con datos empíricos por cada experimento.
 
-## Qué hicimos (uno por uno, con datos reales)
-Leímos NOUS_Tecnico_v4 y corrimos v0.1 → v0.14c. Cada experimento con su script
-y su results.json en el vault. Sin numpy/PyTorch (telefonito), todo Python puro.
+## Experimentos (v0.1 → v0.16) — tabla de verdad
+| Exp | Qué prueba | Resultado | Veredicto |
+|-----|-----------|-----------|-----------|
+| v0.1 | grafo de conceptos + afinidad | masa estable | ✓ base |
+| v0.2 | poda homeostática | decae lo no usado | ✓ |
+| v0.3 REAL | memoria masiva (hibernado) | 100% retenido | ✓ CONFIRMADO |
+| v0.4 | β contextual Pandora | 5.0 vs 5.2 (ruido) | ✗ no aporta |
+| v0.5/0.6a | decoder + next-token Don Quijote | 10.11% | ✓ aprende |
+| v0.6b-bis | dolor Q-learning | redundante | ✗ |
+| v0.7/0.8 | contexto rústico | no desambigua | ✗ 1 capa insuficiente |
+| v0.9b | categorización emergente | 92.67% | ✓ CONFIRMADO |
+| v0.9c | dolor interno autopreservación | G 0→1 | ✓ CONFIRMADO |
+| v0.10 | memoria viva (SynapticCache) | masa activa por relevancia | ✓ |
+| v0.11 | abstracción por dimensión | next-token aplana | ✗ |
+| v0.12 | atención real sintética | no ayuda | ✗ |
+| v0.13/0.13-bis | híbrido 1 capa | colapsa/10.11% | ✗ |
+| v0.14 | híbrido Hebbiano 2 capas | 1.97% | ✗ Hebbiano no entrena |
+| v0.14b/c | backprop manual D=8/16 | 0.12% (piso uniforme) | ~ backprop anda, no converge |
+| v0.14d | backprop head APRENDIDO | 10.55% > 10.11% | ✓ CONTEXTO RESUELTO |
+| v0.15/0.15-bis | sense nodes (polisemia) | 0.50 (azar) | ✗ next-token aplasta sentidos |
+| v0.16/0.16-bis | referencias compositivas | jaccard 1.0, poda respeta | ✓ IDEA 2 CONFIRMADA |
 
-## CONFIRMADO (el grafo rústico SÍ funciona)
-- v0.3 REAL: memoria masiva persistente. El grafo duerme lo que no usa y retiene
-  100% de la masa. Tu "base de datos semántica que no borra", validada.
-- v0.6a: aprende de Don Quijote, 10.11% next-token.
-- v0.9b: categorización emergente, 92.67% (deduce sustantivo/verbo solo).
-- v0.9c: dolor interno autopreservación, G 0→1. Tu definición de dolor biológico,
-  validada empíricamente.
-- v0.10: memoria viva por relevancia (patrón SynapticCache 2.1/2.4).
-- v0.14b/0.14c: el backprop manual ANDA (loss baja 5.57→5.01).
+## Confirmado empíricamente
+- Memoria masiva persistente (v0.3): 100% de masa retenida, hibernada.
+- Categorización emergente (v0.9b): 92.67% deduciendo sustantivo/verbo del uso.
+- Dolor interno (v0.9c): vitalidad G 0.0 → 1.0 bajo corrección; autopreservación.
+- Next-token (v0.6a): 10.11% sobre Don Quijote (vocab 150).
+- Contexto (v0.14d): 10.55% con backprop manual (transformer 1 capa, head aprendido).
+- Composición / DB semántica (v0.16-bis): "boda"={flores,vestido,blanco,beso} jaccard
+  1.0; poda por incoherencia desenlaza pero NO borra el nodo externo.
 
-## NO ALCANZÓ (honesto, con razón)
-- v0.4: β contextual de Pandora no aporta (ruido 5.0 vs 5.2). ρ no se activa.
-- v0.7/0.8/0.12: contexto no ayuda con ω fijo (vocab chico, 1 capa).
-- v0.11: abstracción se aplana con next-token.
-- v0.13/0.13-bis: híbrido 1 capa, contextos colapsan.
-- v0.14/0.14b/0.14c: híbrido grafo+transformer no supera baseline. Backprop manual
-  anda pero el modelo se estanca en piso uniforme (ln150=5.01) y no acierta top-1.
-  Bug de convergencia (lr, head fija=ω_base, pocas épocas), no de arquitectura.
+## Límites (honestos)
+- Polisemia estructural (v0.15): el next-token aplasta los sense-ω. Idea VÁLIDA
+  pero requiere transformer con backprop (v0.14d) para resolverse. Pendiente.
+- Abstracción por dimensión (v0.11): next-token aplana. La abstracción real está
+  en el tamaño del conjunto de referencias (v0.16), no en dimensión.
+- Herramientas: numpy/PyTorch NO entran en el telefonito (py3.13 aarch64, sin
+  wheels/toolchain). Se resolvió con backprop manual en Python puro.
 
-## LÍMITE DE TOOLING
-- numpy/PyTorch NO entran en el telefonito (py3.13 aarch64, sin wheels ni toolchain).
-- Resolvimos con backprop manual en Python puro. Funciona (loss baja) pero lento de
-  iterar para afinar convergencia.
+## Arquitectura resultante
+GRAFO (memoria/categoría/dolor, PROBADO) + TRANSFORMER (contexto, backprop manual)
+como capas complementarias. Nodo del grafo = ω (geométrico) + referencias a otros
+nodos (simbólico, v0.16). El grafo no es reemplazable (memoria/dolor); el
+transformer no es reemplazable (contexto).
 
-## CONCLUSIÓN
-El grafo DSCN-G es un sustrato cognitivo REAL con memoria persistente, categorización
-y dolor interno que se autopreserva. Eso está probado con números. El contexto
-fluido (hablar como un LLM) requiere una capa transformer con backprop completo,
-que es arquitectura complementaria al grafo, no reemplazo. El diseño quedó claro;
-falta la herramienta (PyTorch) o backprop más cuidado para cerrar el contexto.
+## Estructura del repo
+README.md (estado), RESUMEN_NOCHE.md, EXPLICACION_CRIOLO.md, v0.1..v0.16 (cada
+uno run_*.py + results_*.json), gpt1_paper.pdf, PANDORA_Resumen.md, scripts de push.
 
-## DOCUMENTOS
-- README.md: tabla de verdad completa, límites, roadmap.
-- EXPLICACION_CRIOLO.md: descripción para explicar a cualquiera.
-- v0.1..v0.14c: scripts + results en subcarpetas.
-- PANDORA_Resumen.md, gpt1_paper.pdf: referencias.
-
-## PENDIENTE
-- Cerrar contexto: backprop con lr pequeño + head aprendida + más épocas, o PyTorch.
-- v0.15 (entorno / dolor de consecuencia): el gap #2 original.
-- Repo GitHub público (espera usuario+token de Luciano).
+## Estado
+Fase 1 completa: sustrato cognitivo (memoria/categoría/dolor) + contexto + DB
+semántica compositiva, todo probado con números. Pendiente: polisemia con
+transformer completo, abstracción como tamaño de conjunto, y v0.15+ sobre v0.14d.

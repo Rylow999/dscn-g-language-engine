@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.3b_memoria_persistencia",
+  "hypothesis": "Hibernar (preservar omega) mantiene accuracy; borrar omega la destruye. Sin reward fijo.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "beta": 0.1,
+    "epochs": 3
+  },
+  "acc_base": 0.0685,
+  "acc_hibernado": 0.0685,
+  "acc_borrado": 0.1011,
+  "memoria_real": false
+}

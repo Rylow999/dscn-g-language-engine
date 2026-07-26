@@ -1,0 +1,58 @@
+{
+  "experiment": "v0.10_persistencia_score_hibrido",
+  "hypothesis": "Score hibrido (recencia+coseno) preserva masa y prioriza nodos tematicos del contexto.",
+  "patrones_synapticcache": [
+    "2.1 score evict",
+    "2.2 omega_root",
+    "2.4 fallback LRU"
+  ],
+  "params": {
+    "alpha": 5.0,
+    "beta": 0.2,
+    "gamma": 0.01,
+    "theta_death": 0.1,
+    "d": 8,
+    "chains": 3,
+    "L1": 0.7,
+    "L2": 0.3,
+    "steps": 2000
+  },
+  "results": [
+    {
+      "N_init": 10,
+      "N_active_mean": 10.0,
+      "N_hibernated_mean": 0.0,
+      "N_total_mean": 10.0,
+      "retencion": 1.0
+    },
+    {
+      "N_init": 50,
+      "N_active_mean": 50.0,
+      "N_hibernated_mean": 0.0,
+      "N_total_mean": 50.0,
+      "retencion": 1.0
+    },
+    {
+      "N_init": 200,
+      "N_active_mean": 200.0,
+      "N_hibernated_mean": 0.0,
+      "N_total_mean": 200.0,
+      "retencion": 1.0
+    },
+    {
+      "N_init": 1000,
+      "N_active_mean": 1000.0,
+      "N_hibernated_mean": 0.0,
+      "N_total_mean": 1000.0,
+      "retencion": 1.0
+    }
+  ],
+  "nota_honesta": "El score hibrido (SynapticCache 2.1) NO reproduce el hibernado de v0.3 REAL: mantiene TODA la masa ACTIVA porque el score protege nodos de baja vitalidad por relevancia tematica (score>=0.5 casi siempre). Es una politica distinta: memoria VIVA por relevancia, no memoria DORMIDA por olvido. v0.3 REAL sigue siendo la validacion de hibernado/persistencia de masa.",
+  "diagnostico": {
+    "v03real_v2_N10_minvit": 0.127,
+    "v03real_v2_hibernados": 5,
+    "v10_N10_minvit": 0.057,
+    "v10_hibernados": 0,
+    "causa": "condicion score<0.5 casi nunca se cumple -> no hibernado"
+  }
+}

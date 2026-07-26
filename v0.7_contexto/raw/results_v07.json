@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.7_context_window",
+  "hypothesis": "Ventana de contexto W aumenta accuracy next-token vs mirar solo la ultima.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "W": 3,
+    "epochs": 2,
+    "corpus": "don_quijote"
+  },
+  "accuracy": 0.0589,
+  "nota": "Estado=promedio de ultimas W palabras. Comparar con v0.6a (W=1, acc 0.10)."
+}

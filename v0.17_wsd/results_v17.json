@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.17_wsd_sense_nodes",
+  "hypothesis": "WSD no supervisado sobre texto real descubre polisemia; sense nodes mejoran next-token sobre v0.6a.",
+  "params": {
+    "d": 8,
+    "beta": 0.15,
+    "vocab": 150,
+    "window": 2,
+    "k": 2
+  },
+  "n_polyseemous": 0,
+  "n_total_words": 150,
+  "acc_sense_nodes": 0.0463,
+  "baseline_v06a": 0.1011,
+  "nota": "Contexto asimetrico real (Don Quijote). v0.15/0.15d fallaron por corpus simetrico de juguete."
+}

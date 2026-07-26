@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.9b_v2_categorizacion_balanceada",
+  "hypothesis": "Con vocab 50/50 S-V, la geometria omega separa sintaxis sola (pureza > 0.50 azar).",
+  "params": {
+    "d": 16,
+    "top": 400,
+    "nsv": 75,
+    "beta": 0.1,
+    "epochs": 3,
+    "k": 2,
+    "V": 41
+  },
+  "pureza_cluster": 0.7317,
+  "baseline_azar": 0.5,
+  "separa": true
+}

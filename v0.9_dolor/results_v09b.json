@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.9b_etiquetas_mutantes",
+  "hypothesis": "Etiquetas aprendidas por historial de uso (mutan por dolor) convergen a la verdad del corpus.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "steps": 4000,
+    "corpus": "don_quijote"
+  },
+  "accuracy_etiqueta_vs_verdad": 0.9267,
+  "nota": "etiq arranca None; critico externo MINIMO solo senala dolor. Distinto a v0.6b (etiq hardcodeada)."
+}

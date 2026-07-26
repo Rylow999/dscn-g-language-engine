@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.12_atencion_real_ambiguedad",
+  "hypothesis": "Con ambiguedad (banco=banca/silla), contexto W=2 acierta mas que bigrama W=1 al predecir palabra post-banco.",
+  "params": {
+    "d": 8,
+    "beta": 0.2,
+    "vocab": 11,
+    "corpus": "banco ambiguo con post-palabra"
+  },
+  "n_tests": 6000,
+  "acc_bigrama_W1": 0.0967,
+  "acc_atencion_W2": 0.0558,
+  "nota": "CORREGIDO: mide desambiguar banco usando contexto para predecir lo posterior."
+}

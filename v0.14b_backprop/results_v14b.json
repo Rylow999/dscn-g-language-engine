@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.14b_hibrido_backprop_manual",
+  "hypothesis": "Transformer 1 capa con backprop manual sobre omega_base supera bigrama v0.6a (10.11%).",
+  "params": {
+    "d": 8,
+    "V": 150,
+    "window": 4,
+    "lr": 0.05,
+    "corpus_n": 20000,
+    "aprendizaje": "backprop manual (sin numpy)"
+  },
+  "acc_hibrido": 0.0012,
+  "baseline_v06a": 0.1011,
+  "nota": "Primer transformer con backprop real en Python puro. Grafo=memoria, transformer=contexto."
+}

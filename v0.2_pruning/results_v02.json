@@ -1,0 +1,20 @@
+{
+  "experiment": "v0.2_pruning_redesign",
+  "hypothesis": "El colapso de N* en ~4.5 es PARAMETRICO (sube con K / baja theta_death), no estructural.",
+  "params": {"alpha": 5.0, "beta": 0.20, "gamma": 0.01, "d": 8},
+  "note": "Sweep (K,theta_death) a N_init=1000. N*_max teorico ~ (K+1)/theta_death. El proceso original fue terminado (exit 143) justo tras imprimir, pero los datos del sweep y scaling son completos. JSON reconstruido desde el log.",
+  "sweep": [
+    {"K": 3, "theta_death": 0.10, "N_init": 1000, "N_star_mean": 3.8,  "N_star_std": 1.0, "cap": 40,    "frac_alive": 0.004},
+    {"K": 3, "theta_death": 0.03, "N_init": 1000, "N_star_mean": 11.8, "N_star_std": 0.7, "cap": 133,    "frac_alive": 0.012},
+    {"K": 3, "theta_death": 0.01, "N_init": 1000, "N_star_mean": 30.4, "N_star_std": 2.1, "cap": 400,    "frac_alive": 0.030},
+    {"K": 10,"theta_death": 0.03, "N_init": 1000, "N_star_mean": 16.4, "N_star_std": 1.0, "cap": 367,    "frac_alive": 0.016},
+    {"K": 10,"theta_death": 0.01, "N_init": 1000, "N_star_mean": 45.8, "N_star_std": 1.5, "cap": 1100,   "frac_alive": 0.046},
+    {"K": 30,"theta_death": 0.01, "N_init": 1000, "N_star_mean": 55.4, "N_star_std": 1.5, "cap": 3100,   "frac_alive": 0.055},
+    {"K": 30,"theta_death": 0.003,"N_init": 1000, "N_star_mean": 166.8,"N_star_std": 1.3, "cap": 10333,  "frac_alive": 0.167}
+  ],
+  "scaling_best": {"K": 30, "theta_death": 0.003, "rows": [
+    {"N_init": 200,  "N_star_mean": 197.3, "frac_alive": 0.987},
+    {"N_init": 1000, "N_star_mean": 171.7, "frac_alive": 0.172}
+  ]},
+  "conclusion": "COLPASO PARAMETRICO (no estructural). Subiendo K / bajando theta_death, N* crece de 3.8 a 166.8 a N_init=1000. Pero es SUBLINEAL: aun con K=30/theta=0.003 solo 17% de 1000 sobrevive. Para 100k vocab falta memoria de MASA hibernada (v0.3 + Pandora)."
+}

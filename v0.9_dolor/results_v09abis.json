@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.9a_bis_v2_dolor_generacion",
+  "definicion_dolor": "senal que obliga al sistema a cambiar para evitar lo que lo produce (Luciano)",
+  "hypothesis": "Dolor acoplado a generacion que repite (evasion omega online) reduce repeticion en lo que el grafo HABLA.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "steps_gen": 60
+  },
+  "repeticion_sin_dolor": 0.0,
+  "repeticion_con_dolor": 0.0,
+  "mejora": 0.0,
+  "nota": "Generador v0.5b (afinidad pura, SI repite). Dolor online reelije 2do mejor + evasion omega."
+}

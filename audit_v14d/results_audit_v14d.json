@@ -1,0 +1,17 @@
+{
+  "experiment": "audit_v14d_baseline_correcto",
+  "nota": "v0.14d comparaba 10.55%(V=150) vs 10.11%(V=200, otro corpus). Aca ambos en V=150, 20k tok, 2 ep, corpus aleatorio.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 2,
+    "beta": 0.1,
+    "corpus_n": 20000
+  },
+  "baseline_grafo_solo": 0.0237,
+  "hibrido_v14d": 0.0958,
+  "diff_real": 0.072,
+  "veredicto": "HIBRIDO SUPERA baseline correcto"
+}

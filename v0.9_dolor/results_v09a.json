@@ -1,0 +1,24 @@
+{
+  "experiment": "v0.9a_dolor_evasion_audit",
+  "definicion_dolor": "senal que obliga al sistema a cambiar para evitar lo que lo produce (Luciano)",
+  "hypothesis": "Dolor como evasion de omega (no castigo) reduce transiciones dolorosas.",
+  "patrones_synapticcache": [
+    "2.1 score evict hibrido",
+    "2.2 omega_root",
+    "2.3 umbral distancia",
+    "2.5 AUDIT",
+    "2.4 fallback"
+  ],
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "L1": 0.7,
+    "L2": 0.3,
+    "audit": true
+  },
+  "dolorosas_antes": 0.0149,
+  "dolorosas_despues": 0.0149,
+  "nota": "Fallback a poda por V si el demonio muere (no implementado el crash, pero el patron aplica)."
+}

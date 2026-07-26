@@ -1,0 +1,18 @@
+{
+  "experiment": "v0.14d_borrar_memoria_real",
+  "hypothesis": "Sobre hibrido (predice ~9.6%): borrar nodos top degrada la prediccion; preservarlos no. Memoria real en sustrato con capacidad.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 2,
+    "beta": 0.1,
+    "corpus_n": 20000,
+    "n_borrados": 30
+  },
+  "acc_base": 0.0967,
+  "acc_preservado": 0.0967,
+  "acc_borrado": 0.0217,
+  "borrar_destruye": true
+}

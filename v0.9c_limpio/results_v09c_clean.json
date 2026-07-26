@@ -1,0 +1,23 @@
+{
+  "experiment": "v0.9c_dolor_error_real",
+  "hypothesis": "El dolor (error de prediccion del dato) obliga al cambio: B aprende y baja error; A fijo no. Sin reward constante.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "beta": 0.1,
+    "epochs": 4
+  },
+  "error_fijo_A": [
+    0.9927,
+    0.9927,
+    0.9927,
+    0.9927
+  ],
+  "error_aprende_B": [
+    0.9927,
+    0.958,
+    0.9356,
+    0.933
+  ],
+  "dolor_funciona": true
+}

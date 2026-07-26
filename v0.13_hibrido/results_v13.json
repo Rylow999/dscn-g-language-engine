@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.13_hibrido_atencion",
+  "hypothesis": "Atencion aprendida (representacion contextualizada de banco) desambigua mejor que bigrama/promedio.",
+  "params": {
+    "d": 8,
+    "beta": 0.2,
+    "vocab": 11,
+    "corpus": "banco ambiguo"
+  },
+  "n_tests": 6000,
+  "acc_W1": 0.0752,
+  "acc_avg_v012": 0.0558,
+  "acc_atencion": 0.0553,
+  "nota": "Hibrido: grafo (omega_base) + atencion que MODULA omega por contexto."
+}

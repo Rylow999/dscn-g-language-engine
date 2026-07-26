@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.15bis_sense_nodes_identidad",
+  "hypothesis": "Con contextos de identidad real, sense nodes eligen el sentido correcto (resuelve polisemia).",
+  "params": {
+    "d": 8,
+    "beta": 0.2,
+    "vocab": 12,
+    "senses": 2,
+    "corpus": "contextos en varias posiciones"
+  },
+  "n_tests": 6000,
+  "acc_sense": 0.4957,
+  "acc_post": 0.0858,
+  "baseline_v15": 0.4987,
+  "nota": "v0.15 fallo por corpus colapsado; aca contextos tienen identidad."
+}

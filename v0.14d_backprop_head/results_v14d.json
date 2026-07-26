@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.14d_backprop_head_aprendido",
+  "hypothesis": "Head de salida aprendido + lr bajo rompe el piso uniforme y supera v0.6a (10.11%).",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 2,
+    "corpus_n": 20000,
+    "head": "aprendido Wo"
+  },
+  "acc_hibrido": 0.1055,
+  "baseline_v06a": 0.1011,
+  "nota": "Corrige bug de v0.14b/c: head fijo=omega_base lo estancaba. Ahora Wo aprende."
+}

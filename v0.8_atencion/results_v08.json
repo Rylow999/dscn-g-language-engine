@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.8_atencion_rustica",
+  "hypothesis": "Atencion ponderada (no tabla) hace que el contexto suba accuracy vs v0.6a (0.1011).",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "W": 3,
+    "epochs": 2,
+    "corpus": "don_quijote"
+  },
+  "accuracy": 0.0864,
+  "comparar_con_v06a": 0.1011
+}

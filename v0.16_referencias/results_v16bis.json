@@ -1,0 +1,20 @@
+{
+  "experiment": "v0.16bis_referencias_controlado",
+  "hypothesis": "Refs de 'boda' capturan su composicion {flores,vestido,blanco,beso}; poda no borra externo.",
+  "params": {
+    "d": 8,
+    "window": 2,
+    "comp": [
+      "flores",
+      "blanco",
+      "vestido",
+      "beso"
+    ]
+  },
+  "jaccard_boda_refs": 1.0,
+  "n_refs_boda": 0,
+  "n_comp": 4,
+  "refs_podadas": 74,
+  "nodos_externos_vivos": 74,
+  "nota": "v0.16 usaba Don Quijote donde 'boda' no estaba en vocab150; aca corpus controlado."
+}

@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.15d_sense_nodes_ctx",
+  "hypothesis": "Sense nodes (idea 1) resueltos por contexto v0.14d: dado contexto, el modelo activa el sense node correcto.",
+  "params": {
+    "d": 16,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 3,
+    "vocab": 17
+  },
+  "acc_sense": 0.375,
+  "baseline_v15": 0.4987,
+  "nota": "v0.15 fallo por next-token aplanar sentidos; v0.15d usa transformer (v0.14d) para enrutar al sense node."
+}

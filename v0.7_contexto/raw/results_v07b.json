@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.7_bis_contexto_separado",
+  "hypothesis": "Estado c(t) separado (no promedio que pisa nodos) sube accuracy vs v0.6a (W=1).",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "W": 3,
+    "epochs": 2,
+    "gamma": 0.7,
+    "corpus": "don_quijote"
+  },
+  "accuracy": 0.0049,
+  "comparar_con_v06a": 0.1011
+}

@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.9b_categorizacion_limpia",
+  "hypothesis": "Tras next-token limpio, el espacio omega separa S/V por geometria (pureza de cluster > azar). Dict SOLO en eval.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "beta": 0.1,
+    "epochs": 3,
+    "k": 2
+  },
+  "pureza_cluster": 0.9267,
+  "baseline_azar": 0.9267,
+  "separa": false
+}

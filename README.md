@@ -39,7 +39,7 @@ Todos los experimentos son Python puro (sin numpy). Corpus: Don Quijote
 | v0.15 | sense nodes (polisemia estructural) | acc_sense=0.499 (azar) | ✗ next-token aplasta sentidos; idea válida pero requiere transformer (v0.14d) |
 | v0.15-bis | sense nodes c/contexto identidad | acc_sense=0.496 (azar) | ✗ mismo colapso de v0.13; sense-ω no se separan con next-token |
 | v0.16 | referencias compositivas (nodo=ω+refs) | poda respeta externo ✓ | ✓ nodo=conjunto de nodos; poda desenlaza, no borra |
-| v0.16-bis | referencias corpus controlado "boda" | jaccard=1.000, poda respeta | ✓ IDEA 2 CONFIRMADA: boda={flores,vestido,blanco,beso} |
+| v0.15d | sense nodes + contexto v0.14d | acc_sense=0.375 (<0.50) | ✗ corpus simétrico no da señal; polisemia requiere contexto asimétrico real |
 
 ## MAPA HONESTO DE CAPACIDADES
 - FUERTE en lo LOCAL: recupera conceptos, aprende next-token, masa persistente

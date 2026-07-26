@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.13bis_hibrido_atencion_donquijote",
+  "hypothesis": "Atencion contextualizada sobre corpus real (Don Quijote) supera bigrama (10.11% v0.6a).",
+  "params": {
+    "d": 8,
+    "beta": 0.2,
+    "V": 150,
+    "steps": 4000,
+    "corpus": "don_quijote"
+  },
+  "acc_bigrama_W1": 0.0348,
+  "acc_atencion_W2": 0.0423,
+  "acc_atencion_W3": 0.0383,
+  "baseline_v06a": 0.1011,
+  "nota": "v0.13 (corpus sintetico) colapsaba contextos; aca usamos corpus real con identidad."
+}

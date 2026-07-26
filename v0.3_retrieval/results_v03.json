@@ -1,0 +1,32 @@
+{
+  "experiment": "v0.3_retrieval",
+  "hypothesis": "El grafo recupera el concepto correcto; la repr en bits conserva la semantica.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "seeds": 10
+  },
+  "note": "Afinidad norma flotante vs bits/puertas logicas (idea Luciano).",
+  "results": [
+    {
+      "M": 4,
+      "acc_norm": 1.0,
+      "acc_bits": 1.0
+    },
+    {
+      "M": 16,
+      "acc_norm": 1.0,
+      "acc_bits": 1.0
+    },
+    {
+      "M": 64,
+      "acc_norm": 1.0,
+      "acc_bits": 0.975
+    },
+    {
+      "M": 256,
+      "acc_norm": 1.0,
+      "acc_bits": 0.91
+    }
+  ]
+}

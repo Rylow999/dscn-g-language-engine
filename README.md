@@ -22,7 +22,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.9b v2 | categorización, vocab balanceado 50/50 | pureza=0.7317 vs azar 0.50 | ✓ CATEGORÍA GENUINA |
 | v0.9c limpio | dolor = error next-token real, A(fijo) vs B(aprende) | A=0.9927 cte; B=0.9927->0.933 | ✓ DOLOR GENUINO |
 | v0.3b / v0.16 (v1-v3) | memoria/composición, omega preservado vs borrado | hibernado = base en TODOS los tests | ✓ MEMORIA/COMPOSICIÓN (omega vive) |
-| v0.3b/v0.16 "borrar" | ¿borrar degrada la predicción? | indetectable: grafo rústico predice ~8% | ~ NO APLICABLE al grafo rústico |
+| v0.14d BORRAR | borrar nodos top sobre híbrido (predice ~9.6%) | base=0.0967, preservado=0.0967, borrado=0.0217 | ✓ BORRAR DESTRUYE (sobre sustrato real) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -32,11 +32,10 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 - COMPOSICIÓN: podar referencias internas no toca el nodo externo (vive, = base).
 
 ## NOTA SOBRE "BORRAR DESTRUYE"
-En v0.3b/v0.16 intentamos medir que borrar un nodo degrada la predicción. NO fue
-detectable: el grafo rústico predice ~8% global, así que "perder acceso" a un nodo
-no cambia la accuracy (el sistema ya no lo predecía bien). El test de "borrar destruye"
-solo es medible sobre un sustrato que PREDIGA BIEN (ej v0.14d híbrido, 9.58%). No
-inventamos degradación: el grafo rústico no tiene capacidad para mostrarla.
+En v0.3b/v0.16 (grafo rústico, ~8% accuracy) no fue detectable porque el sustrato no
+predice lo suficiente. En v0.14d BORRAR (híbrido, ~9.6%) SÍ: borrar los 30 nodos top
+baja la accuracy de 0.0967 a 0.0217 (~4.5x menos), mientras preservarlos la mantiene
+(0.0967). La memoria/composición es REAL y medible sobre un sustrato con capacidad.
 
 ## LÍMITES DEL SUSTRATO (grafo rústico, D=16)
 El error absoluto de next-token es ALTÍSIMO (~92% en v0.9c, ~92% en v0.3b/v0.16/v0.9b).

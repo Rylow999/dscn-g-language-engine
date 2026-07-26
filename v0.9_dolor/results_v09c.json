@@ -1,0 +1,26 @@
+{
+  "experiment": "v0.9c_subsistencia_global",
+  "definicion_dolor": "senal interna que obliga al sistema a cambiar para evitar lo que lo produce (Luciano)",
+  "hypothesis": "Dolor emergente (baja de G por desajuste) + aprendizaje por subsistencia mantiene G vivo mas tiempo.",
+  "params": {
+    "alpha": 5.0,
+    "beta": 0.2,
+    "gamma": 0.01,
+    "theta_death": 0.1,
+    "d": 8,
+    "chains": 3,
+    "N_init": 200,
+    "steps": 3000
+  },
+  "results": {
+    "sin_aprender": {
+      "G": 0.0,
+      "N_star": 3.6
+    },
+    "con_aprender": {
+      "G": 1.0,
+      "N_star": 4.0
+    }
+  },
+  "nota": "Dolor INTERNO (no critico externo). Si G sobrevive mas con aprender, el dolor obliga a cambiar."
+}

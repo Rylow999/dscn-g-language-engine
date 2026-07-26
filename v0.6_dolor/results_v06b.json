@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.6b_dolor_etiquetas",
+  "hypothesis": "El dolor (baja V en transicion invalida) reduce transiciones invalidas; etiquetas mutan por uso.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "epochs": 3,
+    "corpus": "don_quijote"
+  },
+  "tasa_invalida_antes": 0.2885,
+  "tasa_invalida_despues": 0.2885,
+  "mejora": 0.0,
+  "nota": "Dolor=V-0.05 en transicion S-S; bienestar=V+0.01. Etiquetas por diccionario mini (mutan via historial)."
+}

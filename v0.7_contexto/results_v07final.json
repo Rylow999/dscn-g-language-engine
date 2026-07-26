@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.7_final_contexto_limpio",
+  "hypothesis": "Contexto de 2 palabras (trigrama) sube accuracy vs v0.6a (bigrama, 0.1011). omega fijos.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 150,
+    "epochs": 2,
+    "contexto": "2 palabras",
+    "corpus": "don_quijote"
+  },
+  "accuracy": 0.0385,
+  "comparar_con_v06a": 0.1011,
+  "nota": "omega_ctx[(prev,curr)] aprende; omega nodos FIJOS (no se tocan)."
+}

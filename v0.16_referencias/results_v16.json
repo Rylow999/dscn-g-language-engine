@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.16_referencias_compositivas",
+  "hypothesis": "Nodo = omega + refs a nodos externos; poda por incoherencia no borra el nodo externo.",
+  "params": {
+    "d": 8,
+    "beta": 0.2,
+    "vocab": 150,
+    "window": 2
+  },
+  "target": "boda",
+  "n_refs_target": 0,
+  "jaccard_refs_ctx": 0,
+  "refs_podadas": 10316,
+  "nodos_externos_vivos_tras_poda": 10316,
+  "nota": "Composicion simbolica: el nodo referencia a otros que existen afuera. Poda=desenlace, no borrado."
+}

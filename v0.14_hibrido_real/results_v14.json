@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.14_hibrido_real_grafo_transformer",
+  "hypothesis": "Transformer rustico 2 capas sobre omega_base del grafo supera bigrama v0.6a (10.11%).",
+  "params": {
+    "d": 8,
+    "V": 150,
+    "window": 4,
+    "layers": 2,
+    "corpus_n": 30000,
+    "aprendizaje": "hebbiano local"
+  },
+  "acc_hibrido": 0.0197,
+  "baseline_v06a": 0.1011,
+  "nota": "Grafo=memoria (omega_base). Transformer=contexto (2 capas, pesos aprendidos). Distinguir de v0.13 (1 capa, coseno sobre omega fijo)."
+}

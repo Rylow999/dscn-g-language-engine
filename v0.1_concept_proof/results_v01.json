@@ -1,0 +1,82 @@
+{
+  "experiment": "v0.1_concept_proof",
+  "hypothesis": "N* escala sublinealmente con N_init (memoria escasa)",
+  "params": {
+    "alpha": 5.0,
+    "beta": 0.2,
+    "gamma": 0.01,
+    "theta_death": 0.1,
+    "d": 8,
+    "chains": 3
+  },
+  "universal_bound": 10.0,
+  "note": "Eq.2+Eq.5. Kuramoto omitido. Hasta N_init=5000 (Python puro).",
+  "results": [
+    {
+      "N_init": 4,
+      "seeds": 20,
+      "steps": 2000,
+      "N_star_mean": 4.0,
+      "N_star_std": 0.0,
+      "rho_mean": 0.4444,
+      "fixed_point_ok": true,
+      "universal_bound_ok": true,
+      "bound": 10.0
+    },
+    {
+      "N_init": 10,
+      "seeds": 20,
+      "steps": 2000,
+      "N_star_mean": 4.8,
+      "N_star_std": 0.4,
+      "rho_mean": 0.4667,
+      "fixed_point_ok": true,
+      "universal_bound_ok": true,
+      "bound": 10.0
+    },
+    {
+      "N_init": 50,
+      "seeds": 20,
+      "steps": 2000,
+      "N_star_mean": 4.6,
+      "N_star_std": 0.49,
+      "rho_mean": 0.5111,
+      "fixed_point_ok": true,
+      "universal_bound_ok": true,
+      "bound": 10.0
+    },
+    {
+      "N_init": 200,
+      "seeds": 20,
+      "steps": 2000,
+      "N_star_mean": 4.2,
+      "N_star_std": 0.6,
+      "rho_mean": 0.5111,
+      "fixed_point_ok": true,
+      "universal_bound_ok": true,
+      "bound": 10.0
+    },
+    {
+      "N_init": 1000,
+      "seeds": 8,
+      "steps": 1200,
+      "N_star_mean": 3.875,
+      "N_star_std": 0.781,
+      "rho_mean": 0.4722,
+      "fixed_point_ok": true,
+      "universal_bound_ok": true,
+      "bound": 10.0
+    },
+    {
+      "N_init": 5000,
+      "seeds": 3,
+      "steps": 800,
+      "N_star_mean": 3.333,
+      "N_star_std": 0.471,
+      "rho_mean": 0.4074,
+      "fixed_point_ok": true,
+      "universal_bound_ok": true,
+      "bound": 10.0
+    }
+  ]
+}

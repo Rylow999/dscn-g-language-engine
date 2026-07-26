@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.16_composicion_limpia",
+  "hypothesis": "Podar refs (desenlazar) NO degrada porque el nodo vive; borrar el nodo SI degrada. Composicion = refs internas + nodo externo vivo.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "beta": 0.1,
+    "epochs": 3,
+    "window": 3,
+    "umbral": 0.0
+  },
+  "acc_base": 0.0685,
+  "acc_tras_podar_refs": 0.0685,
+  "acc_tras_borrar_nodo": 0.083,
+  "db_semantica_real": false
+}

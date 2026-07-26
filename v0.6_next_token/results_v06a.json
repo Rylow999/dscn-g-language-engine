@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.6a_next_token",
+  "hypothesis": "El grafo aprende next-token: accuracy sube tras entrenar omega hacia palabra siguiente.",
+  "params": {
+    "d": 8,
+    "alpha": 5.0,
+    "beta": 0.2,
+    "V": 200,
+    "epochs": 3,
+    "corpus": "don_quijote"
+  },
+  "accuracy_before": 0.0045,
+  "accuracy_after": 0.1011,
+  "improvement": 0.0965
+}

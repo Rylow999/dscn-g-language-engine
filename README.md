@@ -39,7 +39,7 @@ Todos los experimentos son Python puro (sin numpy). Corpus: Don Quijote
 | v0.15 | sense nodes (polisemia estructural) | acc_sense=0.499 (azar) | ✗ next-token aplasta sentidos; idea válida pero requiere transformer (v0.14d) |
 | v0.15-bis | sense nodes c/contexto identidad | acc_sense=0.496 (azar) | ✗ mismo colapso de v0.13; sense-ω no se separan con next-token |
 | v0.16 | referencias compositivas (nodo=ω+refs) | poda respeta externo ✓ | ✓ nodo=conjunto de nodos; poda desenlaza, no borra |
-| v0.15d | sense nodes + contexto v0.14d | acc_sense=0.375 (<0.50) | ✗ corpus simétrico no da señal; polisemia requiere contexto asimétrico real |
+| v0.17 | WSD no sup + sense nodes (Don Quijote) | 0/150 polisemicas, acc=0.046 | ✗ contexto de grafo D=8 colapsa; no hay clusters que separar |
 
 ## MAPA HONESTO DE CAPACIDADES
 - FUERTE en lo LOCAL: recupera conceptos, aprende next-token, masa persistente
@@ -97,12 +97,13 @@ LÍMITES (datos honestos):
   referencia pero NO borra el nodo externo: el grafo nunca pierde un concepto.
   DB semántica real (concepto = conjunto de conceptos que viven adentro y afuera).
 
-- Polisemia (idea 1 de Luciano): v0.15/v0.15-bis NO midieron (acc_sense~0.50 =
-  azar). El next-token aplasta los sense-omega hacia un punto común (mismo
-  problema de v0.11). La idea es VÁLIDA (sentido estructural por nomenclatura) pero
-  requiere entrenamiento que NO aplaste los sentidos: un transformer con backprop
-  (v0.14d) es quien resuelve la polisemia de verdad. Queda como diseño futuro:
-  sense nodes + contexto de v0.14d.
+- Polisemia (idea 1 de Luciano): v0.15/0.15-bis/0.15d/v0.17 NO midieron. El grafo
+  rústico de D=8 aplana los contextos (mismo problema de v0.11): k-means no encuentra
+  clusters separables (0/150 en v0.17) y el corpus simétrico de juguete no da señal
+  (v0.15d acc 0.375). La idea es VÁLIDA (sentido estructural por nomenclatura) pero
+  requiere REPRESENTACIONES DE CONTEXTO RICAS que solo da un transformer (v0.14d).
+  La polisemia real se resuelve con v0.14d sobre texto real, no con grafo rústico.
+  Queda como diseño futuro: sense nodes sobre representaciones de transformer.
 
 Para una pseudoAGI: GRAFO (memoria/categoría/dolor, PROBADO) + TRANSFORMER (contexto,
 requiere backprop completo) como capas complementarias. El grafo NO es

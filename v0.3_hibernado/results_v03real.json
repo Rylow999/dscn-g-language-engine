@@ -1,0 +1,47 @@
+{
+  "experiment": "v0.3_real_v2_hibernado",
+  "hypothesis": "Hibernar (no borrar omega) mantiene N_total ~ N_init; el working set colapsa a ~4.5 pero la masa sobrevive.",
+  "params": {
+    "alpha": 5.0,
+    "beta": 0.2,
+    "gamma": 0.01,
+    "theta_death": 0.1,
+    "d": 8,
+    "chains": 3,
+    "steps": 2000
+  },
+  "results": [
+    {
+      "N_init": 10,
+      "N_active_mean": 4.8,
+      "N_hibernated_mean": 5.2,
+      "N_total_mean": 10.0,
+      "retencion": 1.0,
+      "comparar_v01_sin_hibernar": 5.5
+    },
+    {
+      "N_init": 50,
+      "N_active_mean": 4.6,
+      "N_hibernated_mean": 45.4,
+      "N_total_mean": 50.0,
+      "retencion": 1.0,
+      "comparar_v01_sin_hibernar": 9.5
+    },
+    {
+      "N_init": 200,
+      "N_active_mean": 4.4,
+      "N_hibernated_mean": 195.6,
+      "N_total_mean": 200.0,
+      "retencion": 1.0,
+      "comparar_v01_sin_hibernar": 24.5
+    },
+    {
+      "N_init": 1000,
+      "N_active_mean": 3.8,
+      "N_hibernated_mean": 996.2,
+      "N_total_mean": 1000.0,
+      "retencion": 1.0,
+      "comparar_v01_sin_hibernar": 104.5
+    }
+  ]
+}

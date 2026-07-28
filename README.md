@@ -29,7 +29,8 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
 | v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
-| v0.22 v5 | root + contextos MIXTOS + proy SUAVE + MARGIN | duda A/B/MIX = 0.0 | ~ DUDA no emerge: grafo separa sentidos tan bien que SIEMPRE hay claro ganador |
+| v0.23 v1 | composicion relacional Hebb 3-body (2 relaciones) | 4/12=0.333 (azar 0.5) | ~ FALLA: asociacion basica contamina R[r] (ambos pares ocurren) |
+| v0.23 v2 | Hebb 3-body SIN contaminacion + 4 relaciones + D16/32 | D16=0.312 D32=0.312 (azar 0.25) | ~ SENAL DEBIL: supera azar pero limitado por mecanismo (no por ancho) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -70,6 +71,21 @@ DOUBT (2+ subgrafos sin dominante). Tres intentos:
   CERRADO v0.22: root DIRECTOR rutea perfecto (v3: 1.0); duda de sentido es
   trivialmente resoluble por el grafo -> no es el lugar donde la duda importa.
   GAP siguiente: composicion relacional (v0.23) y duda de DECISION (dolor v0.19/v0.9c).
+
+## v0.23 COMPOSICION RELACIONAL (Gap 2 hacia pseudoAGI)
+El grafo fractal (v0.21 v8) codifica CO-OCURRENCIA, no RELACION ESTRUCTURADA.
+v0.23 aprende TRIPLAS (sujeto, RELACION, objeto) por Hebb 3-body: R[r] (matriz DxD)
+tal que R[r]*emb[s] ~ emb[o]. Dos intentos:
+- v0.23 v1: 4/12=0.333 (azar 0.5). FALLA porque al acercar emb[s]~emb[o] (asociacion
+  basica) se contamina R[TIENE] y R[LUGAR] (ambos pares ocurren en el corpus).
+- v0.23 v2: SIN asociacion basica (solo refuerza R[r]), corpus menos sintetico (8
+  sujetos x 4 relaciones: TIENE/LUGAR/CAUSA/PARTE_DE), 20 epochs, D16 y D32.
+  D16=0.312 D32=0.312 (azar 0.25) -> SUPERA azar pero senal DEBIL. D16=D32 ->
+  el cuello NO es el ancho, es el MECANISMO (Hebb 3-body simple). Conclusion
+  honesta: la composicion relacional es ALCANZABLE (hay senal real sobre azar) pero
+  el Hebb 3-body naive es insuficiente para solidez (>0.7). GAP ABIERTO: requiere
+  mas datos reales (no sinteticos) o mecanismo de relacion mas fuerte
+  (tensor/relational memory). Por ahora: senal debil confirmada, no cerrado.
 
 ## CORRECCIONES DE AUDITORIA (errores circulares -> senal real del dato)
 - v0.19 ORIGINAL (v3): A=A-alpha*B/|B|+alpha*C/|C| x2000 GARANTIZABA alejamiento de B.

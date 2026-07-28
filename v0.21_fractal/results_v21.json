@@ -1,6 +1,6 @@
 {
-  "experiment": "v0.21_v4_fractal_ruteo_competitivo_VQ",
-  "hypothesis": "Ruteo competitivo (VQ winner-take-all) hace que los subnodos de una palabra divergence: contextos distintos activan subnodos distintos (polisemia por construccion).",
+  "experiment": "v0.21_v5_fractal_competencia_suave_temperatura",
+  "hypothesis": "Competencia suave (softmax/temperatura) evita cold-start WTA: ambos subnodos se mueven pesados por afinidad -> divergen sin colapsar. Polisemia por construccion en grafo r\u00fastico.",
   "params": {
     "d": 16,
     "V": 150,
@@ -9,9 +9,28 @@
     "k": 2,
     "beta": 0.1,
     "n_dead": 50,
-    "corpus_n": 20000
+    "t_init": 0.6,
+    "t_min": 0.05,
+    "seeds": [
+      0,
+      1,
+      2
+    ]
   },
-  "palabras_evaluadas": 40,
-  "palabras_con_2_sentidos": 0,
+  "por_semilla": [
+    {
+      "ok": 0,
+      "tot": 40
+    },
+    {
+      "ok": 0,
+      "tot": 40
+    },
+    {
+      "ok": 0,
+      "tot": 40
+    }
+  ],
+  "palabras_con_2_sentidos_promedio": 0.0,
   "veredicto": "aun no separa"
 }

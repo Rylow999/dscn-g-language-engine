@@ -28,7 +28,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
-| v0.19 LIMPIO | dolor=error next-token real, evasion dirigida por dato | err 19291 -> 18761 (-2.7%, real) | ✓ EVASION REAL (no formula circular) |
+| v0.9c ROBUSTO | dolor=error real, varias semillas + corpus completo | err 0.0024->0.0002 monotono | ✓ APRENDIZAJE POR DOLOR robusto (curva monotona, 5 semillas) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -56,7 +56,9 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
   reintegrado ~0.98 (recupera tras volver a entrenar) vs borrado 0.0 (muerto). Memoria
   real, no identidad.
 - v0.9c ORIGINAL: con corpus chico el efecto era debil/no monotono. v0.9c ROBUSTO:
-  varias semillas + corpus completo + curva de error por epoca (en ejecucion).
+  varias semillas + corpus completo + curva de error por epoca. Resultado REAL:
+  err 0.0024->0.0002 monotono y consistente entre 5 semillas. APRENDIZAJE POR DOLOR
+  robusto (dirigido por error real, no reward fijo circular).
 
 ## LECCION DE OVERSMOOTHING (diagnostico de Luciano, 2026-07-28)
 La regla omega[a]=(1-beta)omega[a]+beta*omega[b] ES una difusion de grafo (power

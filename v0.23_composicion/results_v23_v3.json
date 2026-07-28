@@ -1,0 +1,156 @@
+{
+  "experiment": "v0.23_v3_composicion_relacional_real",
+  "hypothesis": "Con datos reales (Don Quijote) y trplas de patrones sintacticos, el Hebb 3-body supera azar mas fuerte que con sintetico (v0.23 v2: 0.312).",
+  "params": {
+    "epochs": 15,
+    "extraccion": "de/en/y/a + suj-verb-obj"
+  },
+  "D16": {
+    "D": 16,
+    "acc": 0.042,
+    "n": 1830,
+    "n_rels": 89,
+    "baseline_azar": 0.011,
+    "supera_azar": true,
+    "detalle": [
+      {
+        "s": "los",
+        "r": "V_tiempo",
+        "o": "mundo",
+        "pred": "V_quijote",
+        "score": 0.335,
+        "hit": false
+      },
+      {
+        "s": "si",
+        "r": "V_para",
+        "o": "de",
+        "pred": "V_hacer",
+        "score": 0.64,
+        "hit": false
+      },
+      {
+        "s": "que",
+        "r": "V_sancho",
+        "o": "y",
+        "pred": "V_digo",
+        "score": 0.566,
+        "hit": false
+      },
+      {
+        "s": "de",
+        "r": "V_manera",
+        "o": "y",
+        "pred": "V_todos",
+        "score": 0.543,
+        "hit": false
+      },
+      {
+        "s": "las",
+        "r": "DE",
+        "o": "como",
+        "pred": "V_sancho",
+        "score": 0.538,
+        "hit": false
+      },
+      {
+        "s": "su",
+        "r": "DE",
+        "o": "con",
+        "pred": "V_respondi\u00f3",
+        "score": 0.408,
+        "hit": false
+      },
+      {
+        "s": "y",
+        "r": "DE",
+        "o": "\u00e9l",
+        "pred": "V_dios",
+        "score": 0.36,
+        "hit": false
+      },
+      {
+        "s": "de",
+        "r": "V_sancho",
+        "o": "la",
+        "pred": "V_dijo",
+        "score": 0.276,
+        "hit": false
+      }
+    ]
+  },
+  "D32": {
+    "D": 32,
+    "acc": 0.032,
+    "n": 1830,
+    "n_rels": 89,
+    "baseline_azar": 0.011,
+    "supera_azar": true,
+    "detalle": [
+      {
+        "s": "los",
+        "r": "V_tiempo",
+        "o": "mundo",
+        "pred": "V_dicho",
+        "score": 0.418,
+        "hit": false
+      },
+      {
+        "s": "si",
+        "r": "V_para",
+        "o": "de",
+        "pred": "V_dicho",
+        "score": 0.168,
+        "hit": false
+      },
+      {
+        "s": "que",
+        "r": "V_sancho",
+        "o": "y",
+        "pred": "CON",
+        "score": 0.416,
+        "hit": false
+      },
+      {
+        "s": "de",
+        "r": "V_manera",
+        "o": "y",
+        "pred": "V_todos",
+        "score": 0.275,
+        "hit": false
+      },
+      {
+        "s": "las",
+        "r": "DE",
+        "o": "como",
+        "pred": "DE",
+        "score": 0.408,
+        "hit": true
+      },
+      {
+        "s": "su",
+        "r": "DE",
+        "o": "con",
+        "pred": "EN",
+        "score": 0.551,
+        "hit": false
+      },
+      {
+        "s": "y",
+        "r": "DE",
+        "o": "\u00e9l",
+        "pred": "V_alguna",
+        "score": 0.234,
+        "hit": false
+      },
+      {
+        "s": "de",
+        "r": "V_sancho",
+        "o": "la",
+        "pred": "V_como",
+        "score": 0.581,
+        "hit": false
+      }
+    ]
+  }
+}

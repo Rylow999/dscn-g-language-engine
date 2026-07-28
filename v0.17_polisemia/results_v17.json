@@ -1,0 +1,48 @@
+{
+  "experiment": "v0.17_polisemia_transformer",
+  "hypothesis": "Sobre representaciones de transformer (no grafo r\u00fastico), el WSD no sup encuentra palabras con 2 sentidos separables (sense nodes).",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 2,
+    "corpus_n": 20000
+  },
+  "palabras_evaluadas": 150,
+  "palabras_polisemicas": 6,
+  "sep_threshold": 0.5,
+  "ejemplos": [
+    {
+      "word": "que",
+      "n_ctx": 1779,
+      "sep_coseno": -0.188
+    },
+    {
+      "word": "en",
+      "n_ctx": 708,
+      "sep_coseno": -0.62
+    },
+    {
+      "word": "los",
+      "n_ctx": 388,
+      "sep_coseno": 0.333
+    },
+    {
+      "word": "como",
+      "n_ctx": 214,
+      "sep_coseno": -0.928
+    },
+    {
+      "word": "ser",
+      "n_ctx": 96,
+      "sep_coseno": -0.56
+    },
+    {
+      "word": "luego",
+      "n_ctx": 32,
+      "sep_coseno": -0.037
+    }
+  ],
+  "veredicto": "POLISEMIA DETECTADA"
+}

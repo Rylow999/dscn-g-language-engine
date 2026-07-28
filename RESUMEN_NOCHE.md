@@ -60,3 +60,25 @@ uno run_*.py + results_*.json), gpt1_paper.pdf, PANDORA_Resumen.md, scripts de p
 Fase 1 completa: sustrato cognitivo (memoria/categoría/dolor) + contexto + DB
 semántica compositiva, todo probado con números. Pendiente: polisemia con
 transformer completo, abstracción como tamaño de conjunto, y v0.15+ sobre v0.14d.
+
+## REVISIÓN HONESTA (auditoría 2026-07-28)
+Los "✓" de Fase 1 eran en parte ARTEFACTOS DE DISEÑO (señal circular). Véase
+README.md (tabla CORRECCIÓN). Resumen de lo que QUEDA CONFIRMADO CON SEÑAL REAL:
+- CONTEXTO: híbrido ~4x grafo solo (v0.14d audit: base 0.0237, híbrido 0.0958).
+- CATEGORÍA: geometría omega separa SUST/VERB (v0.9b v2 0.73 > 0.50 azar).
+- DOLOR: B aprende solo con error real (v0.9c limpio 0.9927->0.933).
+- MEMORIA: hibernar reintegra ~0.98, borrar mata 0.0 (v0.3b v2, NO identidad).
+- POLISEMIA: 39/40 sentidos separados en Don Quijote SIN transformer (v0.21 v8,
+  fix oversmoothing con ANCLA+REPULSIÓN).
+- RUTEO: root DIRECTOR + proyección Hebb rutea 1.0 (v0.22 v3); duda no emerge.
+- MEMORIA TRABAJO: foco vitalidad dominado 60% (v0.24).
+- INTEGRACIÓN: bloques se componen en ciclo cerrado (v0.25, corpus mini).
+
+## GAP ABIERTO
+Composición relacional (v0.23): señal 4x azar pero ruidosa en datos reales
+(0.042, 89 relaciones). Requiere extracción limpia o relational memory.
+
+## PRÓXIMO
+v0.25 v2: integrar sobre Don Quijote real (grafo fractal v0.21 v8), fase φ real
+para von Mises, decodificador generativo, y forzar dolor para ver ventana
+contrarse (Ec.8 NOUS v4 Tecnico v4 Sec.7).

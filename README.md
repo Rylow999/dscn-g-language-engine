@@ -26,6 +26,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.17 | polisemia (idea 1) WSD no sup sobre transformer | 6/150 palabras con 2 sentidos separables (cos<0.5) | ✓ POLISEMIA GENUINA (sense nodes emergen) |
 | v0.19 v3 | dolor de consecuencia / evasion (ancla DSCN-G) | aff(A,B) 0.94 -> -0.47 tras dolor | ✓ EVASION GENUINA (el dolor aleja de lo que lastima) |
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
+| v0.21 v3 | grafo fractal + root bottom-up (sin transformer) | v1/v2 next-tok 0.024<0.034 plano; v3 0/40 sentidos | ~ GRAFO RÚSTICO NO ALCANZA; idea vale como ORQUESTADOR SOBRE transformer |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -38,15 +39,18 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 - EVASION (dolor de consecuencia, ancla DSCN-G): tras dolor A->B, aff(A,B) cae de
   +0.94 a -0.47 (A se aleja de lo que lastima) manteniendo alternativa segura (v0.19 v3).
 
-## LÍMITES DEL SUSTRATO Y LECCIÓN DE v0.18
-El grafo rústico (D=16) predice ~8% (error ~92%). El híbrido v0.14d llega a 9.6%.
-v0.18 probó transformer COMPLETO con D=32 (el doble de ancho) sobre los MISMOS
-20k tokens: dio 9.46%, PRÁCTICAMENTE IGUAL que v0.14d (9.58%) y un pelo MENOS.
-LECCIÓN: el techo NO es la arquitectura (D=16 vs D=32 da lo mismo con tan pocos
-datos). El límite es el CORPUS (20k tokens de Don Quijote es insuficiente para
-ajustar parámetros extra). Para escalar la magnitud hay que subir DATOS (millones
-de tokens, GPU real), no el ancho. Los 6 mecanismos son genuinos en DIRECCIÓN;
-su magnitud no sube sin más corpus.
+## LÍMITES DEL SUSTRATO Y LECCIONES (v0.18 / v0.21)
+El grafo rústico (D=16) predice ~8% (error ~92%). v0.18 (transformer completo D=32,
+mismos 20k tok) dio 9.46%, igual que v0.14d híbrido (9.58%): el techo NO es la
+arquitectura, es el CORPUS (20k tokens insuficientes). v0.21 intentó reemplazar al
+transformer por grafo fractal + root bottom-up SIN transformer: v1/v2 dieron ~2.4%
+next-token (peor que plano 3.4%, por promedio borroso y root no usado); v3 dio 0/40
+sentidos separados (el grafo rústico NO diverge subnodos). LECCIÓN: el grafo rústico
+aplana y no alcanza para next-token ni para separar sentidos. PERO la idea de Luciano
+(concepto = conjunto de subnodos con peso distinto + root DIRECTOR que puede dudar)
+SÍ es válida como CAPA ORQUESTADORA POR ENCIMA del transformer (que da las
+representaciones ricas, v0.17 separó 6/150 sentidos). El root fractal coordina
+dominios y habilita "no estoy seguro" emergente; no sustituye al encoder.
 
 ## NOTA SOBRE EL GRAFO RÚSTICO VS TRANSFORMER
 En v0.3b/v0.16 (grafo rústico, ~8% accuracy) no fue detectable porque el sustrato no

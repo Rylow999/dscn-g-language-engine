@@ -1,0 +1,175 @@
+{
+  "experiment": "v0.21_v8b_revision_fix_oversmoothing",
+  "hypothesis": "Repulsion CONDICIONAL (solo si hay contexto diverso) separa polisemicas SIN contaminar monosemicas; el v0.21 v8 original era artefacto.",
+  "params": {
+    "d": 16,
+    "beta": 0.1,
+    "beta_rep": 0.2,
+    "alpha": 0.1,
+    "conditional_vs_inconditional": true
+  },
+  "resultados": {
+    "INCONDICIONAL": {
+      "mono": [
+        {
+          "word": "quijote",
+          "n": 60,
+          "dom_pct": 1.0,
+          "buckets": {
+            "1": 60
+          },
+          "separada": false,
+          "n_correct": 0,
+          "acc": 0.0
+        },
+        {
+          "word": "sancho",
+          "n": 60,
+          "dom_pct": 0.967,
+          "buckets": {
+            "0": 58,
+            "1": 2
+          },
+          "separada": false,
+          "n_correct": 0,
+          "acc": 0.0
+        },
+        {
+          "word": "caballero",
+          "n": 180,
+          "dom_pct": 0.867,
+          "buckets": {
+            "0": 156,
+            "1": 24
+          },
+          "separada": false,
+          "n_correct": 0,
+          "acc": 0.0
+        }
+      ],
+      "poli": [
+        {
+          "word": "banco",
+          "n": 120,
+          "dom_pct": 0.5,
+          "buckets": {
+            "0": 60,
+            "1": 60
+          },
+          "separada": true,
+          "n_correct": 120,
+          "acc": 1.0
+        },
+        {
+          "word": "llave",
+          "n": 120,
+          "dom_pct": 0.667,
+          "buckets": {
+            "0": 80,
+            "1": 40
+          },
+          "separada": true,
+          "n_correct": 32,
+          "acc": 0.267
+        },
+        {
+          "word": "mouse",
+          "n": 120,
+          "dom_pct": 0.55,
+          "buckets": {
+            "0": 66,
+            "1": 54
+          },
+          "separada": true,
+          "n_correct": 114,
+          "acc": 0.95
+        }
+      ],
+      "n_mono_sep": 0,
+      "n_poli_sep": 3,
+      "acc_gt": 0.739,
+      "veredicto": "GENUNO"
+    },
+    "CONDICIONAL": {
+      "mono": [
+        {
+          "word": "quijote",
+          "n": 60,
+          "dom_pct": 1.0,
+          "buckets": {
+            "1": 60
+          },
+          "separada": false,
+          "n_correct": 0,
+          "acc": 0.0
+        },
+        {
+          "word": "sancho",
+          "n": 60,
+          "dom_pct": 0.967,
+          "buckets": {
+            "0": 58,
+            "1": 2
+          },
+          "separada": false,
+          "n_correct": 0,
+          "acc": 0.0
+        },
+        {
+          "word": "caballero",
+          "n": 180,
+          "dom_pct": 0.867,
+          "buckets": {
+            "0": 156,
+            "1": 24
+          },
+          "separada": false,
+          "n_correct": 0,
+          "acc": 0.0
+        }
+      ],
+      "poli": [
+        {
+          "word": "banco",
+          "n": 120,
+          "dom_pct": 0.5,
+          "buckets": {
+            "0": 60,
+            "1": 60
+          },
+          "separada": true,
+          "n_correct": 120,
+          "acc": 1.0
+        },
+        {
+          "word": "llave",
+          "n": 120,
+          "dom_pct": 0.667,
+          "buckets": {
+            "0": 80,
+            "1": 40
+          },
+          "separada": true,
+          "n_correct": 32,
+          "acc": 0.267
+        },
+        {
+          "word": "mouse",
+          "n": 120,
+          "dom_pct": 0.55,
+          "buckets": {
+            "0": 66,
+            "1": 54
+          },
+          "separada": true,
+          "n_correct": 114,
+          "acc": 0.95
+        }
+      ],
+      "n_mono_sep": 0,
+      "n_poli_sep": 3,
+      "acc_gt": 0.739,
+      "veredicto": "GENUNO"
+    }
+  }
+}

@@ -30,7 +30,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
 | v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
 | v0.23 v1 | composicion relacional Hebb 3-body (2 relaciones) | 4/12=0.333 (azar 0.5) | ~ FALLA: asociacion basica contamina R[r] (ambos pares ocurren) |
-| v0.23 v3 | Hebb 3-body DATOS REALES (Don Quijote, 89 rels) | D16=0.042 D32=0.032 (azar 0.011) | ~ SENAL DEBIL: supera azar 4x pero extraccion ruidosa + 89 rels => gap abierto |
+| v0.24 | memoria trabajo VITALIDAD competitiva (foco + next-token) | foco=0.601; next con=0.038 sin=0.095 | ~ FOCO real (60% dominancia) pero vitalidad NO ayuda next-token (sesga a reciente) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -98,6 +98,58 @@ tal que R[r]*emb[s] ~ emb[o]. Dos intentos:
   Se deja DOCUMENTADO como gap abierto y se pasa a MEMORIA DE TRABAJO (v0.24).
 
 ## v0.24 MEMORIA DE TRABAJO CON VITALIDAD (Gap 3 hacia pseudoAGI)
+Memoria de trabajo = SLOTS competitivos. Cada nodo tiene vitalidad V (cuanto
+activo/reciente). Al procesar seq: nodo actual recibe disparo V+=1; los demas
+decaen V*=0.85. Foco = nodo de mayor V (atencion Hebbiana, sin backprop).
+Resultados (Don Quijote 20k tok, vocab 150):
+- TEST1 foco dominado por disparado: 12029/19999 = 0.601 -> el nodo recien
+  disparado DOMINA el foco 60% de las veces. SENAL REAL de memoria de trabajo
+  (atencion competitiva) emerge. El 40% restante: palabras muy frecuentes ya
+  "calientes" compiten.
+- TEST2 next-token: CON vitalidad=0.038, SIN vitalidad=0.095 (azar 0.007).
+  La vitalidad RESIDUAL EMPEORA next-token (sesga a lo reciente = ruido de foco).
+  El next-token puro por co-ocurrencia ya funciona bien (0.095 = 13x azar).
+CONCLUSION HONESTA: Gap 3 PARCIAL. La vitalidad competitiva SÍ crea foco de
+memoria de trabajo real (60% dominancia) —genuino, coherente con el ancla DSCN-G
+(V homeostatica). PERO su beneficio NO es next-token: la vitalidad es mecanismo de
+RETENCION/ATENCION para decisiones, no predictor de palabra. El test de next-token
+no es donde brilla. Nota: use decaimiento LINEAL (*0.85); NOUS Tecnico v4 Ec.5 usa
+decaimiento EXPONENCIAL V*=e^-gamma + A(1-e^-gamma) con poda (V<0.10 muere). v0.25
+debe usar la formula correcta y conectar V con DOLOR (Ec.6) y VENTANA (Ec.8).
+
+## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
+CONFIRMADO (senal del dato, experimentos reales):
+  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40 real)
+  [ruteo sentido]  root DIRECTOR + proyeccion Hebb          -> v0.22 v3 (1.0)
+  [memoria]        hibernar reintegra / borrar mata          -> v0.3b v2 (~0.98/0.0)
+  [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia)
+  [ajuste]         dolor por dato + aprendizaje por dolor    -> v0.19 limpio / v0.9c
+DEBIL / GAP ABIERTO:
+  [composicion]    Hebb 3-body: 0.042 real (azar 0.011)      -> v0.23 v3 (senal 4x pero ruido)
+NO INTEGRADO (el verdadero muro):
+  [loop cerrado]   los bloques arriba NO se componen en un ciclo
+  [decodificador]  generar lenguaje desde sentido ruteado
+  [decision]       accion sobre el foco + dolor dirige update
+  [meta/autoobs]   duda de DECISION que dispara busqueda
+
+## PLAN v0.25 — HARNESS DE INTEGRACION (ciclo de 12 pasos, NOUS Tecnico v4 Sec.7)
+En vez de medir bloques aislados, construir UN engine que corre el ciclo cerrado
+sobre una tarea que exija COMPOSICION de bloques:
+  PASO 1  percepcion -> embedding (grafo fractal D=16 como subespacio)
+  PASO 2  activacion de nodos (K cadenas por afinidad, Ec.2)
+  PASO 3  update omega (TD sobre nodos visitados, Ec.1 — SIN hardcodear dir)
+  PASO 5  vitalidad V (decaimiento EXPONENCIAL Ec.5, con poda V<0.10)
+  PASO 6  valencia/dolor E = max(0, A - V)*kappa (Ec.6)  [conecta v0.24 con v0.19]
+  PASO 7  ventana W(t) dinamica = W_base/(1+kappa_W*E_root) (Ec.8) [atencion adaptativa]
+  PASO 11 seleccion de accion (von Mises sobre fase root, Ec.4) -> decodificador
+Tarea de prueba: frase con palabra polisemica ambigua + contexto mixto. El loop debe
+(a) resolver el sentido (root DIRECTOR), (b) mantenerlo en foco (vitalidad), (c)
+generar continuacion coherente con el sentido (decodificador), (d) si es incoherente,
+el dolor (valencia) CONTRAE la ventana y el update se ajusta. Metrica: continuacion
+respeta el sentido resuelto (no el otro) y la ventana se contrae ante incoherencia.
+Esto separa de una vez si los bloques se componen o solo viven aislados.
+
+## v0.22 ROOT DIRECTOR (Gap 1 hacia pseudoAGI)
 - v0.19 ORIGINAL (v3): A=A-alpha*B/|B|+alpha*C/|C| x2000 GARANTIZABA alejamiento de B.
   CIRCULAR. v0.19 LIMPIO: dolor = error de next-token real; evasion dirigida por dato
   (se aleja del mal-predicho, se acerca al correcto). Resultado REAL: err 19291->18761

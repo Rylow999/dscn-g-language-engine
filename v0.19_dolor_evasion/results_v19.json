@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.19_v3_dolor_consecuencia_evasion",
+  "hypothesis": "Dolor A->B: el sistema acerca A a C (seguro) y aleja de B (doloroso). aff(A,C) sube, aff(A,B) baja -> evasion geometrica real.",
+  "params": {
+    "d": 8,
+    "steps": 2000,
+    "alpha": 0.1
+  },
+  "aff_A_B_basal": 0.9416,
+  "aff_A_C_basal": 0.4781,
+  "aff_A_B_evadido": -0.4706,
+  "aff_A_C_evadido": 0.4876,
+  "evasion_real": false
+}

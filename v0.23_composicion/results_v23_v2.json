@@ -1,0 +1,351 @@
+{
+  "experiment": "v0.23_v2_composicion_relacional",
+  "hypothesis": "Sin asociacion basica contaminante + corpus variado + mas steps, R[r] aprende relaciones (4 tipos). Debe superar azar (0.25 con 4 relaciones).",
+  "params": {
+    "epochs": 20,
+    "rels": [
+      "TIENE",
+      "LUGAR",
+      "CAUSA",
+      "PARTE_DE"
+    ]
+  },
+  "D16": {
+    "D": 16,
+    "acc": 0.312,
+    "n": 32,
+    "baseline_azar": 0.25,
+    "supera_azar": true,
+    "detalle": {
+      "banco-dinero": {
+        "pred": "TIENE",
+        "score": 0.097,
+        "gt": "TIENE"
+      },
+      "banco-cuenta": {
+        "pred": "CAUSA",
+        "score": 0.139,
+        "gt": "TIENE"
+      },
+      "banco-ciudad": {
+        "pred": "LUGAR",
+        "score": 0.531,
+        "gt": "LUGAR"
+      },
+      "banco-plaza": {
+        "pred": "LUGAR",
+        "score": 0.198,
+        "gt": "LUGAR"
+      },
+      "casa-puerta": {
+        "pred": "PARTE_DE",
+        "score": 0.444,
+        "gt": "TIENE"
+      },
+      "casa-techo": {
+        "pred": "TIENE",
+        "score": 0.293,
+        "gt": "TIENE"
+      },
+      "casa-barrio": {
+        "pred": "TIENE",
+        "score": 0.367,
+        "gt": "LUGAR"
+      },
+      "casa-vereda": {
+        "pred": "PARTE_DE",
+        "score": 0.34,
+        "gt": "LUGAR"
+      },
+      "arbol-hoja": {
+        "pred": "CAUSA",
+        "score": 0.402,
+        "gt": "TIENE"
+      },
+      "arbol-fruto": {
+        "pred": "CAUSA",
+        "score": -0.039,
+        "gt": "TIENE"
+      },
+      "arbol-bosque": {
+        "pred": "CAUSA",
+        "score": 0.081,
+        "gt": "LUGAR"
+      },
+      "arbol-suelo": {
+        "pred": "CAUSA",
+        "score": 0.282,
+        "gt": "LUGAR"
+      },
+      "fuego-llama": {
+        "pred": "PARTE_DE",
+        "score": 0.274,
+        "gt": "TIENE"
+      },
+      "fuego-ceniza": {
+        "pred": "LUGAR",
+        "score": 0.003,
+        "gt": "TIENE"
+      },
+      "fuego-le\u00f1a": {
+        "pred": "LUGAR",
+        "score": 0.311,
+        "gt": "CAUSA"
+      },
+      "fuego-chispa": {
+        "pred": "TIENE",
+        "score": 0.138,
+        "gt": "CAUSA"
+      },
+      "lluvia-gota": {
+        "pred": "CAUSA",
+        "score": 0.03,
+        "gt": "TIENE"
+      },
+      "lluvia-charco": {
+        "pred": "TIENE",
+        "score": 0.04,
+        "gt": "TIENE"
+      },
+      "lluvia-nube": {
+        "pred": "TIENE",
+        "score": -0.018,
+        "gt": "CAUSA"
+      },
+      "lluvia-tormenta": {
+        "pred": "PARTE_DE",
+        "score": 0.049,
+        "gt": "CAUSA"
+      },
+      "reloj-manecilla": {
+        "pred": "PARTE_DE",
+        "score": 0.226,
+        "gt": "TIENE"
+      },
+      "reloj-engranaje": {
+        "pred": "TIENE",
+        "score": 0.19,
+        "gt": "TIENE"
+      },
+      "reloj-mu\u00f1eca": {
+        "pred": "TIENE",
+        "score": 0.321,
+        "gt": "PARTE_DE"
+      },
+      "reloj-pared": {
+        "pred": "PARTE_DE",
+        "score": -0.073,
+        "gt": "PARTE_DE"
+      },
+      "libro-pagina": {
+        "pred": "LUGAR",
+        "score": 0.277,
+        "gt": "TIENE"
+      },
+      "libro-tapa": {
+        "pred": "CAUSA",
+        "score": 0.174,
+        "gt": "TIENE"
+      },
+      "libro-estante": {
+        "pred": "TIENE",
+        "score": 0.05,
+        "gt": "PARTE_DE"
+      },
+      "libro-mochila": {
+        "pred": "LUGAR",
+        "score": 0.326,
+        "gt": "PARTE_DE"
+      },
+      "coche-rueda": {
+        "pred": "TIENE",
+        "score": 0.359,
+        "gt": "TIENE"
+      },
+      "coche-motor": {
+        "pred": "TIENE",
+        "score": 0.317,
+        "gt": "TIENE"
+      },
+      "coche-garaje": {
+        "pred": "PARTE_DE",
+        "score": 0.139,
+        "gt": "PARTE_DE"
+      },
+      "coche-calle": {
+        "pred": "CAUSA",
+        "score": 0.256,
+        "gt": "PARTE_DE"
+      }
+    }
+  },
+  "D32": {
+    "D": 32,
+    "acc": 0.312,
+    "n": 32,
+    "baseline_azar": 0.25,
+    "supera_azar": true,
+    "detalle": {
+      "banco-dinero": {
+        "pred": "CAUSA",
+        "score": 0.178,
+        "gt": "TIENE"
+      },
+      "banco-cuenta": {
+        "pred": "TIENE",
+        "score": 0.258,
+        "gt": "TIENE"
+      },
+      "banco-ciudad": {
+        "pred": "PARTE_DE",
+        "score": 0.291,
+        "gt": "LUGAR"
+      },
+      "banco-plaza": {
+        "pred": "TIENE",
+        "score": 0.136,
+        "gt": "LUGAR"
+      },
+      "casa-puerta": {
+        "pred": "PARTE_DE",
+        "score": 0.065,
+        "gt": "TIENE"
+      },
+      "casa-techo": {
+        "pred": "TIENE",
+        "score": 0.016,
+        "gt": "TIENE"
+      },
+      "casa-barrio": {
+        "pred": "PARTE_DE",
+        "score": 0.035,
+        "gt": "LUGAR"
+      },
+      "casa-vereda": {
+        "pred": "PARTE_DE",
+        "score": 0.147,
+        "gt": "LUGAR"
+      },
+      "arbol-hoja": {
+        "pred": "PARTE_DE",
+        "score": 0.365,
+        "gt": "TIENE"
+      },
+      "arbol-fruto": {
+        "pred": "TIENE",
+        "score": 0.066,
+        "gt": "TIENE"
+      },
+      "arbol-bosque": {
+        "pred": "TIENE",
+        "score": 0.457,
+        "gt": "LUGAR"
+      },
+      "arbol-suelo": {
+        "pred": "PARTE_DE",
+        "score": 0.008,
+        "gt": "LUGAR"
+      },
+      "fuego-llama": {
+        "pred": "TIENE",
+        "score": 0.187,
+        "gt": "TIENE"
+      },
+      "fuego-ceniza": {
+        "pred": "LUGAR",
+        "score": 0.221,
+        "gt": "TIENE"
+      },
+      "fuego-le\u00f1a": {
+        "pred": "CAUSA",
+        "score": 0.285,
+        "gt": "CAUSA"
+      },
+      "fuego-chispa": {
+        "pred": "TIENE",
+        "score": 0.091,
+        "gt": "CAUSA"
+      },
+      "lluvia-gota": {
+        "pred": "LUGAR",
+        "score": 0.007,
+        "gt": "TIENE"
+      },
+      "lluvia-charco": {
+        "pred": "CAUSA",
+        "score": 0.276,
+        "gt": "TIENE"
+      },
+      "lluvia-nube": {
+        "pred": "CAUSA",
+        "score": 0.191,
+        "gt": "CAUSA"
+      },
+      "lluvia-tormenta": {
+        "pred": "TIENE",
+        "score": 0.178,
+        "gt": "CAUSA"
+      },
+      "reloj-manecilla": {
+        "pred": "PARTE_DE",
+        "score": 0.156,
+        "gt": "TIENE"
+      },
+      "reloj-engranaje": {
+        "pred": "LUGAR",
+        "score": 0.51,
+        "gt": "TIENE"
+      },
+      "reloj-mu\u00f1eca": {
+        "pred": "TIENE",
+        "score": 0.155,
+        "gt": "PARTE_DE"
+      },
+      "reloj-pared": {
+        "pred": "TIENE",
+        "score": 0.201,
+        "gt": "PARTE_DE"
+      },
+      "libro-pagina": {
+        "pred": "TIENE",
+        "score": 0.178,
+        "gt": "TIENE"
+      },
+      "libro-tapa": {
+        "pred": "TIENE",
+        "score": 0.109,
+        "gt": "TIENE"
+      },
+      "libro-estante": {
+        "pred": "TIENE",
+        "score": 0.0,
+        "gt": "PARTE_DE"
+      },
+      "libro-mochila": {
+        "pred": "PARTE_DE",
+        "score": 0.277,
+        "gt": "PARTE_DE"
+      },
+      "coche-rueda": {
+        "pred": "CAUSA",
+        "score": 0.246,
+        "gt": "TIENE"
+      },
+      "coche-motor": {
+        "pred": "CAUSA",
+        "score": 0.022,
+        "gt": "TIENE"
+      },
+      "coche-garaje": {
+        "pred": "TIENE",
+        "score": 0.336,
+        "gt": "PARTE_DE"
+      },
+      "coche-calle": {
+        "pred": "PARTE_DE",
+        "score": -0.162,
+        "gt": "PARTE_DE"
+      }
+    }
+  }
+}

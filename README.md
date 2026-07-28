@@ -30,7 +30,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
 | v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
 | v0.23 v1 | composicion relacional Hebb 3-body (2 relaciones) | 4/12=0.333 (azar 0.5) | ~ FALLA: asociacion basica contamina R[r] (ambos pares ocurren) |
-| v0.23 v2 | Hebb 3-body SIN contaminacion + 4 relaciones + D16/32 | D16=0.312 D32=0.312 (azar 0.25) | ~ SENAL DEBIL: supera azar pero limitado por mecanismo (no por ancho) |
+| v0.23 v3 | Hebb 3-body DATOS REALES (Don Quijote, 89 rels) | D16=0.042 D32=0.032 (azar 0.011) | ~ SENAL DEBIL: supera azar 4x pero extraccion ruidosa + 89 rels => gap abierto |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -85,9 +85,19 @@ tal que R[r]*emb[s] ~ emb[o]. Dos intentos:
   honesta: la composicion relacional es ALCANZABLE (hay senal real sobre azar) pero
   el Hebb 3-body naive es insuficiente para solidez (>0.7). GAP ABIERTO: requiere
   mas datos reales (no sinteticos) o mecanismo de relacion mas fuerte
-  (tensor/relational memory). Por ahora: senal debil confirmada, no cerrado.
+- v0.23 v3: DATOS REALES (Don Quijote 20k tok, vocab 150). Tríplas extraídas de
+  patrones sintácticos reales ("X de Y"->DE, "X en Y"->EN, "X y Y"->CON, "X a Y"->A,
+  suj-verb-obj->V_verb) -> 89 relaciones. D16=0.042 D32=0.032 (azar 0.011) ->
+  SUPERA azar (~4x) pero accuracy ABSOLUTA bajísima. D32<D16: ancho NO ayuda.
+  Causa: extracción por patrones es RUIDOSA (suj/obj son artículos/pronombres como
+  "los","de","y"); 89 relaciones dispersas es demasiado para Hebb 3-body.
+  CONCLUSIÓN HONESTA: Gap 2 NO se cierra con este enfoque. Hay señal (supera azar)
+  pero insuficiente para solidez. GAP ABIERTO: requiere (a) extracción limpia
+  (solo sustantivos como suj/obj, relaciones agrupadas), o (b) mecanismo de relación
+  más fuerte (tensor/relational memory), o (c) menos relaciones + más ejemplos.
+  Se deja DOCUMENTADO como gap abierto y se pasa a MEMORIA DE TRABAJO (v0.24).
 
-## CORRECCIONES DE AUDITORIA (errores circulares -> senal real del dato)
+## v0.24 MEMORIA DE TRABAJO CON VITALIDAD (Gap 3 hacia pseudoAGI)
 - v0.19 ORIGINAL (v3): A=A-alpha*B/|B|+alpha*C/|C| x2000 GARANTIZABA alejamiento de B.
   CIRCULAR. v0.19 LIMPIO: dolor = error de next-token real; evasion dirigida por dato
   (se aleja del mal-predicho, se acerca al correcto). Resultado REAL: err 19291->18761

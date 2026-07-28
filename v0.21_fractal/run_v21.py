@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""v0.21 v4 — GRAFO FRACTAL con RUTEO COMPETITIVO (VQ winner-take-all, sin backprop).
-Bug de v0.21 v1/v2/v3: el subnodo se elegia por posicion (ka=i%K) -> round-robin
-ciego, sin competencia. Cada subnodo recibia mezcla aleatoria de todos los contextos
--> no divergian -> 0/40 sentidos. Correccion (propuesta de Luciano, VQ-VAE / Kohonen):
-  - contexto local = promedio de los omega vecinos (ventana chica, sin Q/K/V)
-  - ruteo: k* = argmax_k cos(subnodo_k, contexto)  (COMPETENCIA, no i%K)
-  - update: solo subnodo[k*] se mueve hacia el target (Hebbiano); los otros quietos
+"""v0.21 v5 — GRAFO FRACTAL + COMPETENCIA SUAVE (temperatura, no WTA duro).
+Hipotesis de Luciano: v0.21 v4 colapso al ganador por COLD-START WTA (el primer
+subnodo que gana se lleva todo por feedback positivo; el otro queda en 0 y el
+dead-code lo reinicia en la misma region -> re-pierde). Fix: COMPETENCIA SUAVE con
+temperatura (softmax de las similitudes, tipo GMM-EM / annealing VQ). Desde el
+paso 0 es suave: AMBOS subnodos se mueven, pesados por afinidad w_k. Eso evita el
+lock-in inicial y deja especializar antes de que la temperatura baje.
+  - contexto local = promedio de omega vecinos (ventana chica, sin Q/K/V)
+  - ruteo SUAVE: w_k = softmax( cos(subnodo_k, contexto) / T )   (T alta=suave)
+  - update: todos los subnodos se mueven, pesados por w_k (Hebbiano suave)
+  - T ana dentro del entrenamiento (lineal T_init -> T_min): arranca suave, afila
   - dead-code: si un subnodo no gana en N pasos, reinicializarlo cerca del contexto
-    que mas lo "casi-gano" (VQ-VAE dead-code reactivation)
+    que mas lo "casi-gano"
 O(K*D) por nodo, solo productos punto. Sin gradientes, sin GPU.
-Test honesto: dada una palabra polisemica y su contexto, ¿el subnodo activado es
-CONSISTENTE para contextos del mismo sentido? (contextos distintos -> subnodos
-distintos = polisemia por construccion).
+Test honesto (3 semillas, promediado): contextos distintos -> subnodos distintos?
 """
 import json, math, random, re, time
 from collections import Counter
-D=16; V=150; W=4; SEED=0; CORPUS_N=20000; EPOCHS=2; K=2; BETA=0.10; N_DEAD=50
+D=16; V=150; W=4; EPOCHS=2; K=2; BETA=0.10; N_DEAD=50
+T_INIT=0.6; T_MIN=0.05
+SEEDS=[0,1,2]
 def tok(t): return re.findall(r"[a-záéíóúñü]+", t.lower())
 def build_vocab(words,V):
     return [w for w,_ in Counter(words).most_common(V)]
@@ -28,61 +32,60 @@ def load_seq():
     text=open("/data/user/0/com.hermesagent.android/files/home/donquijote.txt",encoding="utf-8",errors="ignore").read()
     words=tok(text)
     vocab=build_vocab(words,V)
-    rng=random.Random(SEED)
-    idxall=[i for i,w in enumerate(words) if w in set(vocab)]
-    step=max(1,len(idxall)//CORPUS_N)
-    chosen=idxall[::step][:CORPUS_N]
-    seq=[words[i] for i in chosen]
-    return seq, vocab
-def main():
-    print("=== v0.21 v4 GRAFO FRACTAL + RUTEO COMPETITIVO (VQ winner-take-all) ===")
-    seq,vocab=load_seq()
+    out={}
+    for SEED in SEEDS:
+        rng=random.Random(SEED)
+        idxall=[i for i,w in enumerate(words) if w in set(vocab)]
+        step=max(1,len(idxall)//20000)
+        chosen=idxall[::step][:20000]
+        seq=[words[i] for i in chosen]
+        out[SEED]=(seq,vocab)
+    return out
+def train_one(seq,vocab,seed):
     Vn=len(vocab); idx={w:i for i,w in enumerate(vocab)}
-    rng=random.Random(SEED)
-    # cada palabra = K subnodos, cada uno su omega
+    rng=random.Random(seed)
     frac=[[[rng.gauss(0,1) for _ in range(D)] for _ in range(K)] for _ in range(Vn)]
-    # dead-code tracking: (last_win_step, best_lost_cos, best_lost_ctx)
     dead=[[[0,-1e9,None] for _ in range(K)] for _ in range(Vn)]
-    t0=time.time()
+    total_steps=EPOCHS*(len(seq)-1); si=0
     for ep in range(EPOCHS):
         for i in range(1,len(seq)):
             a=idx[seq[i-1]]; b=idx[seq[i]]
-            # contexto local = promedio de omega vecinos (ventana chica, sin Q/K/V)
             ctx_words=list(range(max(0,i-W),i))
             if ctx_words:
                 ctx=[0.0]*D
                 for c in ctx_words:
-                    o=frac[idx[seq[c]]][0]  # usamos subnodo 0 del vecino como su repr
+                    o=frac[idx[seq[c]]][0]
                     for d in range(D): ctx[d]+=o[d]
-                ctx=[c/len(ctx_words) for c in ctx]
+                ctx=[x/len(ctx_words) for x in ctx]
             else:
                 ctx=[0.0]*D
-            # ruteo COMPETITIVO: k* = argmax cos(subnodo_k, contexto)
-            bestk,bestc=-1,-1e9
-            for k in range(K):
-                c=cos(frac[a][k], ctx)
-                if c>bestc: bestc=c; bestk=k
-            # update: solo subnodo[k*] hacia target (Hebbiano)
+            # COMPETENCIA SUAVE: softmax de similitudes / T
+            T=T_MIN+(T_INIT-T_MIN)*(1.0 - si/total_steps)
+            sims=[cos(frac[a][k],ctx) for k in range(K)]
+            mx=max(sims); ex=[math.exp((s-mx)/max(T,1e-6)) for s in sims]
+            Z=sum(ex); w=[e/Z for e in ex]
             tb=frac[b][0]
-            frac[a][bestk]=[(1-BETA)*frac[a][bestk][d]+BETA*tb[d] for d in range(D)]
-            # dead-code bookkeeping
             for k in range(K):
-                if k==bestk:
+                frac[a][k]=[(1-BETA*w[k])*frac[a][k][d]+BETA*w[k]*tb[d] for d in range(D)]
+            # dead-code tracking (ganador = argmax w)
+            wk=max(range(K), key=lambda k:w[k])
+            for k in range(K):
+                if k==wk:
                     dead[a][k][0]=i
                 else:
-                    c=cos(frac[a][k], ctx)
+                    c=cos(frac[a][k],ctx)
                     if c>dead[a][k][1]:
                         dead[a][k][1]=c; dead[a][k][2]=list(ctx)
-            # dead-code reactivation
             for k in range(K):
                 if i-dead[a][k][0] > N_DEAD and dead[a][k][2] is not None:
                     frac[a][k]=[dead[a][k][2][d]+0.05*rng.gauss(0,1) for d in range(D)]
                     dead[a][k][0]=i; dead[a][k][1]=-1e9; dead[a][k][2]=None
-    print(f"train {time.time()-t0:.0f}s")
-    # --- TEST DESAMBIGUACION (contextos distintos -> subnodos distintos) ---
+            si+=1
+    return frac, idx
+def test_desambig(seq,vocab,frac,idx):
     cnt=Counter(seq)
     cand=[w for w in vocab if cnt[w]>=20]
-    ok_frac=0; tot=0
+    ok=0; tot=0
     for w in cand[:40]:
         occ=[i for i,x in enumerate(seq) if x==w]
         grupos={}
@@ -93,26 +96,35 @@ def main():
             for c in ctx_words:
                 o=frac[idx[seq[c]]][0]
                 for d in range(D): ctx[d]+=o[d]
-            ctx=[c/len(ctx_words) for c in ctx]
+            ctx=[x/len(ctx_words) for x in ctx]
             bestk,bestc=-1,-1e9
             for k in range(K):
-                c=cos(frac[idx[w]][k], ctx)
+                c=cos(frac[idx[w]][k],ctx)
                 if c>bestc: bestc=c; bestk=k
             grupos.setdefault(bestk,0); grupos[bestk]+=1
         if len(grupos)>=2 and max(grupos.values())<len(occ)*0.85:
-            ok_frac+=1
+            ok+=1
         tot+=1
-    # tambien medimos cuantos subnodos "vivos" (no colapsados a 1 solo) hay en total
-    vivos=0
-    for wi in range(Vn):
-        # un subnodo cuenta como "vivo" si se activo al menos una vez en el test de arriba
-        pass
-    out=dict(experiment="v0.21_v4_fractal_ruteo_competitivo_VQ",
-             hypothesis="Ruteo competitivo (VQ winner-take-all) hace que los subnodos de una palabra divergence: contextos distintos activan subnodos distintos (polisemia por construccion).",
-             params=dict(d=D,V=V,window=W,epochs=EPOCHS,k=K,beta=BETA,n_dead=N_DEAD,corpus_n=CORPUS_N),
-             palabras_evaluadas=tot, palabras_con_2_sentidos=ok_frac,
-             veredicto=("POLISEMIA POR CONSTRUCCION (VQ)" if ok_frac>0 else "aun no separa"))
+    return ok, tot
+def main():
+    print("=== v0.21 v5 GRAFO FRACTAL + COMPETENCIA SUAVE (temperatura) ===")
+    data=load_seq()
+    results=[]
+    for SEED in SEEDS:
+        seq,vocab=data[SEED]
+        frac,idx=train_one(seq,vocab,SEED)
+        ok,tot=test_desambig(seq,vocab,frac,idx)
+        results.append((ok,tot))
+        print(f"  seed {SEED}: {ok}/{tot} sentidos separados")
+    ok_tot=sum(r[0] for r in results); tot_tot=sum(r[1] for r in results)
+    mean_ok=ok_tot/len(results)
+    out=dict(experiment="v0.21_v5_fractal_competencia_suave_temperatura",
+             hypothesis="Competencia suave (softmax/temperatura) evita cold-start WTA: ambos subnodos se mueven pesados por afinidad -> divergen sin colapsar. Polisemia por construccion en grafo rústico.",
+             params=dict(d=D,V=V,window=W,epochs=EPOCHS,k=K,beta=BETA,n_dead=N_DEAD,t_init=T_INIT,t_min=T_MIN,seeds=SEEDS),
+             por_semilla=[{"ok":r[0],"tot":r[1]} for r in results],
+             palabras_con_2_sentidos_promedio=mean_ok,
+             veredicto=("POLISEMIA POR CONSTRUCCION (suave)" if mean_ok>0 else "aun no separa"))
     json.dump(out,open("results_v21.json","w"),indent=2)
-    print(f"palabras con 2 sentidos separados: {ok_frac}/{tot}")
+    print(f"PROMEDIO: {mean_ok:.1f}/{tot_tot} sentidos separados")
     print("\n-> results_v21.json")
 if __name__=="__main__": main()

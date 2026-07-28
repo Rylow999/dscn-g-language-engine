@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.21_v3_desambiguation_fractal",
+  "hypothesis": "El grafo fractal separa sentidos por construccion: contextos distintos activan subnodos distintos de la misma palabra (polisemia real, no inferencia).",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "epochs": 2,
+    "k": 2,
+    "beta": 0.1,
+    "corpus_n": 20000
+  },
+  "palabras_evaluadas": 40,
+  "palabras_con_2_sentidos": 0,
+  "veredicto": "no detectada"
+}

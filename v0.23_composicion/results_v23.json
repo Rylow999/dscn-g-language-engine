@@ -1,0 +1,77 @@
+{
+  "experiment": "v0.23_composicion_relacional",
+  "hypothesis": "Hebb 3-body aprende relaciones (TIENE/LUGAR) como matrices R[r]: tras entrenar, predecir la relacion correcta entre sujeto y objeto debe superar el azar (0.5).",
+  "params": {
+    "d": 16,
+    "window": 4,
+    "epochs": 8
+  },
+  "test_relacional": {
+    "acc": 0.333,
+    "n": 12,
+    "baseline_azar": 0.5
+  },
+  "supera_azar": false,
+  "detalle": {
+    "banco-dinero": {
+      "pred": "TIENE",
+      "score": -0.239,
+      "gt": "TIENE"
+    },
+    "banco-cuenta": {
+      "pred": "LUGAR",
+      "score": 0.247,
+      "gt": "TIENE"
+    },
+    "banco-rio": {
+      "pred": "TIENE",
+      "score": -0.217,
+      "gt": "LUGAR"
+    },
+    "banco-plaza": {
+      "pred": "LUGAR",
+      "score": 0.339,
+      "gt": "LUGAR"
+    },
+    "casa-puerta": {
+      "pred": "LUGAR",
+      "score": 0.241,
+      "gt": "TIENE"
+    },
+    "casa-techo": {
+      "pred": "TIENE",
+      "score": 0.148,
+      "gt": "TIENE"
+    },
+    "casa-calle": {
+      "pred": "TIENE",
+      "score": 0.083,
+      "gt": "LUGAR"
+    },
+    "casa-barrio": {
+      "pred": "LUGAR",
+      "score": -0.25,
+      "gt": "LUGAR"
+    },
+    "arbol-hoja": {
+      "pred": "LUGAR",
+      "score": 0.008,
+      "gt": "TIENE"
+    },
+    "arbol-fruto": {
+      "pred": "LUGAR",
+      "score": -0.279,
+      "gt": "TIENE"
+    },
+    "arbol-bosque": {
+      "pred": "TIENE",
+      "score": 0.086,
+      "gt": "LUGAR"
+    },
+    "arbol-suelo": {
+      "pred": "TIENE",
+      "score": -0.286,
+      "gt": "LUGAR"
+    }
+  }
+}

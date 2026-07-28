@@ -1,0 +1,263 @@
+{
+  "experiment": "v0.21_v8_anchor_restart_repulsion_sibling",
+  "hypothesis": "Anchor (alpha*omega0) + repulsion sibling (beta_rep) rompen el oversmoothing de la difusion: la separacion de sentidos se MANTIENE estable, no transitoria.",
+  "params": {
+    "d": 16,
+    "window": 4,
+    "epochs": 15,
+    "k": 2,
+    "beta": 0.1,
+    "beta_rep": 0.2,
+    "alphas": [
+      0.05,
+      0.1,
+      0.2
+    ]
+  },
+  "por_alpha": {
+    "0.05": {
+      "curva": [
+        {
+          "epoca": 1,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 2,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 3,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 4,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 5,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 6,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 7,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 8,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 9,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 10,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 11,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 12,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 13,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 14,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 15,
+          "separadas": 3,
+          "total": 3
+        }
+      ],
+      "ultima": 3,
+      "estable": true
+    },
+    "0.1": {
+      "curva": [
+        {
+          "epoca": 1,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 2,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 3,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 4,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 5,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 6,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 7,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 8,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 9,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 10,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 11,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 12,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 13,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 14,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 15,
+          "separadas": 3,
+          "total": 3
+        }
+      ],
+      "ultima": 3,
+      "estable": true
+    },
+    "0.2": {
+      "curva": [
+        {
+          "epoca": 1,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 2,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 3,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 4,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 5,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 6,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 7,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 8,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 9,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 10,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 11,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 12,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 13,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 14,
+          "separadas": 3,
+          "total": 3
+        },
+        {
+          "epoca": 15,
+          "separadas": 3,
+          "total": 3
+        }
+      ],
+      "ultima": 3,
+      "estable": true
+    }
+  },
+  "veredicto": "SEPARACION ESTABLE (sin transformer)"
+}

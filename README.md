@@ -28,7 +28,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
-| v0.21 v8 | grafo fractal ANCLA+REPULSION (fix oversmoothing) | sintetico 3/3; Don Quijote 39/40 ep1-8 | ✓ POLISEMIA SOSTENIDA sin transformer (regla, no sustrato) |
+| v0.21 v8 | grafo fractal ANCLA+REPULSION (fix oversmoothing) | MEDICION CIRCULAR (no ground truth + criterio fragil en corpus real) PERO mecanismo tiene senal PARCIAL: v0.21 v8b (instr correcto, sintetico+gt) da mono_sep=0/3, poli_sep=3/3, acc_gt=0.74 (banco 1.0, mouse 0.95, llave 0.27 falla). En Quijote real el criterio cuenta 4/5 monosemicas de ctx variable como 'separadas' (falso positivo) | ~ CIRCULAR el instrumento original; el fix separa sintetico controlado pero es PARCIAL y el criterio real era inadecuado |
 | v0.22 v3 | root + PROYECCION Hebb (sin backprop) | FASE A routing 1.0; FASE B duda 0.0 | ~ ROOT RUTEA PERFECTO; proyeccion mata duda (trade-off) |
 | v0.22 v5 | root + contextos MIXTOS + proy SUAVE + MARGIN | duda A/B/MIX = 0.0 | ~ DUDA no emerge: grafo separa sentidos tan bien que siempre hay claro ganador |
 | v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
@@ -70,6 +70,12 @@ DOUBT (2+ subgrafos sin dominante). Tres intentos:
 - v0.22 v5: contextos MIXTOS (ambos sentidos, ej 'banco del rio sacar dinero') +
   proyeccion SUAVE (1 epoch, LR 0.005) + MARGIN adaptativo. duda A/B/MIX = 0.0.
   CONCLUSION HONESTA: el grafo fractal (v0.21 v8, anchor+repulsion) separa los
+  sentidos TAN bien que siempre hay claro ganador (routing 1.0). ESO SOSTENIA la
+  base de v0.22/v0.25. PERO (auditoria 2026-07-28) v0.21 v8 es CIRCULAR: la
+  repulsion INCONDICIONAL garantiza la separacion por construccion (4/5 monosemicas
+  tambien dan 'separadas'). Por lo tanto v0.22/v0.25 miden sobre un sustrato cuyo
+  'sentido separado' es ruido con forma de senal. Sus veredictos estan EN ESPERA
+  hasta re-medir con v0.21 v8b (instrumento correcto). Ver resultados_v21_v8b.json.
   sentidos TAN limpio que SIEMPRE hay un claro ganador, incluso en contexto mixto.
   La duda de SENTIDO no emerge porque el sistema SIEMPRE sabe que sentido es ->
   eso es un EXITO del fractal, no un fallo del root. La "duda" real (decision/
@@ -77,6 +83,31 @@ DOUBT (2+ subgrafos sin dominante). Tres intentos:
   CERRADO v0.22: root DIRECTOR rutea perfecto (v3: 1.0); duda de sentido es
   trivialmente resoluble por el grafo -> no es el lugar donde la duda importa.
   GAP siguiente: composicion relacional (v0.23) y duda de DECISION (dolor v0.19/v0.9c).
+
+## v0.21 v8b — AUDITORIA DEL FIX OVERSMOOTHING (2026-07-28)
+Luciano detecto que v0.21 v8 era CIRCULAR: repulsion INCONDICIONAL (se aplica a
+toda palabra en cada paso, sin testear polisemia) + criterio "2 buckets <85%"
+SIN contrastar contra ground truth. Control empirico (run_v21_v8_control.py) en
+Quijote real: 4/5 MONOSEMICAS (quijote, sancho, caballero, dijo) daban
+'separadas' -> el 39/40 era ruido con forma de senal.
+
+v0.21 v8b RE-MIDE con instrumento correcto: corpus sintetico CON ground truth
+(sentido A/B por palabra) + MONOSEMICAS de control (contexto fijo) + repulsion
+CONDICIONAL (solo si hay contexto diverso). Resultados:
+- INCONDICIONAL: mono_sep=0/3, poli_sep=3/3, acc_gt=0.74 (banco 1.0, mouse 0.95,
+  llave 0.27 FALLA). Veredicto GENUNO.
+- CONDICIONAL: igual (0/3, 3/3, acc 0.74). La repulsion condicional no cambio nada
+  en este corpus (el anchor ya separaba lo que debia).
+CONCLUSION HONESTA REVISADA: v0.21 v8 NO es 'artefacto total' (en sintetico
+controlado las monosemicas dan sep=False, contradiciendo 'garantiza separacion de
+toda palabra'). PERO su INSTRUMENTO ORIGINAL era CIRCULAR: (1) no media acc_gt
+(bucket vs sentido real), (2) en corpus real el criterio '2 buckets <85%' cuenta
+monosemicas de contexto VARIABLE como 'separadas' por ruido de contexto, no por
+sentido. El fix de repulsion como CONCEPTO tiene senal PARCIAL (acc_gt 0.74, pero
+llave falla) y requiere corpus controlado para medirse bien. NO descarta la idea
+del fix (anchor+repulsion sigue siendo valido para oversmoothing); lo que fallo
+fue el instrumento de medicion. v0.22/v0.25 (que asumen sentido real en v0.21 v8)
+deben re-evaluarse con instrumento correcto antes de darlos por validados.
 
 ## v0.23 COMPOSICION RELACIONAL (Gap 2 hacia pseudoAGI)
 El grafo fractal (v0.21 v8) codifica CO-OCURRENCIA, no RELACION ESTRUCTURADA.

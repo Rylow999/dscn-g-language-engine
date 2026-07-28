@@ -1,0 +1,50 @@
+{
+  "experiment": "v0.21_v8_real_donquijote",
+  "hypothesis": "Anchor+repulsion sostiene separacion de sentidos en Don Quijote real (no solo sintetico). Fix oversmoothing es general.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "epochs": 8,
+    "k": 2,
+    "beta": 0.1,
+    "beta_rep": 0.2,
+    "alpha": 0.1
+  },
+  "curva": [
+    {
+      "epoca": 1,
+      "separadas": 39
+    },
+    {
+      "epoca": 2,
+      "separadas": 39
+    },
+    {
+      "epoca": 3,
+      "separadas": 39
+    },
+    {
+      "epoca": 4,
+      "separadas": 39
+    },
+    {
+      "epoca": 5,
+      "separadas": 39
+    },
+    {
+      "epoca": 6,
+      "separadas": 39
+    },
+    {
+      "epoca": 7,
+      "separadas": 39
+    },
+    {
+      "epoca": 8,
+      "separadas": 39
+    }
+  ],
+  "ultima": 39,
+  "veredicto": "SEPARACION ESTABLE EN CORPUS REAL"
+}

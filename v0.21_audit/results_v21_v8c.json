@@ -1,0 +1,102 @@
+{
+  "experiment": "v0.21_v8c_endurecer_polisemia",
+  "hypothesis": "Con contexto denso (W=8, menos filler) el fix resuelve mas polisemicas (acc_gt>0.9); llave fallaba por ruido de filler/ventana corta.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "beta": 0.1,
+    "beta_rep": 0.2,
+    "alpha": 0.1,
+    "theta_sweep": [
+      0.3,
+      0.5,
+      0.7
+    ]
+  },
+  "resultados": {
+    "INCOND_th0.3": {
+      "mono_sep": 0,
+      "poli_sep": 0,
+      "acc_gt": 0.499,
+      "detalle": {
+        "banco": 0.506,
+        "llave": 0.494,
+        "mouse": 0.5,
+        "capital": 0.5,
+        "firma": 0.329,
+        "oro": 0.667
+      },
+      "veredicto": "PARCIAL"
+    },
+    "COND_th0.3": {
+      "mono_sep": 0,
+      "poli_sep": 0,
+      "acc_gt": 0.499,
+      "detalle": {
+        "banco": 0.506,
+        "llave": 0.494,
+        "mouse": 0.5,
+        "capital": 0.5,
+        "firma": 0.329,
+        "oro": 0.667
+      },
+      "veredicto": "PARCIAL"
+    },
+    "INCOND_th0.5": {
+      "mono_sep": 0,
+      "poli_sep": 0,
+      "acc_gt": 0.499,
+      "detalle": {
+        "banco": 0.506,
+        "llave": 0.494,
+        "mouse": 0.5,
+        "capital": 0.5,
+        "firma": 0.329,
+        "oro": 0.667
+      },
+      "veredicto": "PARCIAL"
+    },
+    "COND_th0.5": {
+      "mono_sep": 0,
+      "poli_sep": 0,
+      "acc_gt": 0.499,
+      "detalle": {
+        "banco": 0.506,
+        "llave": 0.494,
+        "mouse": 0.5,
+        "capital": 0.5,
+        "firma": 0.329,
+        "oro": 0.667
+      },
+      "veredicto": "PARCIAL"
+    },
+    "INCOND_th0.7": {
+      "mono_sep": 0,
+      "poli_sep": 0,
+      "acc_gt": 0.499,
+      "detalle": {
+        "banco": 0.506,
+        "llave": 0.494,
+        "mouse": 0.5,
+        "capital": 0.5,
+        "firma": 0.329,
+        "oro": 0.667
+      },
+      "veredicto": "PARCIAL"
+    },
+    "COND_th0.7": {
+      "mono_sep": 0,
+      "poli_sep": 0,
+      "acc_gt": 0.499,
+      "detalle": {
+        "banco": 0.506,
+        "llave": 0.494,
+        "mouse": 0.5,
+        "capital": 0.5,
+        "firma": 0.329,
+        "oro": 0.667
+      },
+      "veredicto": "PARCIAL"
+    }
+  }
+}

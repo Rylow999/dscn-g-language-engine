@@ -1,0 +1,91 @@
+{
+  "experiment": "v0.21_v7_contrastivo_repulsion",
+  "hypothesis": "Con repulsion explicita (codebook loss) + test solo sobre polisemicas, el grafo mantiene la separacion y no recolapsa. El grafo D=16 S\u00cd puede (tu intuicion).",
+  "corpus": "sintetico contrastivo (banco/llave/mouse, 2 sentidos x 50, intercalados)",
+  "vocab_size": 33,
+  "mide": [
+    "banco",
+    "llave",
+    "mouse"
+  ],
+  "curva": [
+    {
+      "epoca": 1,
+      "separadas": 3,
+      "total": 3
+    },
+    {
+      "epoca": 2,
+      "separadas": 1,
+      "total": 3
+    },
+    {
+      "epoca": 3,
+      "separadas": 1,
+      "total": 3
+    },
+    {
+      "epoca": 4,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 5,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 6,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 7,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 8,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 9,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 10,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 11,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 12,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 13,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 14,
+      "separadas": 0,
+      "total": 3
+    },
+    {
+      "epoca": 15,
+      "separadas": 0,
+      "total": 3
+    }
+  ],
+  "ultima_epoca_separadas": 0,
+  "total": 3,
+  "veredicto": "aun inestable"
+}

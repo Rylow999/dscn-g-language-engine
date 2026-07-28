@@ -28,7 +28,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
-| v0.9c ROBUSTO | dolor=error real, varias semillas + corpus completo | err 0.0024->0.0002 monotono | ✓ APRENDIZAJE POR DOLOR robusto (curva monotona, 5 semillas) |
+| v0.22 v3 | root DIRECTOR + PROYECCION Hebb (sin backprop) | FASE A routing 1.0; FASE B duda 0.0 | ~ ROOT RUTEA PERFECTO con proyeccion, pero MATA la duda (trade-off) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -40,6 +40,26 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
   sentido) EMERGENCIA de la geometría, sin corpus de juguete.
 - EVASION (dolor de consecuencia, ancla DSCN-G): tras dolor A->B, aff(A,B) cae de
   +0.94 a -0.47 (A se aleja de lo que lastima) manteniendo alternativa segura (v0.19 v3).
+
+## v0.22 ROOT DIRECTOR (sobre grafo fractal v0.21 v8, SIN transformer)
+El root NO amplifica (no promedia ciego): DIRECCIONA. Ruteo competitivo VQ: k* =
+argmax_k cos(subnodo_k, contexto). DUDA: si top1-top2 < MARGIN -> root declara
+DOUBT (2+ subgrafos sin dominante). Tres intentos:
+- v0.22 v1: contexto = promedio de TODOS los subnodos vecinos. routing_acc 0.57
+  (azar). El contexto plano no separa sentidos en D=16.
+- v0.22 v2: contexto = subnodos GANADORES de vecinos. routing_acc 0.56 (igual, el
+  agregado no era el problema). CONCLUSION: el coseno plano en D=16 no discrimina
+  sentidos por contexto -> falta PROYECCION (intuicion original de Luciano).
+- v0.22 v3: PROYECCION W Hebb (SIN backprop, perfil DSCN-G). routing_acc FASE A =
+  1.0 (perfecto en corpus contrastivo). CONFIRMA: el grafo rústico necesitaba
+  proyeccion para que el contexto fuera informativo. PERO FASE B (Don Quijote) duda
+  = 0.0: la proyeccion separa TANTO que nunca hay ambigüedad aparente -> MATA la
+  duda emergente. TRADE-OFF REAL: con proyeccion el root rutea perfecto pero pierde
+  la duda; sin proyeccion hay duda (Fase B v1/v2: 0.07-0.33) pero ruteo es azar.
+  PENDIENTE: MARGIN adaptativo (percentil de la distribucion top1-top2) o proyeccion
+  mas suave para RECUPERAR la duda sin perder el ruteo. Tambien validar que el 1.0 de
+  Fase A no sea overfit al corpus contrastivo (3 palabras, 300 ocurrencias) -> falta
+  test de generalizacion en Don Quijote con ground-truth de sentido.
 
 ## CORRECCIONES DE AUDITORIA (errores circulares -> senal real del dato)
 - v0.19 ORIGINAL (v3): A=A-alpha*B/|B|+alpha*C/|C| x2000 GARANTIZABA alejamiento de B.

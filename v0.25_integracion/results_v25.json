@@ -1,0 +1,31 @@
+{
+  "experiment": "v0.25_harness_integracion",
+  "hypothesis": "El ciclo cerrado (fractal+activacion+vitalidad+dolor+ventana+decodificador) resuelve el sentido de una palabra polisemica y la ventana se contrae ante dolor/incoherencia.",
+  "notas": "PRIMER intento de integracion. Decodificador simplificado (afinidad, sin fase real). Grafo sobre corpus mini (no Don Quijote) por velocidad.",
+  "resultados": {
+    "banco_dinero": {
+      "sentido_objetivo": "dinero",
+      "foco_post_banco": [
+        null,
+        null,
+        "dinero"
+      ],
+      "acierto": true,
+      "ventana_min": 37.5,
+      "ventana_max": 50,
+      "dolor_max": 0.167
+    },
+    "banco_rio": {
+      "sentido_objetivo": "rio",
+      "foco_post_banco": [
+        null,
+        "banco",
+        null
+      ],
+      "acierto": true,
+      "ventana_min": 40.0,
+      "ventana_max": 50,
+      "dolor_max": 0.125
+    }
+  }
+}

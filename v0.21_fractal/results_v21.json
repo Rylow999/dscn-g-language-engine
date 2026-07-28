@@ -1,15 +1,17 @@
 {
-  "experiment": "v0.21_v3_desambiguation_fractal",
-  "hypothesis": "El grafo fractal separa sentidos por construccion: contextos distintos activan subnodos distintos de la misma palabra (polisemia real, no inferencia).",
+  "experiment": "v0.21_v4_fractal_ruteo_competitivo_VQ",
+  "hypothesis": "Ruteo competitivo (VQ winner-take-all) hace que los subnodos de una palabra divergence: contextos distintos activan subnodos distintos (polisemia por construccion).",
   "params": {
     "d": 16,
     "V": 150,
+    "window": 4,
     "epochs": 2,
     "k": 2,
     "beta": 0.1,
+    "n_dead": 50,
     "corpus_n": 20000
   },
   "palabras_evaluadas": 40,
   "palabras_con_2_sentidos": 0,
-  "veredicto": "no detectada"
+  "veredicto": "aun no separa"
 }

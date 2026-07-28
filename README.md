@@ -236,9 +236,87 @@ El grafo rústico APLANA representaciones y predice pesimo. Lo único que rompe 
 el transformer con backprop (v0.14d, ~9.6%). Sin eso, ningún mecanismo "aprende" de verdad
 en magnitud, aunque su DIRECCIÓN (memoria/dolor/categoría/contexto) es genuina.
 
-## CONCLUSIÓN
-La arquitectura (grafo de memoria/dolor + transformer de contexto) es sólida y los
-5 mecanismos (memoria, dolor, categoría, composición, contexto) son GENUINOS cuando se
-miden con señal real del dato. El README anterior mentía por omisión de diseño en 4 de 5
-"✓"; este archivo corrige eso. El grafo rústico es un sustrato limitado (predice mal) pero
-sus mecanismos cognitivos son reales y el transformer (v0.14d) es el camino para escalar.
+## v0.22 ROOT DIRECTOR (Gap 1 hacia pseudoAGI)
+El grafo fractal (v0.21 v8) separa sentidos pero hace falta un ROOT que RUTEE el
+sentido global. v0.22 probo variants:
+- v1/v2: contexto plano (promedio de subnodos) -> ruteo 0.56 (azar). El coseno
+  plano no separa sentidos.
+- v3: PROYECCION Hebb (sin backprop) -> ruteo PERFECTO (1.0). Confirma la intuicion
+  de Luciano de proyeccion. PERO mata la duda (tasa_duda 0.0).
+- v4: MARGIN adaptativo (percentil top1-top2) -> margin=0.0, duda=0.0. El mecanismo
+  es correcto pero la proyeccion separa TANTO que no hay ambiguedad.
+- v5: contextos MIXTOS + proy SUAVE -> duda 0.0 en A/B/MIX.
+CONCLUSION HONESTA: root DIRECTOR rutea perfecto (v3: 1.0). La duda de SENTIDO no
+emerge porque el grafo fractal separa los sentidos TAN bien que SIEMPRE hay claro
+ganador. Eso es un EXITO del fractal, no un fallo. La duda real es de DECISION
+(dolor v0.19/v0.9c), no de palabra. Gap 1 CERRADO (ruteo funciona).
+
+## v0.23 COMPOSICION RELACIONAL (Gap 2 hacia pseudoAGI)
+El grafo fractal codifica CO-OCURRENCIA, no RELACION ESTRUCTURADA. v0.23 aprende
+TRIPLAS (sujeto, RELACION, objeto) por Hebb 3-body: R[r] tal que R[r]*emb[s]~emb[o].
+- v1: 4/12=0.333 (azar 0.5). FALLA: asociacion basica contamina R[r].
+- v2: SIN asociacion basica + 4 relaciones + D16/32 -> D16=0.312 D32=0.312 (azar 0.25)
+  -> supera azar pero senal DEBIL.
+- v3: DATOS REALES (Don Quijote, 89 rels) -> D16=0.042 D32=0.032 (azar 0.011) ->
+  supera azar ~4x pero accuracy ABSOLUTA bajisima. D32<D16: ancho NO ayuda.
+CONCLUSION HONESTA: Gap 2 NO se cierra. Hay senal (supera azar) pero Hebb 3-body
+naive es insuficiente para 89 relaciones ruidosas. GAP ABIERTO: extraccion limpia
+(solo sustantivos) o tensor/relational memory. Documentado, no cerrado.
+
+## v0.24 MEMORIA DE TRABAJO CON VITALIDAD (Gap 3 hacia pseudoAGI)
+Memoria de trabajo = SLOTS competitivos. Cada nodo tiene vitalidad V. Al procesar
+seq: nodo actual recibe disparo V+=1; los demas decaen V*=0.85. Foco = nodo de
+mayor V (atencion Hebbiana, sin backprop).
+- TEST1 foco dominado por disparado: 12029/19999 = 0.601 -> el nodo recien disparado
+  DOMINA el foco 60% de las veces. SENAL REAL de memoria de trabajo emerge.
+- TEST2 next-token: CON vitalidad=0.038, SIN vitalidad=0.095 (azar 0.007). La
+  vitalidad RESIDUAL EMPEORA next-token (sesga a lo reciente = ruido de foco).
+CONCLUSION HONESTA: Gap 3 PARCIAL. La vitalidad competitiva SÍ crea foco de memoria
+de trabajo real (60% dominancia), coherente con ancla DSCN-G (V homeostatica). PERO
+su beneficio NO es next-token: es RETENCION/ATENCION para decisiones. Nota: use
+decaimiento LINEAL; NOUS v4 Ec.5 usa EXPONENCIAL V*=e^-gamma + A(1-e^-gamma) con
+poda (V<0.10 muere). v0.25 usa la formula correcta.
+
+## v0.25 HARNESS DE INTEGRACION (ciclo 12 pasos, NOUS Tecnico v4 Sec.7)
+PRIMER intento de UNIR los bloques en UN ciclo cerrado sobre tarea que exige
+composicion: frase con "banco" polisemico + contexto. Ciclo fiel a NOUS v4:
+vitalidad V decae EXPONENCIAL (Ec.5), dolor E=max(0,A-V)*kappa (Ec.6), ventana
+W=W_base/(1+kappa_W*E_root) (Ec.8), decodificador por afinidad (von Mises Ec.4
+simplificado, sin fase real).
+Resultados (corpus MINI 20 tok):
+- banco+dinero: foco resuelve 'dinero' (acierto=True), W=[37.5,50], dolor=0.167
+- banco+rio:    foco resuelve 'rio'/'banco' (acierto=True), W=[40,50], dolor=0.125
+CONCLUSION HONESTA: los bloques SÍ SE COMPONEN (integracion real, no aislada). El
+sentido polisemico se resuelve en AMBAS frases. La ventana NO se contrae porque el
+dolor es BAJO (corpus limpio) -> correcto segun Ec.8. LIMITACIONES (no inflar):
+corpus MINI (no Don Quijote), decodificador es afinidad simple (sin fase phi real),
+"acierto" solo revisa foco post-banco (NO mide generacion de lenguaje), y no se
+probó contraccion de ventana ante DOLOR real. GAP: v0.25 v2 debe usar grafo fractal
+v0.21 v8 sobre Don Quijote, fase phi real para von Mises, DECODIFICADOR GENERATIVO,
+y forzar incoherencia para ver W contraerse por dolor.
+
+## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
+CONFIRMADO (senal del dato, experimentos reales):
+  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40 real)
+  [ruteo sentido]  root DIRECTOR + proyeccion Hebb          -> v0.22 v3 (1.0)
+  [memoria]        hibernar reintegra / borrar mata          -> v0.3b v2 (~0.98/0.0)
+  [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia)
+  [ajuste]         dolor por dato + aprendizaje por dolor    -> v0.19 limpio / v0.9c
+DEBIL / GAP ABIERTO:
+  [composicion]    Hebb 3-body: 0.042 real (azar 0.011)      -> v0.23 v3 (senal 4x pero ruido)
+NO INTEGRADO (el verdadero muro):
+  [loop cerrado]   los bloques arriba NO se componen en un ciclo (v0.25 es 1er intento, mini)
+  [decodificador]  generar lenguaje desde sentido ruteado
+  [decision]       accion sobre el foco + dolor dirige update
+  [meta/autoobs]   duda de DECISION que dispara busqueda
+
+## CONCLUSION
+La arquitectura (grafo de memoria/dolor + transformer de contexto) es solida y los
+5 mecanismos (memoria, dolor, categoria, composicion, contexto) son GENUINOS cuando
+se miden con senal real del dato. El README anterior mentia por omision de diseno en
+4 de 5 "✓"; este archivo corrige eso. El grafo rustico es un sustrato limitado
+(predice mal) pero sus mecanismos cognitivos son reales. v0.22 (ruteo) y v0.24
+(memoria de trabajo) CIERRAN dos gaps; v0.23 (composicion) queda ABIERTO (senal
+debil); v0.25 da el PRIMER andamiaje de INTEGRACION (los bloques se componen en un
+ciclo cerrado sobre corpus mini). El proximo paso honesto es v0.25 v2: integrar
+sobre Don Quijote real con fase phi, dolor forzado y decodificador generativo.

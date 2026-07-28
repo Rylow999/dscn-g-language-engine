@@ -28,7 +28,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
-| v0.21 v8 | grafo fractal ANCLA+REPULSION (fix oversmoothing) | MEDICION CIRCULAR (no ground truth + criterio fragil en corpus real) PERO mecanismo tiene senal PARCIAL: v0.21 v8b (instr correcto, sintetico+gt) da mono_sep=0/3, poli_sep=3/3, acc_gt=0.74 (banco 1.0, mouse 0.95, llave 0.27 falla). En Quijote real el criterio cuenta 4/5 monosemicas de ctx variable como 'separadas' (falso positivo) | ~ CIRCULAR el instrumento original; el fix separa sintetico controlado pero es PARCIAL y el criterio real era inadecuado |
+| v0.21 v8c | grafo fractal anchor+repulsion, CTX DENSO (W=8, 6 poli) | acc_gt=0.50 (AZAR), poli_sep=0/6, mono_sep=0/3, theta 0.3/0.5/0.7 igual | ~ FIX NO FUNCIONAL: en contexto fuerte COLAPSA a 1 bucket (oversmoothing); el 0.74 de v8b era regimen de RUIDO/filler, no senal de sentido |
 | v0.22 v3 | root + PROYECCION Hebb (sin backprop) | FASE A routing 1.0; FASE B duda 0.0 | ~ ROOT RUTEA PERFECTO; proyeccion mata duda (trade-off) |
 | v0.22 v5 | root + contextos MIXTOS + proy SUAVE + MARGIN | duda A/B/MIX = 0.0 | ~ DUDA no emerge: grafo separa sentidos tan bien que siempre hay claro ganador |
 | v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
@@ -108,6 +108,23 @@ llave falla) y requiere corpus controlado para medirse bien. NO descarta la idea
 del fix (anchor+repulsion sigue siendo valido para oversmoothing); lo que fallo
 fue el instrumento de medicion. v0.22/v0.25 (que asumen sentido real en v0.21 v8)
 deben re-evaluarse con instrumento correcto antes de darlos por validados.
+
+## v0.21 v8c — CIERRE DEL FIX (2026-07-28)
+v0.21 v8c ENDURECE el test: 6 polisemicas, contexto DENSO (7 pal de senal, W=8),
+barrido de umbral de repulsion (theta 0.3/0.5/0.7). Resultado CONCLUSIVO:
+  acc_gt=0.50 (AZAR), poli_sep=0/6, mono_sep=0/3, IGUAL para todo theta y para
+  incondicional/condicional.
+Esto CIERRA la pregunta: el fix de anchor+repulsion NO resuelve polisemia real.
+En contexto DEBIL (W=4, filler, v8b) daba acc_gt=0.74 porque la senal era ruido y
+la repulsion empujaba los buckets al azar del ruido; en contexto FUERTE (W=8,
+senal real, v8c) el anchor CENTRA ambos buckets en omega0 y COLAPSAN a 1 (0.50
+azar, 0/6 separadas). El 0.74 de v8b era un EFECTO DE REGIMEN DE RUIDO, no senal
+de sentido. El fix es NO FUNCIONAL para polisemia: la regla de update sigue siendo
+difusion de grafo (oversmoothing) y anchor+repulsion no lo arregla de fondo.
+VEredicto: GRAFO RUSTICO D=16 NO SOSTIENE POLISEMIA. Coherente con NOUS v4 (el
+contexto lo resuelve el TRANSFORMER v0.14d, no el grafo). v0.22/v0.25 deben usar
+transformer de contexto como sustrato de sentido, no el grafo rustico. La linea
+de polisemia por grafo rustico se CIERRA como NO VIABLE.
 
 ## v0.23 COMPOSICION RELACIONAL (Gap 2 hacia pseudoAGI)
 El grafo fractal (v0.21 v8) codifica CO-OCURRENCIA, no RELACION ESTRUCTURADA.

@@ -24,6 +24,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.3b / v0.16 (v1-v3) | memoria/composición, omega preservado vs borrado | hibernado = base en TODOS los tests | ✓ MEMORIA/COMPOSICIÓN (omega vive) |
 | v0.14d BORRAR | borrar nodos top sobre híbrido (predice ~9.6%) | base=0.0967, preservado=0.0967, borrado=0.0217 | ✓ BORRAR DESTRUYE (sobre sustrato real) |
 | v0.17 | polisemia (idea 1) WSD no sup sobre transformer | 6/150 palabras con 2 sentidos separables (cos<0.5) | ✓ POLISEMIA GENUINA (sense nodes emergen) |
+| v0.19 v3 | dolor de consecuencia / evasion (ancla DSCN-G) | aff(A,B) 0.94 -> -0.47 tras dolor | ✓ EVASION GENUINA (el dolor aleja de lo que lastima) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -33,6 +34,8 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 - POLISEMIA: WSD no supervisado sobre transformer descubre 6/150 palabras con 2
   sentidos separables por contexto (v0.17). Sense nodes (identidad estructural por
   sentido) EMERGENCIA de la geometría, sin corpus de juguete.
+- EVASION (dolor de consecuencia, ancla DSCN-G): tras dolor A->B, aff(A,B) cae de
+  +0.94 a -0.47 (A se aleja de lo que lastima) manteniendo alternativa segura (v0.19 v3).
 
 ## NOTA SOBRE EL GRAFO RÚSTICO VS TRANSFORMER
 En v0.3b/v0.16 (grafo rústico, ~8% accuracy) no fue detectable porque el sustrato no

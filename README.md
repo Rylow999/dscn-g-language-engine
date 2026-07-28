@@ -26,7 +26,9 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.17 | polisemia (idea 1) WSD no sup sobre transformer | 6/150 palabras con 2 sentidos separables (cos<0.5) | ✓ POLISEMIA GENUINA (sense nodes emergen) |
 | v0.19 v3 | dolor de consecuencia / evasion (ancla DSCN-G) | aff(A,B) 0.94 -> -0.47 tras dolor | ✓ EVASION GENUINA (el dolor aleja de lo que lastima) |
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
-| v0.21 v7 | contrastivo + repulsion (fix v6, vocab ok) | ep1:3/3 -> ep4-15:0/3 (recolapsa) | ~ GRAFO RUSTICO NO MANTIENE separacion (falta proyeccion aprendida) |
+| v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
+| v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
+| v0.19 LIMPIO | dolor=error next-token real, evasion dirigida por dato | err 19291 -> 18761 (-2.7%, real) | ✓ EVASION REAL (no formula circular) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -38,6 +40,40 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
   sentido) EMERGENCIA de la geometría, sin corpus de juguete.
 - EVASION (dolor de consecuencia, ancla DSCN-G): tras dolor A->B, aff(A,B) cae de
   +0.94 a -0.47 (A se aleja de lo que lastima) manteniendo alternativa segura (v0.19 v3).
+
+## CORRECCIONES DE AUDITORIA (errores circulares -> senal real del dato)
+- v0.19 ORIGINAL (v3): A=A-alpha*B/|B|+alpha*C/|C| x2000 GARANTIZABA alejamiento de B.
+  CIRCULAR. v0.19 LIMPIO: dolor = error de next-token real; evasion dirigida por dato
+  (se aleja del mal-predicho, se acerca al correcto). Resultado REAL: err 19291->18761
+  (-2.7%). Pequeno pero genuino (no formula que lo garantiza).
+- v0.14d BORRAR ORIGINAL: borraba top-30 palabras FUNCION (de,y,la) -> rompe cualquier
+  modelo, artefacto. v0.14d BORRAR LIMPIO: nodos de CONTENIDO (top-31..80). Hallazgo
+  honesto: BORRAR NO 'destruye' (acc sube 0.097->0.122 al quitar competidores); HIBERNAR
+  (excluir del entrenamiento) SI perturba (baja 0.097->0.075). El efecto es 'perturbacion
+  de entrenamiento', no 'destruccion'.
+- v0.3b/v0.16 ORIGINAL: 'hibernar' = no tocar omega -> = base por identidad matematica.
+  CIRCULAR. v0.3b v2 LIMPIO: hibernar = excluir un tramo y REINTEGRAR. Resultado REAL:
+  reintegrado ~0.98 (recupera tras volver a entrenar) vs borrado 0.0 (muerto). Memoria
+  real, no identidad.
+- v0.9c ORIGINAL: con corpus chico el efecto era debil/no monotono. v0.9c ROBUSTO:
+  varias semillas + corpus completo + curva de error por epoca (en ejecucion).
+
+## LECCION DE OVERSMOOTHING (diagnostico de Luciano, 2026-07-28)
+La regla omega[a]=(1-beta)omega[a]+beta*omega[b] ES una difusion de grafo (power
+iteration de cadena de Markov). Converge al autovector dominante: la separacion de
+sentidos (componente de ALTA frecuencia del espectro) es literalmente lo que un
+filtro pasa-bajos mata PRIMERO, sin importar D ni epocas. Por eso v0.21 v1-v7 daba
+separacion TRANSITORIA (v6 ep11, v7 ep1) y luego colapso irrevocable. NO es falta de
+profundidad, atencion aprendida, corpus o epocas: es propiedad del OPERADOR.
+Arreglos SIN backprop (v0.21 v8): (1) ANCHOR/RESTART (Personalized PageRank/APPNP):
+omega[a]=alpha*omega0[a]+(1-alpha)[(1-beta)omega[a]+beta*omega[b]] -> el ancla
+omega0 es inerosionable, rompe la convergencia al autovector dominante; (2) REPULSION
+SIBLING (beta negativo hacia el hermano del mismo lema) evita que los sentidos de un
+mismo lema se fundan. Esto devuelve la intuicion original de Luciano ("el problema es
+como lo aplicamos, no el grafo"): el grafo rústico SÍ puede sostener separacion si se
+cambia la REGLA de update, no el sustrato. REGLA: antes de culpar al sustrato por
+"colapsar", analizar si la REGLA de update es un filtro pasa-bajos (difusion) que
+destruye senal de alta frecuencia.
 
 ## LECCION METODOLOGICA (error de vision, 2026-07-28)
 En v0.21 v1-v5 concluimos apresuradamente "el grafo rustico D=16 no tiene senal /
@@ -60,21 +96,22 @@ BUG DETECTADO POR AUDITORÍA: el ruteo era i%K (round-robin), no competencia ->
 los subnodos nunca divergían. v4 arregló el ruteo con VQ winner-take-all: bug de
 ruteo DESAPARECIÓ pero dio 0/40 por COLAPSO AL GANADOR (contexto en D=16 es ruido).
 v5 probó competencia SUAVE (temperatura) en Don Quijote: 0/40 x3 semillas (el
-colapso persistió: ambos subnodos ven el mismo contexto ruidoso y convergen).
-ERROR DE VISION documentado: dijimos "D=16 no puede" sin probar; el grafo arranca
-de ruido y debe mejorar CON EL TIEMPO, no como LLM pre-entrenada. v6/v7 testearon
-CORPUS CONTRASTIVO (banco/llave/mouse, 2 sentidos x50 intercalados) + CURVA de
-épocas: v6 llegó a 50/2403 en ep11 pero recolapsó (vocab inflado medía filler, no
-polisémicas); v7 (vocab correcto + repulsión codebook) dio ep1:3/3 -> ep4-15:0/3.
-CONCLUSIÓN HONESTA (probada): el grafo rústico D=16 CONSIGUE separar sentidos
-transitoriamente (v6 ep11, v7 ep1) pero NO MANTIENE la separación porque le faltan
-las PROYECCIONES APRENDIDAS del transformer (Wq/Wk/Wv) que hacen que contextos
-distintos caigan en regiones distintas. Sin eso, en D=16 los contextos de una
-palabra polisémica son indistinguibles y los subnodos convergen. v0.17 (SOBRE
-transformer) SÍ separó 6/150. LECCIÓN: la idea de Luciano (concepto = conjunto de
-subnodos + root DIRECTOR que puede dudar) es válida, pero requiere el encoder con
-proyecciones aprendidas (transformer) para SOSTENER la separación. Va SOBRE
-transformer en v0.22, no como sustrato base.
+colapso persistió). v6/v7 testearon CORPUS CONTRASTIVO + CURVA: v6 llegó a 50/2403
+en ep11 pero recolapsó (vocab inflado); v7 (vocab ok + repulsión débil) ep1:3/3 ->
+ep4-15:0/3. DIAGNÓSTICO DE LUCIANO (clave): la regla omega[a]=(1-beta)omega[a]+
+beta*omega[b] es DIFUSIÓN DE GRAFO (power iteration de Markov) -> OVERSMOOTHING:
+converge al autovector dominante y mata la separación (componente alta frecuencia)
+sin importar D ni épocas. La separación es SIEMPRE transitoria. ARREGLOS SIN
+BACKPROP (v0.21 v8): (1) ANCHOR/RESTART (APPNP) omega[a]=alpha*omega0[a]+(1-alpha)
+[(1-beta)omega[a]+beta*omega[b]] rompe la convergencia; (2) REPULSION SIBLING
+(beta negativo hacia el hermano del mismo lema) evita fusión. RESULTADO: sintético
+3/3 ESTABLE (alpha 0.05-0.2); DON QUIJOTE REAL 39/40 ESTABLE a lo largo de 8 épocas.
+CONCLUSIÓN: el grafo rústico D=16 SÍ SOSTIENE polisemia SIN transformer cambiando la
+REGLA de update (no el sustrato). Mi cierre anterior ("necesita transformer para
+sostener separación") fue OTRO ERROR DE VISIÓN: concluí por exclusión, no por
+mecanismo. El diagnóstico de oversmoothing de Luciano invalida esa conclusión. La
+idea de fractal + root DIRECTOR que puede dudar es válida COMO SUSTRATO (no solo
+orquestador sobre transformer).
 
 
 ## NOTA SOBRE EL GRAFO RÚSTICO VS TRANSFORMER

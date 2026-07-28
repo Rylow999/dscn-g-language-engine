@@ -1,0 +1,35 @@
+{
+  "experiment": "v0.3b_memoria_limpio_v2",
+  "hypothesis": "Hibernar (excluir un tramo y REINTEGRAR) deja el nodo vivo (~base tras volver a entrenar); borrar (omega=0) lo mata. Memoria real, no identidad matematica.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "epochs": 2,
+    "beta": 0.1,
+    "corpus_n": 20000,
+    "n_nodos": 50
+  },
+  "vitalidad_base": [
+    0.9994,
+    0.9994,
+    0.9996,
+    0.9996,
+    0.9999
+  ],
+  "vitalidad_reintegrado": [
+    0.9752,
+    0.9817,
+    0.98,
+    0.9761,
+    0.9812
+  ],
+  "vitalidad_borrado": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "memoria_real": true
+}

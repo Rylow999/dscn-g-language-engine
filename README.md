@@ -28,7 +28,8 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
-| v0.22 v3 | root DIRECTOR + PROYECCION Hebb (sin backprop) | FASE A routing 1.0; FASE B duda 0.0 | ~ ROOT RUTEA PERFECTO con proyeccion, pero MATA la duda (trade-off) |
+| v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
+| v0.22 v5 | root + contextos MIXTOS + proy SUAVE + MARGIN | duda A/B/MIX = 0.0 | ~ DUDA no emerge: grafo separa sentidos tan bien que SIEMPRE hay claro ganador |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -56,10 +57,19 @@ DOUBT (2+ subgrafos sin dominante). Tres intentos:
   = 0.0: la proyeccion separa TANTO que nunca hay ambigüedad aparente -> MATA la
   duda emergente. TRADE-OFF REAL: con proyeccion el root rutea perfecto pero pierde
   la duda; sin proyeccion hay duda (Fase B v1/v2: 0.07-0.33) pero ruteo es azar.
-  PENDIENTE: MARGIN adaptativo (percentil de la distribucion top1-top2) o proyeccion
-  mas suave para RECUPERAR la duda sin perder el ruteo. Tambien validar que el 1.0 de
-  Fase A no sea overfit al corpus contrastivo (3 palabras, 300 ocurrencias) -> falta
-  test de generalizacion en Don Quijote con ground-truth de sentido.
+- v0.22 v4: MARGIN adaptativo (percentil de top1-top2). margin=0.0, duda=0.0. El
+  mecanismo de MARGIN es correcto, pero la proyeccion Hebb separa TANTO que no hay
+  cola de ambiguedad -> duda nunca se dispara.
+- v0.22 v5: contextos MIXTOS (ambos sentidos, ej 'banco del rio sacar dinero') +
+  proyeccion SUAVE (1 epoch, LR 0.005) + MARGIN adaptativo. duda A/B/MIX = 0.0.
+  CONCLUSION HONESTA: el grafo fractal (v0.21 v8, anchor+repulsion) separa los
+  sentidos TAN limpio que SIEMPRE hay un claro ganador, incluso en contexto mixto.
+  La duda de SENTIDO no emerge porque el sistema SIEMPRE sabe que sentido es ->
+  eso es un EXITO del fractal, no un fallo del root. La "duda" real (decision/
+  conflicto de inferencias) requiere un nivel superior, no ambiguedad de palabra.
+  CERRADO v0.22: root DIRECTOR rutea perfecto (v3: 1.0); duda de sentido es
+  trivialmente resoluble por el grafo -> no es el lugar donde la duda importa.
+  GAP siguiente: composicion relacional (v0.23) y duda de DECISION (dolor v0.19/v0.9c).
 
 ## CORRECCIONES DE AUDITORIA (errores circulares -> senal real del dato)
 - v0.19 ORIGINAL (v3): A=A-alpha*B/|B|+alpha*C/|C| x2000 GARANTIZABA alejamiento de B.

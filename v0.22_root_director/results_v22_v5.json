@@ -1,0 +1,31 @@
+{
+  "experiment": "v0.22_v5_contextos_mixtos",
+  "hypothesis": "Con proyeccion suave + contextos mixtos, la duda DEBE emerger en MIX y no en A/B univocos.",
+  "params": {
+    "d": 16,
+    "window": 4,
+    "k": 2,
+    "beta": 0.1,
+    "beta_rep": 0.2,
+    "alpha": 0.1,
+    "lr_w": 0.005,
+    "epochs_w": 1,
+    "pct": 80
+  },
+  "margin_adaptativo": 0.0,
+  "duda_por_tipo": {
+    "A": {
+      "duda": 0.0,
+      "n": 120
+    },
+    "B": {
+      "duda": 0.0,
+      "n": 120
+    },
+    "MIX": {
+      "duda": 0.0,
+      "n": 120
+    }
+  },
+  "duda_emerge_en_mixto": false
+}

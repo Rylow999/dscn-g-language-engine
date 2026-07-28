@@ -1,0 +1,58 @@
+{
+  "experiment": "v0.21_v8_control_audit",
+  "mono": [
+    {
+      "word": "quijote",
+      "n": 198,
+      "dom_pct": 0.545,
+      "buckets": {
+        "1": 108,
+        "0": 90
+      },
+      "separada": true
+    },
+    {
+      "word": "sancho",
+      "n": 202,
+      "dom_pct": 0.505,
+      "buckets": {
+        "0": 100,
+        "1": 102
+      },
+      "separada": true
+    },
+    {
+      "word": "caballero",
+      "n": 55,
+      "dom_pct": 0.818,
+      "buckets": {
+        "0": 45,
+        "1": 10
+      },
+      "separada": true
+    },
+    {
+      "word": "dijo",
+      "n": 154,
+      "dom_pct": 0.682,
+      "buckets": {
+        "1": 49,
+        "0": 105
+      },
+      "separada": true
+    },
+    {
+      "word": "casa",
+      "n": 21,
+      "dom_pct": 1.0,
+      "buckets": {
+        "0": 21
+      },
+      "separada": false
+    }
+  ],
+  "poli": [],
+  "n_mono_sep": 4,
+  "n_poli_sep": 0,
+  "veredicto": "ARTEFACTO: monosemicas tambien se separan => repulsion incondicional, no senal de sentido"
+}

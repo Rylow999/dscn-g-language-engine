@@ -1,0 +1,18 @@
+{
+  "experiment": "v0.14d_borrar_limpio",
+  "hypothesis": "Hibernar (excluir un tramo, no 'no hacer nada') perturba poco; borrar nodos de CONTENIDO (no funcion) degrada la prediccion. 'Borrar destruye' especifico de DSCN-G, no colapso gramatical.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 2,
+    "beta": 0.1,
+    "corpus_n": 20000,
+    "n_nodos": 50
+  },
+  "acc_base": 0.0967,
+  "acc_hibernado": 0.0752,
+  "acc_borrado": 0.1218,
+  "borrar_destruye": false
+}

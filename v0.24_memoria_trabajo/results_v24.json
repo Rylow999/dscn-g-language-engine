@@ -1,0 +1,19 @@
+{
+  "experiment": "v0.24_memoria_trabajo_vitalidad",
+  "hypothesis": "Vitalidad competitiva: el nodo disparado domina el foco brevemente y la vitalidad residual mejora next-token vs sin ella.",
+  "params": {
+    "d": 16,
+    "window": 4,
+    "decay": 0.85
+  },
+  "test1_foco_dominante": {
+    "acc": 0.601,
+    "n": 19999
+  },
+  "test2_next_token": {
+    "con_vitalidad": 0.038,
+    "sin_vitalidad": 0.095,
+    "baseline_azar": 0.007
+  },
+  "vitalidad_ayuda": false
+}

@@ -28,9 +28,15 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 | v0.3b v2 | memoria: hibernar=excluir+REINTEGRAR (no identidad) | reintegrado ~0.98 vs borrado 0.0 | ✓ MEMORIA REAL (no identidad matematica) |
 | v0.14d borrar L | borrar nodos CONTENIDO (no funcion) + hibernar real | base=0.097 hibern=0.075 borrado=0.122 | ~ BORRAR no 'destruye' (sube), HIBERNAR perturba (baja) |
+| v0.21 v8 | grafo fractal ANCLA+REPULSION (fix oversmoothing) | sintetico 3/3; Don Quijote 39/40 ep1-8 | ✓ POLISEMIA SOSTENIDA sin transformer (regla, no sustrato) |
+| v0.22 v3 | root + PROYECCION Hebb (sin backprop) | FASE A routing 1.0; FASE B duda 0.0 | ~ ROOT RUTEA PERFECTO; proyeccion mata duda (trade-off) |
+| v0.22 v5 | root + contextos MIXTOS + proy SUAVE + MARGIN | duda A/B/MIX = 0.0 | ~ DUDA no emerge: grafo separa sentidos tan bien que siempre hay claro ganador |
 | v0.22 v4 | root + MARGIN adaptativo (percentil top1-top2) | margin=0.0, duda=0.0 | ~ MARGIN adaptativo ok, pero proyeccion separa TANTO que no hay ambigüedad |
 | v0.23 v1 | composicion relacional Hebb 3-body (2 relaciones) | 4/12=0.333 (azar 0.5) | ~ FALLA: asociacion basica contamina R[r] (ambos pares ocurren) |
+| v0.23 v2 | Hebb 3-body SIN contaminacion + 4 relaciones + D16/32 | D16=0.312 D32=0.312 (azar 0.25) | ~ SENAL DEBIL: supera azar pero limitado por mecanismo (no por ancho) |
+| v0.23 v3 | Hebb 3-body DATOS REALES (Don Quijote, 89 rels) | D16=0.042 D32=0.032 (azar 0.011) | ~ SENAL DEBIL: supera azar 4x pero extraccion ruidosa + 89 rels => gap abierto |
 | v0.24 | memoria trabajo VITALIDAD competitiva (foco + next-token) | foco=0.601; next con=0.038 sin=0.095 | ~ FOCO real (60% dominancia) pero vitalidad NO ayuda next-token (sesga a reciente) |
+| v0.25 | harness integracion ciclo 12 pasos (corpus mini) | banco->dinero/rio resuelto (acierto=True) ambas | ~ INTEGRA: bloques se componen en ciclo cerrado; limitado a corpus mini/simple |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).

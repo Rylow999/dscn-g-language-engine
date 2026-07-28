@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.18_real_transformer_completo",
+  "hypothesis": "Transformer completo (embeddings aprendidos) con D=32 escala la magnitud de next-token sobre v0.14d (9.6% hibrido, 2.37% grafo solo).",
+  "params": {
+    "d": 32,
+    "V": 150,
+    "window": 4,
+    "lr": 0.005,
+    "epochs": 2,
+    "corpus_n": 20000
+  },
+  "acc_v18": 0.0946,
+  "ref_v14d_hibrido": 0.0958,
+  "ref_v14d_grafo_solo": 0.0237,
+  "escala": false
+}

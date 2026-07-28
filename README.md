@@ -25,6 +25,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.14d BORRAR | borrar nodos top sobre híbrido (predice ~9.6%) | base=0.0967, preservado=0.0967, borrado=0.0217 | ✓ BORRAR DESTRUYE (sobre sustrato real) |
 | v0.17 | polisemia (idea 1) WSD no sup sobre transformer | 6/150 palabras con 2 sentidos separables (cos<0.5) | ✓ POLISEMIA GENUINA (sense nodes emergen) |
 | v0.19 v3 | dolor de consecuencia / evasion (ancla DSCN-G) | aff(A,B) 0.94 -> -0.47 tras dolor | ✓ EVASION GENUINA (el dolor aleja de lo que lastima) |
+| v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -36,6 +37,16 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
   sentido) EMERGENCIA de la geometría, sin corpus de juguete.
 - EVASION (dolor de consecuencia, ancla DSCN-G): tras dolor A->B, aff(A,B) cae de
   +0.94 a -0.47 (A se aleja de lo que lastima) manteniendo alternativa segura (v0.19 v3).
+
+## LÍMITES DEL SUSTRATO Y LECCIÓN DE v0.18
+El grafo rústico (D=16) predice ~8% (error ~92%). El híbrido v0.14d llega a 9.6%.
+v0.18 probó transformer COMPLETO con D=32 (el doble de ancho) sobre los MISMOS
+20k tokens: dio 9.46%, PRÁCTICAMENTE IGUAL que v0.14d (9.58%) y un pelo MENOS.
+LECCIÓN: el techo NO es la arquitectura (D=16 vs D=32 da lo mismo con tan pocos
+datos). El límite es el CORPUS (20k tokens de Don Quijote es insuficiente para
+ajustar parámetros extra). Para escalar la magnitud hay que subir DATOS (millones
+de tokens, GPU real), no el ancho. Los 6 mecanismos son genuinos en DIRECCIÓN;
+su magnitud no sube sin más corpus.
 
 ## NOTA SOBRE EL GRAFO RÚSTICO VS TRANSFORMER
 En v0.3b/v0.16 (grafo rústico, ~8% accuracy) no fue detectable porque el sustrato no

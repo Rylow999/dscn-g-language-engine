@@ -1,0 +1,16 @@
+{
+  "experiment": "v0.19_limpio_dolor_error_real",
+  "hypothesis": "El dolor (error de prediccion real) dirige la evasion: el nodo se aleja del mal-predicho y acerca al correcto. Error en transiciones dolorosas baja despues de evadir.",
+  "params": {
+    "d": 16,
+    "V": 150,
+    "window": 4,
+    "epochs": 2,
+    "beta": 0.1,
+    "alpha": 0.1,
+    "lr_ev": 0.1
+  },
+  "transiciones_dolorosas": 19291,
+  "error_post_evasion": 18761,
+  "evasion_real": true
+}

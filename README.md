@@ -26,7 +26,7 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 | v0.17 | polisemia (idea 1) WSD no sup sobre transformer | 6/150 palabras con 2 sentidos separables (cos<0.5) | ✓ POLISEMIA GENUINA (sense nodes emergen) |
 | v0.19 v3 | dolor de consecuencia / evasion (ancla DSCN-G) | aff(A,B) 0.94 -> -0.47 tras dolor | ✓ EVASION GENUINA (el dolor aleja de lo que lastima) |
 | v0.18 REAL | transformer completo D=32 (escalar magnitud) | acc=0.0946 (~igual v0.14d 0.0958) | ~ NO ESCALA con ancho: techo es CORPUS (20k tok) |
-| v0.21 v3 | grafo fractal + root bottom-up (sin transformer) | v1/v2 next-tok 0.024<0.034 plano; v3 0/40 sentidos | ~ GRAFO RÚSTICO NO ALCANZA; idea vale como ORQUESTADOR SOBRE transformer |
+| v0.21 v4 | fractal + ruteo COMPETITIVO VQ (fix del bug round-robin) | 0/40 aun (colapso al ganador: senal rústica insuficiente) | ~ RUTEO ARREGLADO, pero grafo rústico D=16 no tiene senal; va SOBRE transformer (v0.22) |
 
 ## LO QUE QUEDA CONFIRMADO (genuino, señal del dato)
 - CONTEXTO: transformer head aprendido ~4x el grafo solo (v0.14d, baseline correcto).
@@ -42,15 +42,20 @@ Cuatro "✓ confirmados" eran artefactos de diseño (señal falsa), no validaci�
 ## LÍMITES DEL SUSTRATO Y LECCIONES (v0.18 / v0.21)
 El grafo rústico (D=16) predice ~8% (error ~92%). v0.18 (transformer completo D=32,
 mismos 20k tok) dio 9.46%, igual que v0.14d híbrido (9.58%): el techo NO es la
-arquitectura, es el CORPUS (20k tokens insuficientes). v0.21 intentó reemplazar al
-transformer por grafo fractal + root bottom-up SIN transformer: v1/v2 dieron ~2.4%
-next-token (peor que plano 3.4%, por promedio borroso y root no usado); v3 dio 0/40
-sentidos separados (el grafo rústico NO diverge subnodos). LECCIÓN: el grafo rústico
-aplana y no alcanza para next-token ni para separar sentidos. PERO la idea de Luciano
-(concepto = conjunto de subnodos con peso distinto + root DIRECTOR que puede dudar)
-SÍ es válida como CAPA ORQUESTADORA POR ENCIMA del transformer (que da las
-representaciones ricas, v0.17 separó 6/150 sentidos). El root fractal coordina
-dominios y habilita "no estoy seguro" emergente; no sustituye al encoder.
+arquitectura, es el CORPUS (20k tokens insuficientes). v0.21 intentó reemplazar al transformer por grafo fractal + root bottom-up SIN
+transformer. v1/v2 (round-robin ciego ka=i%K) -> promedio borroso, 0.024<0.034
+plano; v3 (desambiguación) -> 0/40 sentidos (subnodos recibían mezcla aleatoria).
+BUG DETECTADO POR AUDITORÍA: el ruteo era i%K (round-robin), no competencia ->
+los subnodos nunca divergían. v4 arregló el ruteo con VQ winner-take-all (k* =
+argmax cos(subnodo_k, contexto), solo el ganador se actualiza, dead-code
+reactivation): el bug de ruteo DESAPARECIÓ pero dio 0/40 IGUAL por COLAPSO AL
+GANADOR, porque el grafo rústico D=16 sobre 20k tokens NO TIENE SEÑAL para que los
+sentidos diverjan (el contexto en D=16 es ruido). LECCIÓN: el ruteo competitivo VQ
+es la mecánica correcta (corrigió el bug), pero la SEPARACIÓN requiere
+representaciones RICAS (transformer, v0.17 separó 6/150). El grafo rústico aplana
+por escasez de señal, no por bug de ruteo. La idea de Luciano (concepto = conjunto
+de subnodos + root DIRECTOR que puede dudar) es válida como CAPA ORQUESTADORA SOBRE
+transformer (v0.22), no como sustrato base.
 
 ## NOTA SOBRE EL GRAFO RÚSTICO VS TRANSFORMER
 En v0.3b/v0.16 (grafo rústico, ~8% accuracy) no fue detectable porque el sustrato no

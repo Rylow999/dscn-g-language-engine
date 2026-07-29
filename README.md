@@ -109,22 +109,33 @@ del fix (anchor+repulsion sigue siendo valido para oversmoothing); lo que fallo
 fue el instrumento de medicion. v0.22/v0.25 (que asumen sentido real en v0.21 v8)
 deben re-evaluarse con instrumento correcto antes de darlos por validados.
 
-## v0.21 v8c — CIERRE DEL FIX (2026-07-28)
-v0.21 v8c ENDURECE el test: 6 polisemicas, contexto DENSO (7 pal de senal, W=8),
-barrido de umbral de repulsion (theta 0.3/0.5/0.7). Resultado CONCLUSIVO:
-  acc_gt=0.50 (AZAR), poli_sep=0/6, mono_sep=0/3, IGUAL para todo theta y para
-  incondicional/condicional.
-Esto CIERRA la pregunta: el fix de anchor+repulsion NO resuelve polisemia real.
-En contexto DEBIL (W=4, filler, v8b) daba acc_gt=0.74 porque la senal era ruido y
-la repulsion empujaba los buckets al azar del ruido; en contexto FUERTE (W=8,
-senal real, v8c) el anchor CENTRA ambos buckets en omega0 y COLAPSAN a 1 (0.50
-azar, 0/6 separadas). El 0.74 de v8b era un EFECTO DE REGIMEN DE RUIDO, no senal
-de sentido. El fix es NO FUNCIONAL para polisemia: la regla de update sigue siendo
-difusion de grafo (oversmoothing) y anchor+repulsion no lo arregla de fondo.
-VEredicto: GRAFO RUSTICO D=16 NO SOSTIENE POLISEMIA. Coherente con NOUS v4 (el
-contexto lo resuelve el TRANSFORMER v0.14d, no el grafo). v0.22/v0.25 deben usar
-transformer de contexto como sustrato de sentido, no el grafo rustico. La linea
-de polisemia por grafo rustico se CIERRA como NO VIABLE.
+## v0.21 v8d — COMPETENCIA POR CONTEXTO (regla A)
+v0.21 v8d cambia la regla de update: en vez de promediar vecinos (difusion),
+SOLO se actualiza el subnodo k* que mejor matchea el contexto (competencia).
+Resultado: acc_gt=0.471 (AZAR), poli_sep=0/6, mono_sep=0/3, curva plana/declina.
+La competencia pura NO separa: deja un subnodo estancado y sin repulsion los
+subnodos colapsan al promedio del corpus.
+
+## v0.21 v8e — COMPETENCIA + REPULSION CONDICIONAL
+Combina competencia (k* ganador se actualiza) + repulsion condicional (empuja
+el subnodo NO ganador AWAY del contexto, solo si cos<theta). Resultado:
+acc_gt=0.529 (AZAR), poli_sep=3/6, mono_sep=0/3, curva NO CONVERGENTE (oscila
+0.41-0.64). Avanza sobre v8d (0→3 poli separadas) PERO no converge: el acc_gt
+nunca supera el azar de forma estable. Las 3 que fallan (llave, capital, firma)
+tienen contextos que se solapan (ej: capital=dinero vs capital=ciudad compite
+con oro=dinero/plata).
+
+## CIERRE DE LA LINEA DE POLISEMIA RUSTICA (2026-07-28)
+v0.21 v8 → v8e: 5 variantes del mecanismo (anchor+repulsion, competencia,
+repulsion condicional, combinaciones). NINGUNA supera acc_gt=0.53 (azar) de
+forma convergente. El grafo rustico D=16 NO resuelve polisemia robusta.
+CONGRUENTE con: diagnostico original (regla=diffusion/oversmoothing), NOUS v4
+(contexto=transformer, no grafo), v0.14d (transformer 4x grafo en contexto).
+v0.22 v2 debe redefinirse sobre el TRANSFORMER v0.14d (que SI separa sentidos),
+no sobre el grafo rustico. La linea de polisemia por grafo rustico se CIERRA
+como NO VIABLE. La (4) resta de contexto (atencion implicita) es la unica
+instancia rustaica no probada; si se intenta, debe dar acc_gt>0.7 para salvar
+el grafo.
 
 ## v0.23 COMPOSICION RELACIONAL (Gap 2 hacia pseudoAGI)
 El grafo fractal (v0.21 v8) codifica CO-OCURRENCIA, no RELACION ESTRUCTURADA.

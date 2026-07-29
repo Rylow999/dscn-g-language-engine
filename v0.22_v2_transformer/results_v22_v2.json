@@ -1,0 +1,18 @@
+{
+  "experiment": "v0.22_v2_root_sobre_transformer",
+  "hypothesis": "La proyeccion Hebb del root aporta sobre embeddings del transformer (root_acc > baseline). Si root~=baseline, el root solo refleja el transformer.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "lr": 0.05,
+    "epochs": 30,
+    "beta": 0.1,
+    "k": 2
+  },
+  "resultados": {
+    "acc_pred": 0.907,
+    "root_acc": 0.545,
+    "baseline_acc": 0.545,
+    "veredicto": "ROOT REFLEJA: root ~= baseline (no aporta)"
+  }
+}

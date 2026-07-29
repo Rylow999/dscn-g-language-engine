@@ -125,22 +125,23 @@ nunca supera el azar de forma estable. Las 3 que fallan (llave, capital, firma)
 tienen contextos que se solapan (ej: capital=dinero vs capital=ciudad compite
 con oro=dinero/plata).
 
-## v0.21 v8f — RESTA DE CONTEXTO (atención implícita, última instancia rústica)
-v0.21 v8f prueba la (4): RESTA DE CONTEXTO (subA=emb-avgB, subB=emb-avgA), como la
-atención del transformer. Resultado: acc_gt=0.50 (AZAR), poli_sep=0/6. La resta
-no separa porque los embeddings base son ALEATORIOS (no co-ocurrencia real):
-cos(subA,avgA)≈cos(subB,avgB) para toda palabra → los 2 subnodos no distinguen
-sentido. La atención necesita EMBEDDINGS REALES (que tenga información semántica),
-que el grafo rústico no entrena (no hay backprop).
-
-## CIERRE DEFINITIVO DE LA LÍNEA DE POLISEMIA RÚSTICA (2026-07-28)
-v0.21 v8 → v8f: 6 variantes (anchor+repulsion, competencia, repulsion condicional,
-combinaciones, resta/atención). NINGUNA supera acc_gt=0.53 (azar) de forma
-convergente. Causa raíz: el grafo rústico D=16 no entrena embeddings de
-co-ocurrencia real → ni difusión, ni competencia, ni resta/atención separan
-sentidos. El transformer (backprop) es necesario para contexto.
-CONGRUENTE con: NOUS v4 (contexto=transformer, no grafo), v0.14d (transformer
-4x grafo en contexto). v0.22 v2 se REDEFINE sobre el transformer v0.14d.
+## v0.22 v2 — ROOT DIRECTOR sobre TRANSFORMER (v0.14d) (2026-07-28)
+v0.22 v2 re-define sobre el TRANSFORMER v0.14d (que SI separa sentidos, acc_pred
+0.907 >> 0.013 azar). La pregunta REAL: ¿la proyeccion Hebb del ROOT aporta sobre
+un sustrato que separa sentidos? Instrumento: transformer minimo (backprop) sobre
+corpus sintetico CON ground truth + proyeccion Hebb del root + baseline (contexto
+solo). Resultado:
+  acc_pred(transformer)=0.907 (aprende, separa sentidos)
+  routing_acc_gt(root sobre transformer)=0.545 (casi azar 0.50)
+  baseline(contexto solo)=0.545
+  VEREDICTO: ROOT REFLEJA (root ~= baseline, NO aporta como proyector de sentido).
+CONCLUSION: la proyeccion Hebb del ROOT DIRECTOR no aporta como proyector de
+sentido. El transformer separa sentidos por si solo (atencion/backprop); la
+proyeccion Hebb del root solo reproduce eso. COHERGENTE con NOUS v4: el grafo
+(root) no resuelve sentido (eso es del transformer); el root debe ser
+MEMORIA/DOLOR/FOCO sobre el contexto (v0.3b, v0.19, v0.24), no proyector de
+sentido. v0.25 v2 debe usar: transformer=contexto/sentido + root=memoria/dolor/
+foco. La proyeccion Hebb del root como proyector de sentido se DESCARTA.
 
 ## v0.23 COMPOSICION RELACIONAL (Gap 2 hacia pseudoAGI)
 El grafo fractal (v0.21 v8) codifica CO-OCURRENCIA, no RELACION ESTRUCTURADA.

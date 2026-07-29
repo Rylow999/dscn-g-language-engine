@@ -1,0 +1,14 @@
+{
+  "experiment": "v0.21_v8f_resta_de_contexto_atencion_implicita",
+  "hypothesis": "Resta de contexto (subA=emb-avgB, subB=emb-avgA) separa polisemicas. acc_gt>0.7 => grafo rustico puede hacer atencion.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "seed": 0
+  },
+  "resultados": {
+    "acc_gt": 0.5,
+    "poli_sep": 0,
+    "mono_sep": 0
+  }
+}

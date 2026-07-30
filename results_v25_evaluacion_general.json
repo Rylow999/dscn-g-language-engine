@@ -1,0 +1,114 @@
+{
+  "word": "tiempo",
+  "skipgram_top10": [
+    [
+      0.7067827141743968,
+      "uno"
+    ],
+    [
+      0.6914118338212296,
+      "tan"
+    ],
+    [
+      0.6689393610651908,
+      "parecer"
+    ],
+    [
+      0.6675856648673928,
+      "entonces"
+    ],
+    [
+      0.6672340980163266,
+      "suelo"
+    ],
+    [
+      0.6456969669423719,
+      "casa"
+    ],
+    [
+      0.6265859693255527,
+      "estos"
+    ],
+    [
+      0.6257985981544271,
+      "dej\u00f3"
+    ],
+    [
+      0.6189160169096745,
+      "muerto"
+    ],
+    [
+      0.6160884964309654,
+      "presente"
+    ]
+  ],
+  "kmeans": {
+    "K": 3,
+    "sizes": {
+      "0": 126,
+      "2": 107,
+      "1": 94
+    },
+    "cohesion": {
+      "0": 0.4497515173009619,
+      "1": 0.37919831172544477,
+      "2": 0.34899571682677405
+    }
+  },
+  "clasificador": {
+    "acc_real": 0.3434343434343434,
+    "acc_aleatorio": 0.3333333333333333,
+    "delta": 0.01010101010101011
+  },
+  "pureza_clusters": {
+    "0_1": {
+      "overlap": 1,
+      "diff": 0,
+      "parecidos": false
+    },
+    "0_2": {
+      "overlap": 1,
+      "diff": 0,
+      "parecidos": false
+    },
+    "1_2": {
+      "overlap": 1,
+      "diff": 0,
+      "parecidos": false
+    }
+  },
+  "generaciones": {
+    "0": {
+      "seed": [
+        "o",
+        "que",
+        "el"
+      ],
+      "generado": []
+    },
+    "1": {
+      "seed": [
+        "su",
+        "acuerdo",
+        "a"
+      ],
+      "generado": []
+    },
+    "2": {
+      "seed": [
+        "andantes",
+        "del",
+        "pasado"
+      ],
+      "generado": []
+    }
+  },
+  "loop_memoria": {
+    "coherence": 1.0,
+    "dominant": "B",
+    "distrib": {
+      "B": 20
+    }
+  },
+  "veredicto_general": "loop con memoria competitiva mantiene coherencia"
+}

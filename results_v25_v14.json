@@ -1,0 +1,226 @@
+{
+  "experiment": "v0.25_v14_transicion_por_sentido",
+  "word": "banco",
+  "results": {
+    "pureza_A": 1.0,
+    "pureza_B": 1.0,
+    "pureza_MIX_A": 1.0,
+    "pureza_MIX_B": 1.0,
+    "veredicto": "FUNCIONAL: modelos por sentido separan vocabulario y generan coherente.",
+    "generaciones_A": [
+      {
+        "prompt": [
+          "fue",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "podras",
+          "usar",
+          "el",
+          "dinero",
+          "y",
+          "pagar",
+          "con",
+          "tarjeta",
+          "en",
+          "mano"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "banco",
+          "aprobo"
+        ],
+        "generated": [
+          "el",
+          "dinero",
+          "y",
+          "pagar",
+          "con",
+          "tarjeta",
+          "en",
+          "el",
+          "banco",
+          "despues"
+        ]
+      },
+      {
+        "prompt": [
+          "se",
+          "tiro",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "publico",
+          "ajusto",
+          "la",
+          "tasa",
+          "de",
+          "retirar",
+          "el",
+          "banco",
+          "despues",
+          "de"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "bote",
+          "choco"
+        ],
+        "generated": []
+      }
+    ],
+    "generaciones_B": [
+      {
+        "prompt": [
+          "fue",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "de",
+          "la",
+          "barca",
+          "en",
+          "el",
+          "banco",
+          "del",
+          "rio",
+          "para",
+          "cruzarlo"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "banco",
+          "aprobo"
+        ],
+        "generated": []
+      },
+      {
+        "prompt": [
+          "se",
+          "tiro",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "del",
+          "rio",
+          "para",
+          "pescar",
+          "con",
+          "su",
+          "red",
+          "bajamos",
+          "por",
+          "el"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "bote",
+          "choco"
+        ],
+        "generated": [
+          "contra",
+          "el",
+          "banco",
+          "se",
+          "tiro",
+          "al",
+          "banco",
+          "mientras",
+          "el",
+          "banco"
+        ]
+      }
+    ],
+    "generaciones_MIX": [
+      {
+        "prompt": [
+          "fue",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "se",
+          "pesco",
+          "una",
+          "trucha",
+          "sobre",
+          "el",
+          "banco",
+          "se",
+          "tiro",
+          "al"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "banco",
+          "aprobo"
+        ],
+        "generated": [
+          "el",
+          "dinero",
+          "y",
+          "pagar",
+          "con",
+          "su",
+          "red",
+          "se",
+          "tiro",
+          "al"
+        ]
+      },
+      {
+        "prompt": [
+          "se",
+          "tiro",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "de",
+          "retirar",
+          "el",
+          "bote",
+          "choco",
+          "contra",
+          "el",
+          "banco",
+          "aprobo",
+          "el"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "bote",
+          "choco"
+        ],
+        "generated": [
+          "contra",
+          "el",
+          "banco",
+          "publico",
+          "ajusto",
+          "la",
+          "tasa",
+          "de",
+          "interes",
+          "sin"
+        ]
+      }
+    ]
+  }
+}

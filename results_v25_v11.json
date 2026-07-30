@@ -1,0 +1,10 @@
+{
+  "experiment": "v0.25_v11_loop_conservador",
+  "word": "banco",
+  "results": {
+    "acc_clf": 0.5592417061611374,
+    "acc_loop": 0.6966824644549763,
+    "mejora": 0.13744075829383884,
+    "veredicto": "LOOP MEJORA BASELINE: reglas conservadoras preservan se\u00f1al."
+  }
+}

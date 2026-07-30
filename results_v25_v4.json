@@ -1,0 +1,23 @@
+{
+  "experiment": "v0.25_v4_root_sistema_de_duda",
+  "hypothesis": "El root mide coherencia entre decision del transformer y memoria. Si dolor_en_duda>dolor_en_confianza y W_contrae, el root funciona como sistema de duda.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "lr": 0.05,
+    "epochs": 30,
+    "beta": 0.1,
+    "decaimiento": 0.85,
+    "kappa_w": 2.0
+  },
+  "resultados": {
+    "acc_decision": 0.5440729483282675,
+    "dolor_en_duda": 0.09146341463414634,
+    "dolor_en_confianza": 0.0,
+    "W_contrae_pct": 0.0911854103343465,
+    "foco_acc": 0.6352583586626139,
+    "duda_count": 656,
+    "conf_count": 2,
+    "veredicto": "ROOT COMO DUDA NO FUNCIONA: dolor no distingue ambiguidad"
+  }
+}

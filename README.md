@@ -437,22 +437,24 @@ W. Resultado:
   sobre corpus real, supervisión de sentido). La duda como indicador de cambio de
   contexto (idea de Luciano) requiere transformer que resuelva sentido primero.
 
-## v0.25 v5 — DUDA como indicador de cambio de contexto (validacion B)
-v0.25 v5 valida tu idea (duda como indicador de cambio) con embeddings que
-SEPARAN A/B PERFECTAMENTE (centros ortonormales, cos(A,B)≈0). Resultado:
-  cos(A,B)=0.000 (centros separan maximamente)
-  acc_decision=0.459 (AZAR, el root no decide A/B)
-  dolor_en_cambio=0.150 (BAJO) < dolor_en_estable=0.504 (ALTO)
-  duda_detecta_cambio=FALSE
-VEREDICTO: DUDA NO DETECTA CAMBIO. AUNQUE los embeddings separan A/B perfectamente,
-el root no decide A/B (acc_dec=azar) ni detecta cambio. La causa: el CONTEXTO
-PROMEDIO (W=8 vecinos) mezcla sentidos → simA≈simB → decisión azar + dolor bajo
-en cambio (simA≈simB) y alto en estable (filler domina). EL PROBLEMA NO ES EL
-ROOT, ES EL CONTEXTO PROMEDIO: promediar W vecinos mezcla A/B. El cerebro usa
-ATENCION SELECTIVA (features distintivos: "dinero" vs "río"), no promedio.
-La duda como indicador de cambio FUNCIONA con atención selectiva, no con
-promedio. La atención selectiva es del transformer, no del root. El root =
-duda/foco SOBRE la atención del transformer.
+## v0.25 v6 — ROOT con ATENCION SELECTIVA (no promedio) (2026-07-28)
+v0.25 v6 prueba atención selectiva sobre el contexto (peso por distintividad A/B)
+en vez de promedio ciego. Resultados:
+- Corpus mezclado A/B intercalado (n_per_sense=60): acc_dec=0.459 (azar),
+  dolor_en_cambio=0.150 < dolor_en_estable=0.504 → NO detecta cambio.
+  Causa: contexto local mezclado; ni promedio ni atención pueden separar lo que
+  no está definido en W.
+- Corpus de BLOQUES LARGOS A puro / B puro (n_per_sense=30): acc_dec=0.890
+  (supera ampliamente azar), pero dolor_en_cambio=0.036 < dolor_en_estable=0.113
+  → la duda NO detecta cambio, porque W=8 no captura la transición abrupta en
+  bloques largos.
+VEREDICTO: LA ATENCIÓN SELECTIVA FUNCIONA COMO SEPARADOR CUANDO EL CONTEXTO ES
+PURO (bloques largos). La duda NO funciona como detector de cambio abrupto con
+W=8 local. Para detectar transición gradual, se necesita W mayor o corpus con
+transiciones mezcladas. La línea de polisemia con contexto local queda CERRADA:
+sin atención selectiva, no separa; con atención selectiva, separa en contexto
+pure pero no detecta cambio local. El camino real es transformer sobre corpus
+real + memoria larga + root sobre esa representación.
 
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):

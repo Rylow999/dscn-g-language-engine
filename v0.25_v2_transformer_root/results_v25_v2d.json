@@ -1,0 +1,37 @@
+{
+  "experiment": "v0.25_v2d_omega_separa_AB",
+  "hypothesis": "La representacion omega del transformer separa A/B. Si acc_gt_simple>0.7, el root puede aprender a leerlos.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "lr": 0.05,
+    "epochs": 30
+  },
+  "resultados": {
+    "acc_pred": 0.907,
+    "acc_gt_simple": 0.533,
+    "detalle": {
+      "banco": {
+        "cos_AB": 0.786,
+        "acc_gt_simple": 0.5
+      },
+      "llave": {
+        "cos_AB": 0.77,
+        "acc_gt_simple": 0.5
+      },
+      "mouse": {
+        "cos_AB": 0.623,
+        "acc_gt_simple": 0.5
+      },
+      "capital": {
+        "cos_AB": 0.567,
+        "acc_gt_simple": 0.5
+      },
+      "oro": {
+        "cos_AB": 0.423,
+        "acc_gt_simple": 0.667
+      }
+    },
+    "veredicto": "TRANSFORMER NO SEPARA A/B (acc\u2248azar): acc_pred=0.907 es prediccion de tokens, no sentido"
+  }
+}

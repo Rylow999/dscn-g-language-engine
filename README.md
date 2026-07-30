@@ -437,13 +437,22 @@ W. Resultado:
   sobre corpus real, supervisión de sentido). La duda como indicador de cambio de
   contexto (idea de Luciano) requiere transformer que resuelva sentido primero.
 
-## v0.25 v5 — DUDA como indicador de cambio de contexto + expansion SELECTIVA
-Idea de Luciano: si el root duda, significa cambio de contexto → expandir la
-ventana hasta resolver la duda. PERO la expansion debe ser SELECTIVA (buscar
-features distintivos: "dinero" vs "río"), no ciega (cualquier palabra). El
-cerebro no amplia la ventana; busca en MEMORIA LARGA PLAZO (Messi ya esta
-etiquetado) + atencion selectiva sobre features distintivos. v0.25 v5 valida:
-¿la expansion selectiva (no ciega) resuelve la duda? [pendiente v0.25 v4]
+## v0.25 v5 — DUDA como indicador de cambio de contexto (validacion B)
+v0.25 v5 valida tu idea (duda como indicador de cambio) con embeddings que
+SEPARAN A/B PERFECTAMENTE (centros ortonormales, cos(A,B)≈0). Resultado:
+  cos(A,B)=0.000 (centros separan maximamente)
+  acc_decision=0.459 (AZAR, el root no decide A/B)
+  dolor_en_cambio=0.150 (BAJO) < dolor_en_estable=0.504 (ALTO)
+  duda_detecta_cambio=FALSE
+VEREDICTO: DUDA NO DETECTA CAMBIO. AUNQUE los embeddings separan A/B perfectamente,
+el root no decide A/B (acc_dec=azar) ni detecta cambio. La causa: el CONTEXTO
+PROMEDIO (W=8 vecinos) mezcla sentidos → simA≈simB → decisión azar + dolor bajo
+en cambio (simA≈simB) y alto en estable (filler domina). EL PROBLEMA NO ES EL
+ROOT, ES EL CONTEXTO PROMEDIO: promediar W vecinos mezcla A/B. El cerebro usa
+ATENCION SELECTIVA (features distintivos: "dinero" vs "río"), no promedio.
+La duda como indicador de cambio FUNCIONA con atención selectiva, no con
+promedio. La atención selectiva es del transformer, no del root. El root =
+duda/foco SOBRE la atención del transformer.
 
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):

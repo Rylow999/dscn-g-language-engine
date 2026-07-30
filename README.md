@@ -406,6 +406,45 @@ EL ROOT FUNCIONA COMO SISTEMA DE DUDA: dolor_duda=0.841, W_contrae=0.982 (v2c).
 ARQUITECTURA CORRECTA (NOUS v4): transformer (BERT-style)=sentido, root=memoria/
 dolor/foco sobre el contexto. El root no es clasificador de sentido.
 
+## v0.25 v3 — TRANSFORMER BERT-STYLE (masked LM) (2026-07-28)
+v0.25 v3 prueba si un transformer BERT-style (masked LM + atención + LayerNorm)
+separa A/B (que el next-token mínimo no separa, v2d: cos(A,B) alto). Resultado:
+  acc_mlm=0.131 (aprende, 10x azar 0.013)
+  acc_gt_simple=0.533 (AZAR), cos(A,B)=0.70-0.94 (ALTO).
+VEREDICTO: BERT NO SEPARA A/B. El masked LM sobre corpus SINTÉTICO no basta:
+el MLM predice tokens por co-ocurrencia (acc_mlm sube) PERO no distingue sentidos
+(cos(A,B) alto, acc_gt≈azar). Para separar A/B, necesitamos corpus REAL (miles de
+millones de tokens, contextos distintivos) + capacidad suficiente (multi-capa,
+D=768), como BERT real. Nuestro BERT mínimo (1 capa, D=16, 5280 tokens) no
+alcance. El MLM sobre corpus sintético no fuerza separación de sentido.
+
+## v0.25 v4 — ROOT como SISTEMA DE DUDA sobre transformer (2026-07-28)
+v0.25 v4 valida el root como SISTEMA DE DUDA. El transformer decide sentido (Wo
+predice próximo token; decision basada en si el token predicho es distintivo de
+A/B). El root mide coherencia entre decision y memoria; si duda, dolor→contrae
+W. Resultado:
+  acc_pred(transformer)=0.901 (aprende, separa tokens)
+  acc_decision(transformer decide A/B)=0.544 (AZAR: el token predicho es filler,
+   no distintivo de A/B → cae al else: cos con slots = azar)
+  dolor_en_duda=0.091 > dolor_en_confianza=0.000 (root DISTINGUE duda de confianza)
+  W_contrae=0.091 (bajo: dolor es bajo porque decision es azar)
+  foco_acc=0.635 (memoria retiene algo, >0.50)
+  VEREDICTO: ROOT COMO DUDA NO FUNCIONA PLENAMENTE. El root distingue duda de
+  confianza PERO la duda no es significativa (acc_decision=azar → incoherencia
+  aleatoria). acc_pred=0.901 (predice tokens) ≠ acc_decision=0.544 (clasifica
+  sentido): el transformer sabe qué token viene PERO no usa eso para clasificar
+  A/B. PARA que la duda funcione, el transformer debe RESOLVER sentido (BERT-style
+  sobre corpus real, supervisión de sentido). La duda como indicador de cambio de
+  contexto (idea de Luciano) requiere transformer que resuelva sentido primero.
+
+## v0.25 v5 — DUDA como indicador de cambio de contexto + expansion SELECTIVA
+Idea de Luciano: si el root duda, significa cambio de contexto → expandir la
+ventana hasta resolver la duda. PERO la expansion debe ser SELECTIVA (buscar
+features distintivos: "dinero" vs "río"), no ciega (cualquier palabra). El
+cerebro no amplia la ventana; busca en MEMORIA LARGA PLAZO (Messi ya esta
+etiquetado) + atencion selectiva sobre features distintivos. v0.25 v5 valida:
+¿la expansion selectiva (no ciega) resuelve la duda? [pendiente v0.25 v4]
+
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):
   [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40

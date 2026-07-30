@@ -442,19 +442,30 @@ v0.25 v6 prueba atención selectiva sobre el contexto (peso por distintividad A/
 en vez de promedio ciego. Resultados:
 - Corpus mezclado A/B intercalado (n_per_sense=60): acc_dec=0.459 (azar),
   dolor_en_cambio=0.150 < dolor_en_estable=0.504 → NO detecta cambio.
-  Causa: contexto local mezclado; ni promedio ni atención pueden separar lo que
-  no está definido en W.
 - Corpus de BLOQUES LARGOS A puro / B puro (n_per_sense=30): acc_dec=0.890
   (supera ampliamente azar), pero dolor_en_cambio=0.036 < dolor_en_estable=0.113
-  → la duda NO detecta cambio, porque W=8 no captura la transición abrupta en
-  bloques largos.
+  → la duda NO detecta cambio abrupto con W=8 local.
 VEREDICTO: LA ATENCIÓN SELECTIVA FUNCIONA COMO SEPARADOR CUANDO EL CONTEXTO ES
 PURO (bloques largos). La duda NO funciona como detector de cambio abrupto con
-W=8 local. Para detectar transición gradual, se necesita W mayor o corpus con
-transiciones mezcladas. La línea de polisemia con contexto local queda CERRADA:
-sin atención selectiva, no separa; con atención selectiva, separa en contexto
-pure pero no detecta cambio local. El camino real es transformer sobre corpus
-real + memoria larga + root sobre esa representación.
+W=8 local. La línea de polisemia con contexto local queda CERRADA en este
+formato. Camino siguiente (paso offline propuesto por Luciano): confirmar si
+existe señal bimodal REAL en Don Quijote antes de meter mecanismo online.
+
+## PASO OFFLINE — ¿EXISTE ESTRUCTURA BIMODAL REAL EN DON QUIJOTE?
+Objetivo: separar (1) ¿hay señal? de (2) ¿el mecanismo la encuentra?
+Experimento aislado, SIN mecanismo DSCN: k-means offline sobre contextos reales.
+- Palabra: 'banco' (5 ocurrencias en Don Quijote)
+- Contextos: ventana W=10 alrededor, bag-of-words normalizado
+- k=1 baseline vs k=2 propuesto
+Resultados:
+  k=1 -> inertia=1.307, silhouette=0.000
+  k=2 -> inertia=0.559, silhouette=0.552, mejora_inertia=57.2%
+VEREDICTO: EXISTE ESTRUCTURA BIMODAL real en contextos de 'banco' en Don Quijote.
+k=2 separa mejor que k=1 a pesar de solo 5 ocurrencias. Por lo tanto, el
+problema anteriores no era la falta de señal en el corpus: era el experimento
+online sin semilla ni configuración adecuada. Próximo paso: portar las medias
+de los dos clusters como semilla omega0 en el grafo online y medir si diffusion
++ anchor refinan esa hipótesis inicial.
 
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):

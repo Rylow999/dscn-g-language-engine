@@ -1,0 +1,52 @@
+{
+  "experiment": "v0.25_v15_loop_generativo_sentido",
+  "word": "banco",
+  "results": {
+    "acc_clf": 0.9383886255924171,
+    "acc_sense": 0.9383886255924171,
+    "true_sense": [
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B"
+    ],
+    "pred_sense": [
+      "B",
+      "B",
+      "A",
+      "B",
+      "B",
+      "B",
+      "B",
+      "A",
+      "B",
+      "B",
+      "B",
+      "B",
+      "A",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "A"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "experiment": "v0.25_v5_duda_indicador_cambio_contexto",
+  "hypothesis": "La duda del root detecta cambios de contexto A\u2194B sobre una representacion que separa. Si dolor_en_cambio>dolor_en_estable, la duda es un buen indicador.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "seed": 0
+  },
+  "resultados": {
+    "acc_decision": 0.45916064981949456,
+    "dolor_en_cambio": 0.14967286251173642,
+    "dolor_en_estable": 0.5037428877799268,
+    "cambio_count": 598,
+    "estable_count": 3833,
+    "duda_detecta_cambio": false,
+    "veredicto": "DUDA NO DETECTA CAMBIO: el dolor no distingue cambio de contexto"
+  }
+}

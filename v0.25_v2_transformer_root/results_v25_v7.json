@@ -1,0 +1,41 @@
+{
+  "experiment": "v0.25_v7_seed_kmeans_online",
+  "hypothesis": "Semillas k-means en omega0 mejoran la separacion online frente a aleatorios.",
+  "params": {
+    "word": "banco",
+    "D": 16,
+    "W": 8,
+    "epochs": 20,
+    "lr": 0.05,
+    "beta_anchor": 0.2,
+    "beta_repulse": 0.05,
+    "theta": 0.8
+  },
+  "results": {
+    "seed_init_cos": 0.6395494230872507,
+    "seed_final_cos": -0.3754964159402296,
+    "distances": [
+      0.6395494230872507,
+      0.44628092464213576,
+      0.17506102994253245,
+      0.022046358585206618,
+      -0.046787090250884046,
+      -0.08416513800912723,
+      -0.11097702081427199,
+      -0.13423725617467402,
+      -0.15623069388235017,
+      -0.1776849223662649,
+      -0.19881857774234882,
+      -0.2196849079253006,
+      -0.2402842056632079,
+      -0.26060062662330824,
+      -0.28061428146719947,
+      -0.30030523575104934,
+      -0.31965485152537254,
+      -0.33864624525879955,
+      -0.35726444199386254,
+      -0.3754964159402296
+    ],
+    "veredicto": "SEMILLA + ANCHOR SEPARA: los sub-nodos divergen (cos baja), la hip\u00f3tesis inicial se mantiene y refina."
+  }
+}

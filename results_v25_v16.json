@@ -1,0 +1,36 @@
+{
+  "experiment": "v0.25_v16_loop_generativo_memoria",
+  "word": "banco",
+  "results": {
+    "acc_clf": 0.9383886255924171,
+    "coherence": 0.75,
+    "dominant_sense": "A",
+    "sense_distribution": {
+      "A": 15,
+      "B": 5
+    },
+    "history": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "B",
+      "A",
+      "A",
+      "A",
+      "B",
+      "B",
+      "B",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "B"
+    ],
+    "veredicto": "FUNCIONAL: memoria competitiva + generador por sentido mantiene coherencia."
+  }
+}

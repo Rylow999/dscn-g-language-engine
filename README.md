@@ -190,7 +190,9 @@ debe usar la formula correcta y conectar V con DOLOR (Ec.6) y VENTANA (Ec.8).
 
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):
-  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40 real)
+  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40
+   ARTIFACTUAL, v8f: acc_gt<=0.53 azar). Grafo rustico NO separa sentidos.
+   Transformer (v0.14d) separa (acc_pred=0.907). v0.25 v2 integra.
   [ruteo sentido]  root DIRECTOR + proyeccion Hebb          -> v0.22 v3 (1.0)
   [memoria]        hibernar reintegra / borrar mata          -> v0.3b v2 (~0.98/0.0)
   [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia)
@@ -366,9 +368,40 @@ probó contraccion de ventana ante DOLOR real. GAP: v0.25 v2 debe usar grafo fra
 v0.21 v8 sobre Don Quijote, fase phi real para von Mises, DECODIFICADOR GENERATIVO,
 y forzar incoherencia para ver W contraerse por dolor.
 
+## v0.25 v2 — INTEGRACION TRANSFORMER + ROOT (arquitectura NOUS v4 correcta)
+v0.25 original asumia root=proyector de sentido sobre grafo rústico (v0.21 v8).
+Pero v0.21 v8→v8f CERRARON que el grafo rústico no separa sentidos (acc_gt<=0.53,
+azar), y v0.22 v2 confirmó que el root no aporta como proyector (root≈baseline).
+v0.25 v2 usa la arquitectura CORRECTA (NOUS v4):
+  - TRANSFORMER = contexto/sentido (backprop, separa polisemia, acc_pred=0.907).
+  - ROOT/GRAFO = MEMORIA/DOLOR/FOCO sobre el contexto (v0.3b, v0.19, v0.24),
+    NO proyector de sentido.
+Resultado: acc_gt=0.546 (AZAR), foco_acc=0.546, dolor_max=0.884.
+VEREDICTO: CICLO NO FUNCIONAL para polisemia. El transformer separa sentidos
+(acc_pred=0.907) PERO el root (slots+vitalidad+Hebb) no los rutea (acc_gt≈azar).
+Causa: la vitalidad competitiva + Hebb local no corrige atracciones tempranas
+equivocadas; el contexto promedio mezcla A/B (filler) y el slot que gana por azar
+se auto-refuerza en el sentido equivocado. El transformer usa BACKPROP (corrige
+globalmente); el root usa HEBB LOCAL (refuerza solo el ganador).
+
+## v0.25 v2b/c — ROOT como SISTEMA DE DUDA (regla correcta)
+v0.25 v2b/c corrigen: el root NO compite con el transformer. El TRANSFORMER decide
+sentido (Wo entrenado, acc_pred=0.907), y el ROOT refuerza sobre esa decision +
+genera DOLOR en duda. Resultado:
+  acc_gt_root=0.544 (AZAR, root no refuerza sentido)
+  dolor_en_duda=0.841 (root SÍ detecta duda)
+  W_contrae=0.982 (root SÍ contrae ventana en duda)
+VEREDICTO: el root NO separa sentido (acc_gt≈azar en v0.22 v2, v0.25 v2, v2b, v2c)
+PERO funciona COMO SISTEMA DE DUDA (detecta duda, contrae W). COHERGENTE con
+NOUS v4: transformer=sentido, root=dolor/foco sobre el contexto. El root NO es
+proyector de sentido; es sistema de duda/foco. v0.25 v2 confirma la arquitectura:
+transformer=sentido + root=dolor/foco.
+
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):
-  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40 real)
+  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40
+   ARTIFACTUAL, v8f: acc_gt<=0.53 azar). Grafo rustico NO separa sentidos.
+   Transformer (v0.14d) separa (acc_pred=0.907). v0.25 v2 integra.
   [ruteo sentido]  root DIRECTOR + proyeccion Hebb          -> v0.22 v3 (1.0)
   [memoria]        hibernar reintegra / borrar mata          -> v0.3b v2 (~0.98/0.0)
   [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia)

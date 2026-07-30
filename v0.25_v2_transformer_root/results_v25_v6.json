@@ -1,0 +1,20 @@
+{
+  "experiment": "v0.25_v6_root_atencion_selectiva",
+  "hypothesis": "La atencion selectiva (peso por distintividad A/B) sobre contexto local mejora la decision A/B y la deteccion de cambio.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "seed": 0,
+    "n": 30,
+    "corpus": "bloques_largos_A_puro_B_puro"
+  },
+  "resultados": {
+    "acc_decision": 0.89,
+    "dolor_en_cambio": 0.036,
+    "dolor_en_estable": 0.113,
+    "cambio_count": 0,
+    "estable_count": 0,
+    "duda_detecta_cambio": false,
+    "veredicto": "ATENCION SELECTIVA SEPARA A/B en contexto puro (acc=0.890), pero no detecta cambio abrupto con W=8 local. Contexto mezclado (v5/v6 anterior): no separa. La polisemia con contexto local queda cerrada; camino real: transformer sobre corpus real + memoria larga + root sobre esa representacion."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "experiment": "v0.25_v2_integracion_transformer_root",
+  "hypothesis": "Transformer (contexto/sentido) + root (memoria/vitalidad/dolor/Hebb) resuelve polisemia. acc_gt>0.7 => ciclo funcional.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "lr": 0.05,
+    "epochs": 30,
+    "beta": 0.1,
+    "k": 2,
+    "decaimiento": 0.85
+  },
+  "resultados": {
+    "acc_pred": 0.907,
+    "acc_gt": 0.546,
+    "foco_acc": 0.546,
+    "dolor_max": 0.884,
+    "veredicto": "CICLO NO FUNCIONAL: acc_gt\u2248azar (root no separa sobre transformer)"
+  }
+}

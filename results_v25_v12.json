@@ -1,0 +1,108 @@
+{
+  "experiment": "v0.25_v12_decoder_generativo",
+  "results": {
+    "top1": 0.02,
+    "top5": 0.095,
+    "n_samples": 200,
+    "outputs": [
+      {
+        "prompt": [
+          "fue",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "banco",
+          "banco",
+          "se",
+          "se",
+          "con",
+          "se",
+          "remar",
+          "al",
+          "con",
+          "remar"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "banco",
+          "aprobo"
+        ],
+        "generated": [
+          "choco",
+          "banco",
+          "podras",
+          "choco",
+          "con",
+          "se",
+          "se",
+          "podras",
+          "banco",
+          "choco"
+        ]
+      },
+      {
+        "prompt": [
+          "se",
+          "tiro",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "con",
+          "se",
+          "remar",
+          "se",
+          "remar",
+          "al",
+          "se",
+          "con",
+          "se",
+          "se"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "bote",
+          "choco"
+        ],
+        "generated": [
+          "retirar",
+          "podras",
+          "el",
+          "el",
+          "choco",
+          "choco",
+          "de",
+          "choco",
+          "de",
+          "temprano"
+        ]
+      },
+      {
+        "prompt": [
+          "la",
+          "llave",
+          "de",
+          "la"
+        ],
+        "generated": [
+          "remar",
+          "con",
+          "remar",
+          "con",
+          "con",
+          "se",
+          "con",
+          "con",
+          "podras",
+          "podras"
+        ]
+      }
+    ]
+  },
+  "veredicto": "NO FUNCIONAL: decodificador no captura estructura del corpus."
+}

@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.25_v8b_loop_sin_decoder",
+  "word": "banco",
+  "params": {
+    "W": 8,
+    "epochs_outer": 3,
+    "epochs_inner": 5
+  },
+  "results": {
+    "baseline": 0.7583333333333333,
+    "loop": 0.4166666666666667,
+    "mejora": -0.3416666666666666,
+    "veredicto": "LOOP EMPEORA: el rompedor no era el decodificador."
+  }
+}

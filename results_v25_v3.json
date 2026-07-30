@@ -1,0 +1,38 @@
+{
+  "experiment": "v0.25_v3_bert_style_masked_lm",
+  "hypothesis": "El transformer BERT-style (masked LM) separa A/B. Si acc_gt_simple>0.7, el root puede operar sobre esta representacion.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "lr": 0.05,
+    "epochs": 40,
+    "mask_rate": 0.15
+  },
+  "resultados": {
+    "acc_mlm": 0.131,
+    "acc_gt_simple": 0.533,
+    "detalle": {
+      "banco": {
+        "cos_AB": 0.937,
+        "acc_gt_simple": 0.5
+      },
+      "llave": {
+        "cos_AB": 0.851,
+        "acc_gt_simple": 0.5
+      },
+      "mouse": {
+        "cos_AB": 0.868,
+        "acc_gt_simple": 0.5
+      },
+      "capital": {
+        "cos_AB": 0.812,
+        "acc_gt_simple": 0.5
+      },
+      "oro": {
+        "cos_AB": 0.698,
+        "acc_gt_simple": 0.667
+      }
+    },
+    "veredicto": "BERT NO SEPARA A/B: masked LM no basta, necesitamos mas supervicion"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "experiment": "v0.25_v17_donquijote_vino_real",
+  "results": {
+    "sizes": {
+      "A": 91,
+      "B": 47
+    },
+    "cohesion": {
+      "0": 0.34645992225419253,
+      "1": 0.4210685003311714
+    },
+    "veredicto": "NO FUNCIONAL",
+    "topA": [
+      "vino"
+    ],
+    "topB": [
+      "vino"
+    ],
+    "overlap": 1,
+    "diff": 0
+  }
+}

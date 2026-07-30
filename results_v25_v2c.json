@@ -1,0 +1,19 @@
+{
+  "experiment": "v0.25_v2c_root_refuerza_decision_transformer_real",
+  "hypothesis": "El root refuerza la decision del transformer (Wo entrenado). Si acc_gt_root>0.7, el root funciona COMO MEMORIA.",
+  "params": {
+    "d": 16,
+    "w": 8,
+    "lr": 0.05,
+    "epochs": 30,
+    "beta": 0.1,
+    "decaimiento": 0.85
+  },
+  "resultados": {
+    "acc_pred": 0.907,
+    "acc_gt_root": 0.544,
+    "dolor_en_duda": 0.841,
+    "W_contrae_pct": 0.982,
+    "veredicto": "ROOT NO FUNCIONA: no refuerza el sentido (acc_gt_root\u2248azar)"
+  }
+}

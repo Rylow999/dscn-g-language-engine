@@ -384,18 +384,27 @@ equivocadas; el contexto promedio mezcla A/B (filler) y el slot que gana por aza
 se auto-refuerza en el sentido equivocado. El transformer usa BACKPROP (corrige
 globalmente); el root usa HEBB LOCAL (refuerza solo el ganador).
 
-## v0.25 v2b/c — ROOT como SISTEMA DE DUDA (regla correcta)
-v0.25 v2b/c corrigen: el root NO compite con el transformer. El TRANSFORMER decide
-sentido (Wo entrenado, acc_pred=0.907), y el ROOT refuerza sobre esa decision +
-genera DOLOR en duda. Resultado:
-  acc_gt_root=0.544 (AZAR, root no refuerza sentido)
-  dolor_en_duda=0.841 (root SÍ detecta duda)
-  W_contrae=0.982 (root SÍ contrae ventana en duda)
-VEREDICTO: el root NO separa sentido (acc_gt≈azar en v0.22 v2, v0.25 v2, v2b, v2c)
-PERO funciona COMO SISTEMA DE DUDA (detecta duda, contrae W). COHERGENTE con
-NOUS v4: transformer=sentido, root=dolor/foco sobre el contexto. El root NO es
-proyector de sentido; es sistema de duda/foco. v0.25 v2 confirma la arquitectura:
-transformer=sentido + root=dolor/foco.
+## v0.25 v2d — ¿LA REPRESENTACIÓN DEL TRANSFORMER SEPARA A/B? (2026-07-28)
+v0.25 v2d pregunta: ¿la representación omega del transformer separa A/B para cada
+polisemia? (si no separa, el root no puede separar sobre ella). Resultado:
+  acc_gt_simple=0.533 (AZAR), cos(A,B)=0.57-0.79 (ALTO) para casi todas.
+  banco cos(A,B)=0.786, llave 0.770, mouse 0.623, capital 0.567, oro 0.423.
+VEREDICTO: TRANSFORMER NO SEPARA A/B. acc_pred=0.907 (predice tokens) NO implica
+separación de sentido: predecir el próximo token solo requiere co-ocurrencia, no
+distinguir sentidos. "banco" tiene el MISMO embedding para dinero y río.
+CONCLUSION: el root no separa sentido PORQUE la representación no separa (no es
+culpa del root). Para separar sentido, el transformer debe entrenarse para
+CLASIFICAR sentido (BERT-style masked LM, no solo predecir tokens). El root =
+memoria/dolor/foco sobre el contexto (NO clasificador de sentido).
+
+## CIERRE DEFINITIVO: ROOT NO SEPARA SENTIDO (2026-07-28)
+5 experimentos (v0.22 v2, v0.25 v2, v2b, v2c, v2d): acc_gt≈0.50 (azar) en todos.
+El root NO separa sentido. CAUSAS: (1) el grafo rústico no separa (v0.21 v8→v8f),
+(2) el transformer mínimo separa tokens PERO NO sentidos (v2d: cos(A,B) alto),
+(3) el root no está entrenado para clasificar (Hebb local no basta).
+EL ROOT FUNCIONA COMO SISTEMA DE DUDA: dolor_duda=0.841, W_contrae=0.982 (v2c).
+ARQUITECTURA CORRECTA (NOUS v4): transformer (BERT-style)=sentido, root=memoria/
+dolor/foco sobre el contexto. El root no es clasificador de sentido.
 
 ## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
 CONFIRMADO (senal del dato, experimentos reales):

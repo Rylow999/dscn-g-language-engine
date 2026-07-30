@@ -198,7 +198,18 @@ CONFIRMADO (senal del dato, experimentos reales):
   [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia)
   [ajuste]         dolor por dato + aprendizaje por dolor    -> v0.19 limpio / v0.9c
 DEBIL / GAP ABIERTO:
-  [composicion]    Hebb 3-body: 0.042 real (azar 0.011)      -> v0.23 v3 (senal 4x pero ruido)
+  [composicion]    Hebb 3-body: 0.036 sobre Don Quijote (azar 0.026, diff=0.009).
+                    v0.23 v3 con corpus sintetico daba 0.042 vs 0.011 (diff=0.031),
+                    pero no aguantaba control monosemico. En corpus real la senal
+                    es muy debil: Hebb rústico NO alcanza para composicion relacional.
+                    Queda abierto: requiere metodo mas fuerte (ej. transformer sobre
+                    relaciones) o corpus con relaciones mas explicitas.
+  [loop cerrado]   v0.25 v8 (transformer+root+memoria+decodificador) empeora
+                    baseline (0.758 -> 0.550). v0.25 v8b sin decodificador empeora
+                    aun mas (0.417). v0.25 v9 con skip-gram embeddings reales
+                    MEJORA sobre su propio baseline debil (0.328 -> 0.500). Con-
+                    clusion parcial: los embeddings reales ayudan, pero el loop
+                    actual no es robusto; falta calibrar baseline y reglas.
 NO INTEGRADO (el verdadero muro):
   [loop cerrado]   los bloques arriba NO se componen en un ciclo
   [decodificador]  generar lenguaje desde sentido ruteado
@@ -473,8 +484,7 @@ mixtos (5 ocurrencias, todas "banco de barco"). Luego v7 es un resultado
 tecnico, no de polisemia.
 v0.25 v7b repite el experimento sobre corpus sintético mejorado (oraciones
 realistas A/B con ground truth) para 3 palabras:
-- banco: kmeans sil=0.599, mejora_inertia=48.3% -> online COLAPSA
-  (init=-0.724, final=0.176).
+- banco: kmeans sil=0.599, mejora_inertia=48.3% -> online ESTABLE (init=-0.540, final=-0.693).
 - llave: kmeans sil=0.758, mejora_inertia=65.3% -> online ESTABLE
   (init=-0.900, final=-0.896).
 - cabo: kmeans sil=0.727, mejora_inertia=61.5% -> online ESTABLE
@@ -486,30 +496,69 @@ la hipótesis 'la semilla k-means soluciona la separacion online'queda
 REFUTADA en esta config. Queda abierto: requiere mecanismo online mas
 fuerte o inicializacion diferente.
 
+## v0.25 v7c — CAMBIO DE CONFIG ONLINE
+v7c prueba otras 3 configs online partiendo de la misma semilla k-means en
+'banco':
+- baseline_v7b: init=-0.715 final=-0.660 div=+0.055 -> COLAPSA ONLINE.
+- repulsion_fuerte: init=-0.720 final=-0.778 div=-0.057 -> SEPARA ONLINE.
+- anchor_mas_fuerte: init=0.014 final=0.014 div=-0.000 -> ESTABLE ONLINE.
+VEREDICTO PARCIAL: repulsion incondicional fuerte SÍ separa desde semilla
+(divergencia negativa), mientras que la config por defecto colapsa. Eso
+descarta la hipótesis “la semilla no alcanza”: depende de la regla online.
+Queda pendiente evaluar si esa separación es real o un artefacto de setup.
+
 ## PASO OFFLINE — ¿EXISTE ESTRUCTURA BIMODAL REAL EN DON QUIJOTE?
 CONFIRMADO (senal del dato, experimentos reales):
-  [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40
-   ARTIFACTUAL, v8f: acc_gt<=0.53 azar). Grafo rustico NO separa sentidos.
-   Transformer (v0.14d) separa (acc_pred=0.907). v0.25 v2 integra.
-  [ruteo sentido]  root DIRECTOR + proyeccion Hebb          -> v0.22 v3 (1.0)
+  [ruteo sentido]  root DIRECTOR + proyeccion Hebb          -> v0.22 v2 (root refleja, no anade)
   [memoria]        hibernar reintegra / borrar mata          -> v0.3b v2 (~0.98/0.0)
-  [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia)
+  [memoria trabajo] foco vitalidad competitiva              -> v0.24 (0.601 dominancia, parcial)
   [ajuste]         dolor por dato + aprendizaje por dolor    -> v0.19 limpio / v0.9c
+CERRADO / DESCARTADO:
+  [polisemia]      grafo rustico D=16 + anchored/polysemy     -> v0.21 v8 (39/40 ARTIFACTUAL), v8f acc_gt<=0.53.
+                    kmeans offline confirma estructura bimodal real en Don Quijote (silhouette 0.552, +57% inercia).
+                    v0.25 v7b (semilla k-means en omega0) sobre corpus sintetico con ground truth:
+                    offline OK (silhouette 0.599-0.758), online config default COLAPSA/ESTABLE, acc_gt real=0.500.
+                    v0.25 v7c: repulsion incondicional fuerte logra separacion tecnica online, pero SIN acierto semantico todavia.
+                    Lema: la semilla k-means ayuda, pero la config online todavia no convierte divergencia tecnica en acierto semantico.
 DEBIL / GAP ABIERTO:
-  [composicion]    Hebb 3-body: 0.042 real (azar 0.011)      -> v0.23 v3 (senal 4x pero ruido)
+  [composicion]    Hebb 3-body: 0.036 sobre Don Quijote (azar 0.026, diff=0.009).
+                    v0.23 v3 con corpus sintetico daba 0.042 vs 0.011 (diff=0.031),
+                    pero no aguantaba control monosemico. En corpus real la senal
+                    es muy debil: Hebb rustico NO alcanza para composicion relacional.
+                    Queda abierto: requiere metodo mas fuerte o corpus con
+                    relaciones mas explicitas.
+  [loop cerrado]   v0.25 v8 (transformer+root+memoria+decodificador) empeora
+                    baseline (0.758 -> 0.550). v0.25 v8b sin decodificador empeora
+                    aun mas (0.417). v0.25 v9 con skip-gram embeddings reales
+                    MEJORA sobre su propio baseline debil (0.328 -> 0.500).
+                    v0.25 v10: baseline clasificador lineal=0.766; loop cae a 0.490
+                    en test. v0.25 v11 (loop conservador) da +0.137 sobre baseline
+                    para 'banco', pero v0.25 v11b NO generaliza: para 'llave' cae
+                    a 0.500 desde baseline 1.000. v0.25 v12 (decoder por similitud
+                    de embeddings) es NO FUNCIONAL (top1=0.020, top5=0.095).
+                    v0.25 v13/v13b (transicion explicita bigramas/trigramas)
+                    FUNCIONAL: top1=0.630, top5=0.940, generaciones coherentes.
+                    Conclusion: la generacion next-token no requiere embeddings
+                    densos en este régimen; alcanza con modelo de transicion
+                    aprendido del corpus. Queda abierto: integrar este generador
+                    con el loop de sentido para que el sentido ruteado influya
+                    en la generacion.
 NO INTEGRADO (el verdadero muro):
-  [loop cerrado]   los bloques arriba NO se componen en un ciclo (v0.25 es 1er intento, mini)
-  [decodificador]  generar lenguaje desde sentido ruteado
   [decision]       accion sobre el foco + dolor dirige update
   [meta/autoobs]   duda de DECISION que dispara busqueda
 
 ## CONCLUSION
 La arquitectura (grafo de memoria/dolor + transformer de contexto) es solida y los
-5 mecanismos (memoria, dolor, categoria, composicion, contexto) son GENUINOS cuando
-se miden con senal real del dato. El README anterior mentia por omision de diseno en
-4 de 5 "✓"; este archivo corrige eso. El grafo rustico es un sustrato limitado
-(predice mal) pero sus mecanismos cognitivos son reales. v0.22 (ruteo) y v0.24
-(memoria de trabajo) CIERRAN dos gaps; v0.23 (composicion) queda ABIERTO (senal
-debil); v0.25 da el PRIMER andamiaje de INTEGRACION (los bloques se componen en un
-ciclo cerrado sobre corpus mini). El proximo paso honesto es v0.25 v2: integrar
-sobre Don Quijote real con fase phi, dolor forzado y decodificador generativo.
+mecanismos cognitivos son GENUINOS cuando se miden con señal real del dato, pero
+su integracion en un ciclo cerrado todavia NO esta probada. El README anterior
+mentia por omision de diseno en varios cierres; este archivo lo corrige.
+v0.22 (ruteo) refleja pero no anade. v0.24 (memoria de trabajo) muestra dominancia
+parcial (0.601) en memoria competitiva. v0.23 (composicion Hebb 3-body) queda
+ABIERTO (senal debil: 0.036 vs 0.026 en corpus real; v0.23 v3 con corpus sintetico
+daba 0.042 vs 0.011 pero sin control monosemico robusto). v0.25 cierra la linea
+de polisemia rústica: kmeans offline confirma estructura bimodal real en Don Quijote,
+pero la config online con semilla k-means aun no convierte divergencia tecnica en
+acierto semantico (acc_gt real=0.500). El loop cerrado minimo v0.25 v8/v8b empeora
+el baseline (0.758 -> 0.550/0.417): el ciclo integrado actual introduce ruido, no
+señal. El proximo paso honesto es rediseñar el loop o escalar el sustrato (embeddings
+reales + reglas de actualizacion distintas) antes de volver a integrar.

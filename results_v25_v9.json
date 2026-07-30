@@ -1,0 +1,10 @@
+{
+  "experiment": "v0.25_v9_loop_embeddings_reales",
+  "word": "banco",
+  "results": {
+    "baseline": 0.3275,
+    "loop": 0.5,
+    "mejora": 0.1725,
+    "veredicto": "LOOP MEJORA: embeddings reales ayudan a integrar."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "experiment": "v0.25_v8_loop_cerrado_minimo",
+  "word": "banco",
+  "params": {
+    "W": 8,
+    "epochs_baseline": 5,
+    "epochs_outer": 3,
+    "epochs_inner": 5,
+    "D": 16
+  },
+  "results": {
+    "baseline": 0.7583333333333333,
+    "loop": 0.55,
+    "mejora": -0.20833333333333326,
+    "veredicto": "LOOP EMPEORA: el ciclo cerrado introduce ruido."
+  }
+}

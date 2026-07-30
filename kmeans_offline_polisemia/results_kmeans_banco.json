@@ -1,0 +1,21 @@
+{
+  "experiment": "kmeans_offline_banco_donquijote",
+  "hypothesis": "Si k=2 da mejor silhouette/inertia que k=1 sobre contextos bag-of-words reales, existe se\u00f1al bimodal en el corpus.",
+  "params": {
+    "word": "banco",
+    "W": 10,
+    "k": 2,
+    "seed": 0,
+    "n_contexts": 5,
+    "n_vocab": 42
+  },
+  "results": {
+    "k1_inertia": 1.3068102931894328,
+    "k1_silhouette": 0.0,
+    "k2_inertia": 0.5587025348721274,
+    "k2_silhouette": 0.5518671272422752,
+    "mejora_inertia": 0.57246852294946,
+    "maj_frac": 0.6,
+    "veredicto": "EXISTE ESTRUCTURA BIMODAL: k=2 separa mejor que k=1. Vale la pena portar semilla al grafo online."
+  }
+}

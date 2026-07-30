@@ -465,21 +465,28 @@ k=2 separa mejor que k=1 a pesar de solo 5 ocurrencias. Por lo tanto, el
 problema anteriores no era la falta de señal en el corpus: era el experimento
 online sin semilla ni configuración adecuada.
 
-## PASO 2 ONLINE — SEMILLA K-MEANS EN GRAFO (v0.25 v7)
-v0.25 v7 porta las medias de k-means como semilla omega0 para los sub-nodos de
-'banco' y corre diffusion+anchor online sobre donquijote.txt.
-Semilla: 2 centros k-means proyectados a D=16.
-Resultado:
-  seed init cos(A,B)=0.640
-  seed final cos(A,B)=-0.375 (tras 20 epochs)
-  Tendencia: divergencia clara (de 0.640 a -0.375)
-VEREDICTO: LA SEMILLA K-MEANS SÍ FUNCIONA. Los sub-nodos del grafo divergen
-desde la hipótesis inicial y la refinan. Eso confirma que (1) había señal real,
-(2) el mecanismo online puede rastrearla, y (3) el problema anterior era la
-falta de semilla, no el sustrato. Próximo paso honesto: medir acc_gt con ground
-truth o evaluar en otras palabras del Quijote.
+## PASO 2 ONLINE — SEMILLA K-MEANS EN GRAFO (v0.25 v7b)
+v0.25 v7 porta las medias de k-means como semilla omega0 para 'banco' en
+donquijote.txt: init cos(A,B)=0.640, final=-0.375, divergencia clara.
+PERO evaluación real muestra que 'banco' en Don Quijote no tiene sentidos
+mixtos (5 ocurrencias, todas "banco de barco"). Luego v7 es un resultado
+tecnico, no de polisemia.
+v0.25 v7b repite el experimento sobre corpus sintético mejorado (oraciones
+realistas A/B con ground truth) para 3 palabras:
+- banco: kmeans sil=0.599, mejora_inertia=48.3% -> online COLAPSA
+  (init=-0.724, final=0.176).
+- llave: kmeans sil=0.758, mejora_inertia=65.3% -> online ESTABLE
+  (init=-0.900, final=-0.896).
+- cabo: kmeans sil=0.727, mejora_inertia=61.5% -> online ESTABLE
+  (init=-0.049, final=-0.048).
+VEREDICTO: aunque el paso 1 offline confirma estructura bimodal real,
+el paso 2 online NO refina esa señal con la config actual. En 'banco' la
+destruye; en 'llave'/'cabo' se mantiene estable sin mejorar. Por lo tanto,
+la hipótesis 'la semilla k-means soluciona la separacion online'queda
+REFUTADA en esta config. Queda abierto: requiere mecanismo online mas
+fuerte o inicializacion diferente.
 
-## MAPA DE GAPS HACIA PSEUDOAGI (estado 2026-07-28)
+## PASO OFFLINE — ¿EXISTE ESTRUCTURA BIMODAL REAL EN DON QUIJOTE?
 CONFIRMADO (senal del dato, experimentos reales):
   [polisemia]      grafo fractal ancla + fix oversmoothing  -> v0.21 v8 (39/40
    ARTIFACTUAL, v8f: acc_gt<=0.53 azar). Grafo rustico NO separa sentidos.

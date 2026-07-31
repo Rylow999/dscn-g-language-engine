@@ -1,0 +1,12 @@
+{
+  "experiment": "v0.25_v10_clasificador_lineal",
+  "word": "banco",
+  "results": {
+    "acc_clf": 0.7655172413793103,
+    "acc_loop": 0.4896551724137931,
+    "mejora": -0.27586206896551724,
+    "baseline_clf": "111/145",
+    "loop_correct": "71/145",
+    "veredicto": "LOOP EMPEORA CLASIFICADOR: el ciclo introduce ruido."
+  }
+}

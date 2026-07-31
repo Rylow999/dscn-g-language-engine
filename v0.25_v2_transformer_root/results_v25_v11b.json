@@ -1,0 +1,15 @@
+{
+  "experiment": "v0.25_v11b_generalizacion",
+  "results": {
+    "llave": {
+      "acc_clf": 1.0,
+      "acc_loop": 0.5,
+      "mejora": -0.5
+    },
+    "banco": {
+      "acc_clf": 1.0,
+      "acc_loop": 0.4471428571428571,
+      "mejora": -0.5528571428571429
+    }
+  }
+}

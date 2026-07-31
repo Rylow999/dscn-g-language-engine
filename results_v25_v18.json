@@ -1,0 +1,22 @@
+{
+  "experiment": "v0.25_v18_dq_cabo_real",
+  "results": {
+    "k": 3,
+    "sizes": {
+      "0": 61,
+      "1": 22,
+      "2": 7
+    },
+    "cohesion": {
+      "0": 0.44338394488451055,
+      "1": 0.4234023987618365,
+      "2": 0.6223555912665034
+    },
+    "overlaps": {
+      "0-1": 1,
+      "0-2": 1,
+      "1-2": 1
+    },
+    "veredicto": "FUNCIONAL: 'cabo' muestra estructura de sentido diferenciable en DQ."
+  }
+}

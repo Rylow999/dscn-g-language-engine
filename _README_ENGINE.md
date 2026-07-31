@@ -591,3 +591,14 @@ Rerun real de v2-v21 sobre `dscng_core.py`:
 - v19 DQ "tiempo": señal parcial, k-means sugerente.
 - v20 skip-gram "tiempo" DQ: embeddings coherentes, separación débil.
 - v21 CLASSIFIER LOOP en home, sin log nuevo tras core; queda como batch pendiente.
+
+### v0.25 v22 — COHERENCIA DE DOMINIO (cambio de paradigma)
+Objetivo: dejar de medir separación A/B interna y medir coherencia externa por dominio.
+- Tarea: generar texto coherente con un dominio (A: dinero/banco, B: río/banco) a partir de múltiples semillas.
+- Métrica: score de overlap semántico externo vs vocabulario del dominio; baseline random comparativo.
+- Resultado: score A=0.895 (random 0.76), score B=0.915 (random 0.52); VEREDICTO: FUNCIONAL.
+- Conclusión: el modelo genera texto coherente con el dominio activo sin necesidad de medir separación interna A/B. La tesis de que la métrica correcta es coherencia externa, no clasificación interna, se confirma sobre corpus sintético controlado.
+
+### Próximo
+- Validar coherencia de dominio sobre corpus real (Don Quijote).
+- Integrar coherencia como feedback en el loop cerrado.

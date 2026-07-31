@@ -1,0 +1,57 @@
+{
+  "experiment": "v0.25_v22_coherencia_dominio",
+  "n": 1000,
+  "seeds": {
+    "A": [
+      "banco",
+      "dinero",
+      "ahorro",
+      "cuenta",
+      "plata",
+      "interes",
+      "tarjeta",
+      "retiro"
+    ],
+    "B": [
+      "banco",
+      "rio",
+      "agua",
+      "pez",
+      "orilla",
+      "puente",
+      "corriente",
+      "proa"
+    ]
+  },
+  "gen": {
+    "A": [
+      "despues de interes por la inflacion fue al banco podras usar el banco despues de interes por la inflacion acredite el banco para evitar banquero",
+      "en mano si tienes ahorro plazo ni comision si tienes ahorro en el banco aprobo el interes por la inflacion fue al banco aprobo el",
+      "el robo fue al banco del rio el banco para evitar el dinero en mano cerro su cuenta en el robo fue al banco para",
+      "en mano el robo fue al banco aprobo el cheque banco para evitar el banco para evitar el interes sin credito fue al banco podras",
+      "banco para dinero cuenta plazo ni comision fue al banco para retiro ajusto la tasa de interes sin plazo cheque sin credito acredite el interes",
+      "sin plazo ni comision fue al banco despues de retirar el interes y pagar con tarjeta en el saldo si tienes ahorro en el banco",
+      "en el banco publico ajusto la tasa de interes sin credito cerro su cuenta en el banco podras usar el puente esta agua subia cerca",
+      "por la inflacion fue banquero retirar cheque banco para cuenta en el dinero y pagar con tarjeta en mano el banco para evitar el banco"
+    ],
+    "B": [
+      "del rio para cruzarlo temprano el agua subia amarraron la orilla choco contra el banco del rio al remar amarraron la orilla al remar se",
+      "para orilla al remar el puente esta sobre el bote choco orilla al banco para pescar con su red cerca del banco del banco mientras",
+      "subia el bote choco contra el bote choco contra el bote choco contra el banco del corriente pesco una trucha sobre agua subia cerca del",
+      "esta sobre la playa el bote choco contra popa subia se tiro al banco del banco de la playa cerca del corriente banco mientras el",
+      "al remar amarraron la arena el banco del rio hasta la orilla al remar cerca proa su red el banco de la playa el banco",
+      "esta sobre el banco de la playa cerca orilla al remar amarraron la barca proa subia cerca rio hasta la playa el banco mientras el",
+      "para pescar con su red se tiro al banco mientras el agua subia bajamos por el puente esta sobre la barca en el banco mientras",
+      "subia cerca del rio para cruzarlo temprano amarraron la playa el banco mientras el bote choco contra el banco proa sobre la playa bajamos por"
+    ]
+  },
+  "score": {
+    "A": 0.895,
+    "B": 0.915
+  },
+  "baseline_random": {
+    "A": 0.76,
+    "B": 0.52
+  },
+  "veredicto": "FUNCIONAL"
+}

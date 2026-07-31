@@ -1,0 +1,89 @@
+{
+  "experiment": "v0.25_v13b_bigramas_beam",
+  "word": "banco",
+  "results": {
+    "top1": 0.63,
+    "top5": 0.94,
+    "n_samples": 200,
+    "veredicto": "FUNCIONAL: captura transicion y genera texto coherente.",
+    "generaciones": [
+      {
+        "prompt": [
+          "fue",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "de",
+          "interes",
+          "sin",
+          "plazo",
+          "ni",
+          "comision",
+          "el",
+          "robo",
+          "el",
+          "bote"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "banco",
+          "aprobo"
+        ],
+        "generated": [
+          "el",
+          "robo",
+          "fue",
+          "al",
+          "remar",
+          "se",
+          "tiro",
+          "al",
+          "banco",
+          "aprobo"
+        ]
+      },
+      {
+        "prompt": [
+          "se",
+          "tiro",
+          "al",
+          "banco"
+        ],
+        "generated": [
+          "se",
+          "tiro",
+          "al",
+          "banco",
+          "se",
+          "pesco",
+          "una",
+          "trucha",
+          "sobre",
+          "el"
+        ]
+      },
+      {
+        "prompt": [
+          "el",
+          "bote",
+          "choco"
+        ],
+        "generated": [
+          "contra",
+          "el",
+          "dinero",
+          "en",
+          "mano",
+          "el",
+          "banco",
+          "publico",
+          "ajusto",
+          "la"
+        ]
+      }
+    ]
+  }
+}

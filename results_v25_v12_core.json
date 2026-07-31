@@ -1,0 +1,20 @@
+{
+  "summary": {
+    "acc_pred_avg": 0.010752688172043012,
+    "acc_gt_avg": 0.11648745519713262,
+    "dolor_avg": 0.0,
+    "foco_acc_avg": 0.0,
+    "W_actual_avg": 8.0,
+    "steps": 1
+  },
+  "rows": [
+    {
+      "step": 0,
+      "acc_pred": 0.010752688172043012,
+      "acc_gt": 0.11648745519713262,
+      "dolor": 0.0,
+      "foco_acc": 0.0,
+      "W_actual": 8
+    }
+  ]
+}

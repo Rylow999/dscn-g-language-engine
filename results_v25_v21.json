@@ -1,0 +1,8 @@
+{
+  "experiment": "v0.25_v21_classifier_loop",
+  "word": "banco",
+  "baseline_acc": 0.5,
+  "clf_acc": 1.0,
+  "loop_acc": 1.0,
+  "veredicto": "MEJORA LOOP"
+}

@@ -589,16 +589,22 @@ Rerun real de v2-v21 sobre `dscng_core.py`:
 - v17 Don Quijote k-means: NO FUNCIONAL.
 - v18 DQ "cabo": FUNCIONAL PARCIAL — k=3, tamaños 61/22/7, cohesión 0.42-0.62, overlap top-30=1. Hay estructura diferenciable, pero desbalanceado; queda como pista, no como generalización.
 - v19 DQ "tiempo": señal parcial, k-means sugerente.
-- v20 skip-gram "tiempo" DQ: embeddings coherentes, separación débil.
-- v21 CLASSIFIER LOOP en home, sin log nuevo tras core; queda como batch pendiente.
+- v22 skip-gram "tiempo" DQ: embeddings coherentes, separación débil.
+- v21 CLASSIFIER LOOP: 1.000 en régimen controlado sobre corpus sintético.
 
-### v0.25 v22 — COHERENCIA DE DOMINIO (cambio de paradigma)
-Objetivo: dejar de medir separación A/B interna y medir coherencia externa por dominio.
-- Tarea: generar texto coherente con un dominio (A: dinero/banco, B: río/banco) a partir de múltiples semillas.
-- Métrica: score de overlap semántico externo vs vocabulario del dominio; baseline random comparativo.
-- Resultado: score A=0.895 (random 0.76), score B=0.915 (random 0.52); VEREDICTO: FUNCIONAL.
-- Conclusión: el modelo genera texto coherente con el dominio activo sin necesidad de medir separación interna A/B. La tesis de que la métrica correcta es coherencia externa, no clasificación interna, se confirma sobre corpus sintético controlado.
+### v0.25 v22b — COHERENCIA SOBRE CORPUS REAL (Don Quijote, "tiempo")
+Valida v22 sobre texto real Don Quijote (386k tokens):
+- k-means sobre contextos de "tiempo": k=2, tamaños 147/180.
+- Generación por cluster: scores de coherencia = 0.0 en ambos clusters (overlap vocabulario dominio = 0).
+- VEREDICTO: NO FUNCIONAL sobre corpus real. El método k-means + bigramas sobre BoW locales no produce coherencia de dominio en Don Quijote, a diferencia del corpus sintético controlado (v22 FUNCIONAL).
 
-### Próximo
-- Validar coherencia de dominio sobre corpus real (Don Quijote).
-- Integrar coherencia como feedback en el loop cerrado.
+### v0.25 v3-v6, v12 — REVALIDACIÓN SOBRE dscng_core.py
+Revalidación real de experimentos sobre el core modular:
+- v3_core BERT-style: acc_pred=0.022, acc_clf=0.057, cos(A,B)=0.92. NO FUNCIONAL.
+- v4_core root duda: acc_decision=0.500 (azar), dolor_en_duda=1.0. NO FUNCIONAL.
+- v5_core duda cambio: dolor_en_cambio=0.137 vs dolor_en_estable=0.150. NO FUNCIONAL.
+- v6_core atención selectiva: acc_decision=0.291. NO FUNCIONAL sobre corpus sintético mezclado.
+- v12_core decoder embeddings: top1=0.011, top5=0.117. NO FUNCIONAL.
+
+### v0.25 v7/v7b/v7c — estado
+Scripts `run_v25_v7*.py` no disponibles en home ni vault (solo JSON de resultados preservados). Documentados como pendientes de recuperación. Los resultados v7c (acc_gt=0.500 para "banco", repulsion_fuerte separa técnicamente pero no semánticamente) permanecen válidos.

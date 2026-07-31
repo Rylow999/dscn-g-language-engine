@@ -79,7 +79,7 @@ class SkipGram:
                         for d in range(self.D): self.emb[target][d]-=self.lr*self.ctx[ns][d]
 
 def main():
-    print("=== v0.25 v18 DQ REAL 'cabo' + skip-gram + k-means ===")
+    print("=== v0.25 v18 DQ REAL 'cabo' + kmeans + bigramas ===")
     seq=load_dq()
     print(f" tokens totales={len(seq)}")
     vocab=build_vocab(seq, min_count=3)
@@ -93,11 +93,12 @@ def main():
             if sum(vec)>0:
                 X.append(vec); positions.append(i)
     print(f" contextos 'cabo'={len(X)}")
-    # k-means
-    labels, centroids = kmeans(X, k=K, epochs=30)
+    if len(X) < 10:
+        print(" pocos contextos, aborta diagnostico"); return
+    # k-means liviano
+    labels, centroids = kmeans(X, k=K, epochs=20)
     counts=Counter(labels)
     print(f" cluster sizes k={K}: {counts}")
-    # cohesion
     coh={}
     for k_ in range(K):
         pts=[x for x,l in zip(X,labels) if l==k_]
@@ -106,14 +107,9 @@ def main():
             c=centroids[k_]
             coh[k_]=sum(cos(p,c) for p in pts)/len(pts)
     print(f" cohesion: {coh}")
-    # tamaño mínimo útil
-    if min(counts.values()) < 5:
-        print(" cluster demasiado chico,狭窄"); return
-    # entrenar skip-gram sobre corpus completo
-    print(" entrenando skip-gram en DQ completo...")
-    sg=SkipGram(vocab, D=32, lr=0.05, window=5, neg_samples=10)
-    sg.fit(seq, epochs=1)
-    # recopilar tokens por cluster
+    if min(counts.values()) < 3:
+        print(" cluster demasiado chico"); return
+    # recopilar tokens y textos por cluster
     cluster_tokens={k_:[] for k_ in range(K)}
     cluster_texts={k_:[] for k_ in range(K)}
     for pos,lbl in zip(positions, labels):
@@ -127,7 +123,7 @@ def main():
         t=defaultdict(Counter)
         for w,wn in zip(tokens, tokens[1:]): t[w][wn]+=1
         models[lbl]={w:{k:v/sum(c.values()) for k,v in c.items()} for w,c in t.items()}
-    # generación
+    # generacion
     print("\n Ejemplos por cluster:")
     for lbl in range(K):
         sample=random.choice(cluster_texts[lbl]) if cluster_texts[lbl] else WORD
@@ -147,7 +143,7 @@ def main():
     overlaps={}
     for a in range(K):
         for b in range(a+1,K):
-            overlaps[(a,b)]=len(sets[a] & sets[b])
+            overlaps[f"{a}-{b}"]=len(sets[a] & sets[b])
     print(f"\n top-{topN} overlaps: {overlaps}")
     veredicto="NO FUNCIONAL"
     if min(counts.values()) >= 5 and min(coh.values()) > 0.3 and max(overlaps.values(), default=999) < topN*0.6:

@@ -1,0 +1,21 @@
+{
+  "experiment": "v0.25_v22b_coherencia_DQ",
+  "n_clusters": 2,
+  "sizes": {
+    "0": 147,
+    "1": 180
+  },
+  "scores": {
+    "0": 0,
+    "1": 0
+  },
+  "random_overlap": {
+    "0": 0,
+    "1": 0
+  },
+  "gen": {
+    "0": "",
+    "1": ""
+  },
+  "veredicto": "NO FUNCIONAL"
+}

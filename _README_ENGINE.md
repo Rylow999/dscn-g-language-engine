@@ -567,20 +567,27 @@ Se extraen clases reutilizables a `dscng_core.py` y `test_dscng_core.py`:
 Resultado: acc_pred_avg=0.331, acc_gt_avg=0.331, foco_acc_avg=0.601, W_actual_avg=8.
 Veredicto: modularizacion sin regresion; señal presente pero no suficiente para loop funcional.
 
-## ESTADO CONSOLIDADO post-revalidacion 2026-07-30-14
-Confirmado funcionamiento base-a-base (scripts compilados y ejecutados):
-- v2c MODULAR + core OK.
-- v9 loop + sustrato skip-gram real: mejora baseline débil (0.328->0.500) en fallback sintético.
-- v13 transición explícita bigramas+trigramas: top1=0.850, FUNCIONAL.
-- v14 modelo por sentido A/B: pureza=1.000, generación coherente por dominio.
-- v15 loop generativo por sentido: acc_sense=0.938.
-- v16 memoria competitiva + sentido: coherencia sentido activo=0.750, funcional en régimen controlado.
-- v17 Don Quijote real con k-means: NO FUNCIONAL para generación/cluster real.
-- v20 skip-gram "tiempo" en DQ: embeddings coherentes, separación de sentidos débil.
-
-GAPs abiertos vigentes:
-- loop cerrado estable en corpus real; sigue colapsando/ruidizando en largos.
-- generalización a múltiples palabras/dominios.
-- groundedness en corpus real, no solo sintético.
-- composición relacional 3-body con señal robusta.
-- meta/autoobservación / dolor de decisión.
+## ESTADO CONSOLIDADO post-revalidacion completa 2026-07-30
+Rerun real de v2-v21 sobre `dscng_core.py`:
+- v2c MODULAR OK: acc_pred=0.331, acc_gt=0.331, foco_acc=0.601, W_actual=8.
+- v2b ROOT sobre transformer NO FUNCIONAL: acc_gt_root=0.543, dolor_en_duda=0.000.
+- v2d TRANSFORMER NO SEPARA SENTIDO: acc_gt_simple≈0.53, cos(A,B)≈0.57-0.93.
+- v3/VAR BERT-like: no separa A/B sin más supervisión.
+- v4 DUDA: dolor_en_duda=0.091; no distingue ambigüedad.
+- v5 DUDA/CAMBIO: no detecta cambio; dolor_en_cambio=0.150 vs estable=0.504 sin señal útil.
+- v6 ATENCIÓN SELECTIVA FUNCIONAL: acc_decision=0.890; separa A/B por vitalidad.
+- v7 no disponible en home, queda documentado como pendiente de rerun.
+- v8 LOOP EMPEORA: 0.758->0.550; v8b sin decoder empeora más (0.417).
+- v9 FALLBACK sintético: loop mejora baseline débil 0.328->0.500.
+- v10 CLASIFICADOR=0.766; LOOP=0.490 (destruye señal).
+- v11 LOOP CONSERVADOR +0.137 sobre 'banco'; v11b NO GENERALIZA en 'llave' (1.000->0.500).
+- v12 DECODER embeddings: NO FUNCIONAL (top1=0.020, top5=0.095).
+- v13 TRANSICIÓN EXPLÍCITA: top1=0.850, FUNCIONAL.
+- v14 SENTIDO A/B: pureza=1.000, generación coherente.
+- v15 LOOP SENTIDO: acc_sense=0.938.
+- v16 MEMORIA COMPETITIVA: coherencia sentido activo=0.750.
+- v17 Don Quijote k-means: NO FUNCIONAL.
+- v18 DQ "cabo": FUNCIONAL PARCIAL — k=3, tamaños 61/22/7, cohesión 0.42-0.62, overlap top-30=1. Hay estructura diferenciable, pero desbalanceado; queda como pista, no como generalización.
+- v19 DQ "tiempo": señal parcial, k-means sugerente.
+- v20 skip-gram "tiempo" DQ: embeddings coherentes, separación débil.
+- v21 CLASSIFIER LOOP en home, sin log nuevo tras core; queda como batch pendiente.
